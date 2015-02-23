@@ -18,8 +18,9 @@
 :: Set config related environments
 set CONFIG_ROOT=%~dp0.
 
-:: Set editor
-:: We cannot use "where" to find which editor we have, because we cannot use FOR to handle output of command now.
+:: Set editor manually.
+:: We cannot use "for" to handle program output of "where", because "for" will spawn a new command
+:: prompt and result in infinite recursion.
 set EDITOR=gvim
 
 :: Color prompt
