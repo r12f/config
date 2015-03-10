@@ -31,6 +31,11 @@ export PS2="\$ "
 # Useful Environments
 OS_NAME=`uname`
 
+IS_BUSYBOX=0
+if busybox >/dev/null 2>&1; then
+    IS_BUSYBOX=1
+fi
+
 # Set default editor
 if which "gvim" >/dev/null 2>&1; then
     export EDITOR=gvim
@@ -65,8 +70,8 @@ alias e="$EDITOR"                           # Open in default editor
 if [[ "$OS_NAME" == "Darwin" ]]; then
     alias f="open -a Finder ./"             # Open current folder in Finder
     alias ls="ls -GFh"                      # List files with color and human-readable output
-else
-    alias ls="ls --color=auto -h"
+elif (( $IS_BUSYBOX == 0 )); then           # Busybox runs on linux but don't have colored output
+    alias ls="ls --color=auto -h"           # List files with color and human-readable output
 fi
 
 alias ll="ls -l"                            # List files in list
@@ -127,6 +132,8 @@ alias pme="pu $USER"                                            # List my proces
 # 4. Text manipulation
 #
 ######################################################################
-alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
+if (( $IS_BUSYBOX == 0 )); then
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
