@@ -6,10 +6,6 @@ set VIM_CONFIG_ROOT=%CONFIG_ROOT%\vimrc
 
 echo Install configuration ...
 
-:: Update to the latest version
-echo Update to the latest version ...
-cd "%CONFIG_ROOT%" && git pull && git submodule update --init
-
 :: Install command prompt configuration
 echo Install command prompt configuration ...
 reg add "HKLM\Software\Microsoft\Command Processor" /v "AutoRun" /t REG_SZ /d "%CMD_CONFIG_ROOT%\cmd-init.cmd" /f > nul

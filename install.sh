@@ -7,9 +7,6 @@ source $BASH_CONFIG_ROOT/.bashrc
 
 echo "Install configuration ..."
 
-echo "Updating to the latest configuration ..."
-cd "$CONFIG_ROOT" && git pull && git submodule update --init
-
 function CreateSymbolLinkWithBackup {
     local source_file=$1
     local dest_file=$2
