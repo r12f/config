@@ -21,7 +21,7 @@ set CONFIG_ROOT=%~dp0.
 :: Set editor manually.
 :: We cannot use "for" to handle program output of "where", because "for" will spawn a new command
 :: prompt and result in infinite recursion.
-set EDITOR=gvim
+set MY_EDITOR=gvim
 
 :: Color prompt
 if "%ConEmuANSI%" == "ON" (

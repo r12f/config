@@ -38,11 +38,11 @@ fi
 
 # Set default editor
 if which "gvim" >/dev/null 2>&1; then
-    export EDITOR=gvim
+    export MY_EDITOR=gvim
 elif which "mvim" >/dev/null 2>&1; then
-    export EDITOR=mvim
+    export MY_EDITOR=mvim
 else
-    export EDITOR=vim
+    export MY_EDITOR=vim
 fi
 
 if [[ "$OS_NAME" == "Darwin" ]]; then
@@ -65,7 +65,7 @@ alias c='clear'
 # 2. File and directory control
 #
 ######################################################################
-alias e="$EDITOR"                           # Open in default editor
+alias e="$MY_EDITOR"                           # Open in default editor
 
 if [[ "$OS_NAME" == "Darwin" ]]; then
     alias f="open -a Finder ./"             # Open current folder in Finder
