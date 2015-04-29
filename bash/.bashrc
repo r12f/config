@@ -137,3 +137,13 @@ if (( $IS_BUSYBOX == 0 )); then
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
 fi
+
+######################################################################
+#
+# 5. Others
+#
+######################################################################
+# Some settings are different on each machine, so we load local environment here.
+if [ -f ~/.bashrc.local ]; then
+    source ~/.bashrc.local
+fi
