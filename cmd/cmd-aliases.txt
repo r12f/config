@@ -34,3 +34,4 @@ f=start .
 l=dir /x $*
 ls=dir /w $*
 la=dir /x /a $*
+ps=powershell -ExecutionPolicy RemoteSigned
