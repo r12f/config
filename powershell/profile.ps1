@@ -3,7 +3,7 @@
 # r12f's powershell init script (https#//github.com/r12f/config)
 # email# r12f.code@gmail.com
 #
-# This init script contains several sections#
+# This init script contains several sections:
 # 0. Environment settings
 # 1. Aliases
 #
