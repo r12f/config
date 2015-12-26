@@ -1,3 +1,6 @@
 [submodule "vimrc"]
 	path = vimrc
 	url = https://github.com/r12f/vimrc.git
+[submodule "g13"]
+	path = g13
+	url = https://github.com/r12f/LogitechG13Profiles.git
