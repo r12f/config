@@ -1,2 +1,2 @@
-call %~dp0.\init-common.cmd
+call %~dp0.\init-primary-box.cmd
 
