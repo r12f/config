@@ -8,7 +8,7 @@ choco install filezilla /y
 choco install vim /y
 
 :: Install dev tools
-choco install git
+choco install git /y
 choco install golang /y
 choco install python /x86 /y
 choco install dotpeek /y
