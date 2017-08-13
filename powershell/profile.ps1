@@ -19,6 +19,8 @@ $env:MY_EDITOR = "gvim"
 
 function Prompt
 {
+    $origLastExitCode = $LASTEXITCODE
+
     # Print the current time:
     Write-Host ("[") -nonewline -foregroundcolor DarkGray
     Write-Host (Get-Date -format HH:mm:ss) -nonewline -foregroundcolor Gray
@@ -33,9 +35,17 @@ function Prompt
     Write-Host ":" -ForegroundColor DarkGreen -NoNewLine
 
     # Directory
-    Write-Host "$(Get-Location)" -ForegroundColor DarkYellow
+    Write-Host "$(Get-Location)" -ForegroundColor DarkYellow -NoNewLine
+
+    if (Get-Command "Write-VcsStatus" -errorAction SilentlyContinue)
+    {
+        Write-VcsStatus
+    }
+
+    Write-Host ''
     Write-Host ">" -NoNewLine
 
+    $LASTEXITCODE = $origLastExitCode
     return " ";
 }
 
