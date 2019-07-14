@@ -10,11 +10,9 @@ choco install vim /y
 :: Install dev tools
 choco install git /y
 choco install golang /y
-choco install python /x86 /y
+choco install python /y
 choco install dotpeek /y
-choco install tortoisehg /y
 choco install putty /y
 
 :: Install media players
-choco install foobar2000 /y
 choco install smplayer /y
