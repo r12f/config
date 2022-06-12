@@ -126,7 +126,43 @@ alias egrep='egrep --color=auto'
 
 ######################################################################
 #
-# 5. Minikube
+# 5. Git
+#
+######################################################################
+alias ga='git add'
+alias gaa='git add --all'
+alias gb='git branch'
+alias gcl='git clean -xfd'
+alias gr='git reset'
+alias grh='git reset --hard'
+alias gr1='git reset HEAD~1'
+alias gd='git diff'
+alias gst='git status'
+alias gpl='git pull'
+alias gpsh='git push'
+alias gpshf='git push --force'
+alias glog='git log --graph "--date=format:%y%m%d:%H%M" "--pretty=format:%C(auto)%h%d %C(bold blue)%an %Cgreen%ad - %Creset%s"'
+alias gloga='git log --oneline --decorate --graph --all'
+alias glogv='git log --stat'
+alias glogvv='git log --stat -p'
+alias grb='git rebase'
+alias grba='git rebase --abort'
+alias grbc='git rebase --continue'
+alias grbm='git rebase origin/master'
+alias grbmo='git rebase --onto origin/master'
+alias gca='git commit -v -a -m && git push'
+alias gca='git commit -v -a --amend -m'
+alias gco='git checkout'
+alias gcm='git checkout master'
+alias gcb='git checkout user/%USERNAME%/$*'
+alias gcnb='git checkout -b user/%USERNAME%/$*'
+alias gcp='git cherry-pick'
+alias gcpa='git cherry-pick --abort'
+alias gcpc='git cherry-pick --continue'
+
+######################################################################
+#
+# 6. Minikube
 #
 # - n: nodes
 # - d: deployment
@@ -179,7 +215,7 @@ alias mkcp='minikube kubectl -- cp'
 
 ######################################################################
 #
-# 6. Others
+# 7. Others
 #
 ######################################################################
 # Some settings are different on each machine, so we load local environment here.
