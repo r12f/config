@@ -3,13 +3,6 @@
 # r12f's bashrc (https://github.com/r12f/config)
 # email: r12f.code@gmail.com
 #
-# The bashrc contains several sections:
-# 0. Environment settings
-# 1. Basic
-# 2. File and directory control
-# 3. Process control
-# 4. Text manipulation
-#
 ######################################################################
 
 ######################################################################
@@ -133,7 +126,60 @@ alias egrep='egrep --color=auto'
 
 ######################################################################
 #
-# 5. Others
+# 5. Minikube
+#
+# - n: nodes
+# - d: deployment
+# - ps: pods
+# - p: pod
+# - s: services
+# - e: events
+#
+######################################################################
+alias mk='minikube kubectl --'
+
+# Start
+alias mk-start='minikube start --cpus=4 --memory=6g --addons=ingress'
+
+# Get
+alias mkg='minikube kubectl -- get'
+alias mkg-n='minikube kubectl -- get nodes'
+alias mkg-d='minikube kubectl -- get deployment'
+alias mkg-ps='minikube kubectl -- get pods'
+alias mkg-p='minikube kubectl -- get pod'
+alias mkg-s='minikube kubectl -- get services'
+alias mkg-e='minikube kubectl -- get events'
+
+# Describe
+alias mkd='minikube kubectl -- describe'
+alias mkd-n='minikube kubectl -- describe nodes'
+alias mkd-p='minikube kubectl -- describe pods'
+
+# Apply
+alias mke='minikube kubectl -- expose'
+
+# Patch
+alias mkp-n='minikube kubectl -- patch nodes'
+alias mkp-d='minikube kubectl -- patch deployment'
+alias mkp-p='minikube kubectl -- patch pod'
+
+# Top
+alias mktop='minikube kubectl -- top'
+alias mktop-n='minikube kubectl -- top node'
+alias mktop-p='minikube kubectl -- top pod'
+
+# Expose
+alias mke='minikube kubectl -- expose'
+
+# Log
+alias mkl='minikube kubectl -- logs'
+
+# Copy
+alias mkcp='minikube kubectl -- cp'
+
+######################################################################
+#
+# 6. Others
 #
 ######################################################################
 # Some settings are different on each machine, so we load local environment here.
