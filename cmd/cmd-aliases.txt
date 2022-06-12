@@ -51,14 +51,12 @@ gr1                 =git reset HEAD~1 $*
 gd                  =git diff
 gst                 =git status
 gpl                 =git pull $*
-gps                 =git push $*
-gpsf                =git push --force
+gpsh                =git push $*
+gpshf               =git push --force
 glg                 =git log --stat
 glgp                =git log --stat -p
 glo                 =git log --graph "--date=format:%y%m%d:%H%M" "--pretty=format:%C(auto)%h%d %C(bold blue)%an %Cgreen%ad - %Creset%s" $*
 gloga               =git log --oneline --decorate --graph --all
-gm                  =git merge $*
-gma                 =git merge --abort
 grb                 =git rebase $*
 grba                =git rebase --abort
 grbc                =git rebase --continue
