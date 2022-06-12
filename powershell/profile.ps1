@@ -108,14 +108,14 @@ function CallAlias-gpsh { & git push $args }
 Set-Alias gpsh CallAlias-gps
 function CallAlias-gpshf { & git push --force }
 Set-Alias gpshf CallAlias-gpsf
-function CallAlias-glg { & git log --stat }
-Set-Alias glg CallAlias-glg
-function CallAlias-glgp { & git log --stat -p }
-Set-Alias glgp CallAlias-glgp
-function CallAlias-glo { & git log --graph "--date=format:%y%m%d:%H%M" "--pretty=format:%C(auto)%h%d %C(bold blue)%an %Cgreen%ad - %Creset%s" $args }
-Set-Alias glo CallAlias-glo
+function CallAlias-glog { & git log --graph "--date=format:%y%m%d:%H%M" "--pretty=format:%C(auto)%h%d %C(bold blue)%an %Cgreen%ad - %Creset%s" $args }
+Set-Alias glog CallAlias-glog
 function CallAlias-gloga { & git log --oneline --decorate --graph --all }
 Set-Alias gloga CallAlias-gloga
+function CallAlias-glogv { & git log --stat }
+Set-Alias glogv CallAlias-glogv
+function CallAlias-glogvv { & git log --stat -p }
+Set-Alias glogvv CallAlias-glogvv
 function CallAlias-grb { & git rebase $args }
 Set-Alias grb CallAlias-grb
 function CallAlias-grba { & git rebase --abort }
@@ -147,7 +147,7 @@ Set-Alias gcpc CallAlias-gcpc
 
 ################################################################
 #
-# 3. Minikube
+# 3. K8s
 # 
 # - n: nodes
 # - d: deployment
@@ -157,124 +157,73 @@ Set-Alias gcpc CallAlias-gcpc
 # - e: events
 #
 ################################################################
+# Minikube
 function CallAlias-mk { & minikube kubectl -- $args }
 Set-Alias mk CallAlias-mk
 
-# Get
-function CallAlias-mkg { & minikube kubectl -- get $args }
-Set-Alias mkg CallAlias-mkg
-function CallAlias-mkg-n { & minikube kubectl -- get nodes $args }
-Set-Alias mkg-n CallAlias-mkg-n
-function CallAlias-mkg-d { & minikube kubectl -- get deployment $args }
-Set-Alias mkg-d CallAlias-mkg-d
-function CallAlias-mkg-ps { & minikube kubectl -- get pods $args }
-Set-Alias mkg-ps CallAlias-mkg-ps
-function CallAlias-mkg-p { & minikube kubectl -- get pod $args }
-Set-Alias mkg-p CallAlias-mkg-p
-function CallAlias-mkg-s { & minikube kubectl -- get services $args }
-Set-Alias mkg-s CallAlias-mkg-s
-function CallAlias-mkg-e { & minikube kubectl -- get events $args }
-Set-Alias mkg-e CallAlias-mkg-e
+function CallAlias-mk-start { & minikube start --cpus=4 --memory=6g --addons=ingress }
+Set-Alias mk-start CallAlias-mk-start
 
-# Describe
-function CallAlias-mkd { & minikube kubectl -- describe $args }
-Set-Alias mkd CallAlias-mkd
-function CallAlias-mkd-n { & minikube kubectl -- describe nodes $args }
-Set-Alias mkd-n CallAlias-mkd-n
-function CallAlias-mkd-p { & minikube kubectl -- describe pods $args }
-Set-Alias mkd-p CallAlias-mkd-p
-
-# Patch
-function CallAlias-mkp-n { & minikube kubectl -- patch nodes $args }
-Set-Alias mkp-n CallAlias-mkp-n
-function CallAlias-mkp-d { & minikube kubectl -- patch deployment $args }
-Set-Alias mkp-d CallAlias-mkp-d
-function CallAlias-mkp-p { & minikube kubectl -- patch pod $args }
-Set-Alias mkp-p CallAlias-mkp-p
-
-# Top
-function CallAlias-mktop { & minikube kubectl -- top $args }
-Set-Alias mktop CallAlias-mktop
-function CallAlias-mktop-n { & minikube kubectl -- top node $args }
-Set-Alias mktop-n CallAlias-mktop-n
-function CallAlias-mktop-p { & minikube kubectl -- top pod $args }
-Set-Alias mktop-p CallAlias-mktop-p
-
-# Expose
-function CallAlias-mke { & minikube kubectl -- expose $args }
-Set-Alias mke CallAlias-mke
-
-# Log
-function CallAlias-mkl { & minikube kubectl -- logs $args }
-Set-Alias mkl CallAlias-mkl
-
-# Copy
-function CallAlias-mkcp { & minikube kubectl -- cp $args }
-Set-Alias mkcp CallAlias-mkcp
-
-################################################################
-#
-# 4. K8s
-# 
-# - n: nodes
-# - d: deployment
-# - ps: pods
-# - p: pod
-# - s: services
-# - e: events
-#
-################################################################
-function CallAlias-k { & kubectl -- $args }
+# Kubectl
+function CallAlias-k { & kubectl $args }
 Set-Alias k CallAlias-k
 
+# Config - Use Context
+function CallAlias-k-use-mk { & kubectl config use-context minikube $args }
+Set-Alias k-use-mk CallAlias-k-use-mk
+
 # Get
-function CallAlias-kg { & kubectl -- get $args }
-Set-Alias kg CallAlias-kg
-function CallAlias-kg-n { & kubectl -- get nodes $args }
-Set-Alias kg-n CallAlias-kg-n
-function CallAlias-kg-d { & kubectl -- get deployment $args }
-Set-Alias kg-d CallAlias-kg-d
-function CallAlias-kg-ps { & kubectl -- get pods $args }
-Set-Alias kg-ps CallAlias-kg-ps
-function CallAlias-kg-p { & kubectl -- get pod $args }
-Set-Alias kg-p CallAlias-kg-p
-function CallAlias-kg-s { & kubectl -- get services $args }
-Set-Alias kg-s CallAlias-kg-s
-function CallAlias-kg-e { & kubectl -- get events $args }
-Set-Alias kg-e CallAlias-kg-e
+function CallAlias-k-g { & kubectl get $args }
+Set-Alias k-g CallAlias-k-g
+function CallAlias-k-gn { & kubectl get nodes -o wide -A $args }
+Set-Alias k-gns CallAlias-k-gns
+function CallAlias-k-gd { & kubectl get deployment $args }
+Set-Alias k-gd CallAlias-k-gd
+function CallAlias-k-gps { & kubectl get pods -o wide -A $args }
+Set-Alias k-gps CallAlias-k-gps
+function CallAlias-k-gp { & kubectl get pod -o wide $args }
+Set-Alias k-gp CallAlias-k-gp
+function CallAlias-k-gs { & kubectl get services $args }
+Set-Alias k-gs CallAlias-k-gs
+function CallAlias-k-ge { & kubectl get events $args }
+Set-Alias k-ge CallAlias-k-ge
 
 # Describe
-function CallAlias-kd { & kubectl -- describe $args }
-Set-Alias kd CallAlias-kd
-function CallAlias-kd-n { & kubectl -- describe nodes $args }
-Set-Alias kd-n CallAlias-kd-n
-function CallAlias-kd-p { & kubectl -- describe pods $args }
-Set-Alias kd-p CallAlias-kd-p
+function CallAlias-k-d { & kubectl describe $args }
+Set-Alias k-d CallAlias-k-d
+function CallAlias-k-dn { & kubectl describe nodes $args }
+Set-Alias k-dn CallAlias-k-dn
+function CallAlias-k-dp { & kubectl describe pods $args }
+Set-Alias k-dp CallAlias-k-dp
+
+# Apply
+function CallAlias-k-a { & minikube kubectl apply $args }
+Set-Alias k-a CallAlias-k-a
 
 # Patch
-function CallAlias-kp-n { & kubectl -- patch nodes $args }
-Set-Alias kp-n CallAlias-kp-n
-function CallAlias-kp-d { & kubectl -- patch deployment $args }
-Set-Alias kp-d CallAlias-kp-d
-function CallAlias-kp-p { & kubectl -- patch pod $args }
-Set-Alias kp-p CallAlias-kp-p
+function CallAlias-k-pn { & kubectl patch nodes $args }
+Set-Alias k-pn CallAlias-k-pn
+function CallAlias-k-pd { & kubectl patch deployment $args }
+Set-Alias k-pd CallAlias-k-pd
+function CallAlias-k-pp { & kubectl patch pod $args }
+Set-Alias k-pp CallAlias-k-pp
 
 # Top
-function CallAlias-ktop { & kubectl -- top $args }
-Set-Alias ktop CallAlias-ktop
-function CallAlias-ktop-n { & kubectl -- top node $args }
-Set-Alias ktop-n CallAlias-ktop-n
-function CallAlias-ktop-p { & kubectl -- top pod $args }
-Set-Alias ktop-p CallAlias-ktop-p
+function CallAlias-k-top { & kubectl top $args }
+Set-Alias k-top CallAlias-k-top
+function CallAlias-k-topn { & kubectl top node $args }
+Set-Alias k-topn CallAlias-k-topn
+function CallAlias-k-topp { & kubectl top pod $args }
+Set-Alias k-topp CallAlias-k-topp
 
 # Expose
-function CallAlias-ke { & kubectl -- expose $args }
-Set-Alias ke CallAlias-ke
+function CallAlias-k-e { & kubectl expose $args }
+Set-Alias k-e CallAlias-k-e
 
 # Log
-function CallAlias-kl { & kubectl -- logs $args }
-Set-Alias kl CallAlias-kl
+function CallAlias-k-l { & kubectl logs $args }
+Set-Alias k-l CallAlias-k-l
 
 # Copy
-function CallAlias-kcp { & kubectl -- cp $args }
-Set-Alias kcp CallAlias-kcp
+function CallAlias-k-cp { & kubectl cp $args }
+Set-Alias k-cp CallAlias-k-cp

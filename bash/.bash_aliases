@@ -150,37 +150,37 @@ alias mk='minikube kubectl --'
 alias mk-start='minikube start --cpus=4 --memory=6g --addons=ingress'
 
 # Get
-alias mkg='minikube kubectl -- get'
-alias mkg-n='minikube kubectl -- get nodes'
-alias mkg-d='minikube kubectl -- get deployment'
-alias mkg-ps='minikube kubectl -- get pods'
-alias mkg-p='minikube kubectl -- get pod'
-alias mkg-s='minikube kubectl -- get services'
-alias mkg-e='minikube kubectl -- get events'
+alias k-g='kubectl get'
+alias k-gns='kubectl get nodes -o wide'
+alias k-gd='kubectl get deployment'
+alias k-gps='kubectl get pods -o wide -A'
+alias k-gp='kubectl get pod -o wide'
+alias k-gs='kubectl get services'
+alias k-ge='kubectl get events'
 
 # Describe
-alias mkd='minikube kubectl -- describe'
-alias mkd-n='minikube kubectl -- describe nodes'
-alias mkd-p='minikube kubectl -- describe pods'
+alias k-d='kubectl describe'
+alias k-dn='kubectl describe nodes'
+alias k-dp='kubectl describe pods'
 
 # Apply
-alias mke='minikube kubectl -- expose'
+alias k-a='kubectl apply'
 
 # Patch
-alias mkp-n='minikube kubectl -- patch nodes'
-alias mkp-d='minikube kubectl -- patch deployment'
-alias mkp-p='minikube kubectl -- patch pod'
+alias k-pn='kubectl patch nodes'
+alias k-pd='kubectl patch deployment'
+alias k-pp='kubectl patch pod'
 
 # Top
-alias mktop='minikube kubectl -- top'
-alias mktop-n='minikube kubectl -- top node'
-alias mktop-p='minikube kubectl -- top pod'
+alias k-top='kubectl top'
+alias k-topn='kubectl top node'
+alias k-topp='kubectl top pod'
 
 # Expose
-alias mke='minikube kubectl -- expose'
+alias k-e='kubectl expose'
 
 # Log
-alias mkl='minikube kubectl -- logs'
+alias k-l='kubectl logs'
 
 # Copy
-alias mkcp='minikube kubectl -- cp'
+alias k-cp='kubectl cp'
