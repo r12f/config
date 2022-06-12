@@ -43,6 +43,11 @@ if ! CreateSymbolLinkWithBackup "$BASH_CONFIG_ROOT/.bash_profile" "$HOME/.bash_p
     exit 1
 fi
 
+if ! CreateSymbolLinkWithBackup "$BASH_CONFIG_ROOT/.bash_aliases" "$HOME/.bash_aliases"; then
+    echo "Install failed."
+    exit 1
+fi
+
 if ! CreateSymbolLinkWithBackup "$BASH_CONFIG_ROOT/.bashrc" "$HOME/.bashrc"; then
     echo "Install failed."
     exit 1
