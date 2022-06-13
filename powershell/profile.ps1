@@ -175,7 +175,7 @@ Set-Alias k-use-mk CallAlias-k-use-mk
 # Get
 function CallAlias-k-g { & kubectl get $args }
 Set-Alias k-g CallAlias-k-g
-function CallAlias-k-gn { & kubectl get nodes -o wide -A $args }
+function CallAlias-k-gns { & kubectl get nodes -o wide -A $args }
 Set-Alias k-gns CallAlias-k-gns
 function CallAlias-k-gd { & kubectl get deployment $args }
 Set-Alias k-gd CallAlias-k-gd
@@ -187,6 +187,8 @@ function CallAlias-k-gs { & kubectl get services $args }
 Set-Alias k-gs CallAlias-k-gs
 function CallAlias-k-ge { & kubectl get events $args }
 Set-Alias k-ge CallAlias-k-ge
+function CallAlias-k-gpw { & kubectl get secret $args -o jsonpath="{.data.password}" }
+Set-Alias k-gpw CallAlias-k-gpw
 
 # Describe
 function CallAlias-k-d { & kubectl describe $args }
@@ -197,8 +199,10 @@ function CallAlias-k-dp { & kubectl describe pods $args }
 Set-Alias k-dp CallAlias-k-dp
 
 # Apply
-function CallAlias-k-a { & minikube kubectl apply $args }
+function CallAlias-k-a { & kubectl apply $args }
 Set-Alias k-a CallAlias-k-a
+function CallAlias-k-af { & kubectl apply -f $args }
+Set-Alias k-af CallAlias-k-af
 
 # Patch
 function CallAlias-k-pn { & kubectl patch nodes $args }
