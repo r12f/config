@@ -105,9 +105,9 @@ Set-Alias gst CallAlias-gst
 function CallAlias-gpl { & git pull $args }
 Set-Alias gpl CallAlias-gpl
 function CallAlias-gpsh { & git push $args }
-Set-Alias gpsh CallAlias-gps
+Set-Alias gpsh CallAlias-gpsh
 function CallAlias-gpshf { & git push --force }
-Set-Alias gpshf CallAlias-gpsf
+Set-Alias gpshf CallAlias-gpshf
 function CallAlias-glog { & git log --graph "--date=format:%y%m%d:%H%M" "--pretty=format:%C(auto)%h%d %C(bold blue)%an %Cgreen%ad - %Creset%s" $args }
 Set-Alias glog CallAlias-glog
 function CallAlias-gloga { & git log --oneline --decorate --graph --all }
