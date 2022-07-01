@@ -69,17 +69,7 @@ fi
 
 ######################################################################
 #
-# 1. Key services
-#
-######################################################################
-sshd_status=$(service ssh status)
-if [[ $sshd_status = *"is not running"* ]]; then
-  sudo service ssh --full-restart
-fi
-
-######################################################################
-#
-# 2. Others
+# 1. Others
 #
 ######################################################################
 # Some settings are different on each machine, so we load local environment here.
