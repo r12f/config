@@ -126,17 +126,15 @@ function CallAlias-grbm { & git rebase origin/master $args }
 Set-Alias grbm CallAlias-grbm
 function CallAlias-grbmo { & git rebase --onto origin/master $args }
 Set-Alias grbmo CallAlias-grbmo
-function CallAlias-gca { & git commit -v -a -m $args; & git push }
-Set-Alias gca CallAlias-gca
-function CallAlias-gca { & git commit -v -a --amend -m $args }
+function CallAlias-gca { & git add .; & git commit -m $args; & git push }
 Set-Alias gca CallAlias-gca
 function CallAlias-gco { & git checkout $args }
 Set-Alias gco CallAlias-gco
 function CallAlias-gcom { & git checkout master }
 Set-Alias gcom CallAlias-gcom
-function CallAlias-gcb { & git checkout user/%USERNAME%/$args }
+function CallAlias-gcb { & git checkout user/${env:USERNAME}/$args }
 Set-Alias gcb CallAlias-gcb
-function CallAlias-gcnb { & git checkout -b user/%USERNAME%/$args }
+function CallAlias-gcnb { & git checkout -b user/${env:USERNAME}/$args }
 Set-Alias gcnb CallAlias-gcnb
 function CallAlias-gcp { & git cherry-pick $args }
 Set-Alias gcp CallAlias-gcp
@@ -231,3 +229,19 @@ Set-Alias k-l CallAlias-k-l
 # Copy
 function CallAlias-k-cp { & kubectl cp $args }
 Set-Alias k-cp CallAlias-k-cp
+
+################################################################
+#
+# Other stuffs
+# 
+################################################################
+
+# Import the Chocolatey Profile that contains the necessary code to enable
+# tab-completions to function for `choco`.
+# Be aware that if you are missing these lines from your profile, tab completion
+# for `choco` will not function.
+# See https://ch0.co/tab-completion for details.
+$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
+if (Test-Path($ChocolateyProfile)) {
+  Import-Module "$ChocolateyProfile"
+}
