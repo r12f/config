@@ -122,15 +122,15 @@ alias grba='git rebase --abort'
 alias grbc='git rebase --continue'
 alias grbm='git rebase origin/master'
 alias grbmo='git rebase --onto origin/master'
-alias gca='git commit -v -a -m && git push'
-alias gca='git commit -v -a --amend -m'
 alias gco='git checkout'
 alias gcm='git checkout master'
-alias gcb='git checkout user/%USERNAME%/$*'
-alias gcnb='git checkout -b user/%USERNAME%/$*'
+alias gcb='git checkout user/${USER}/$*'
+alias gcnb='git checkout -b user/${USER}/$*'
 alias gcp='git cherry-pick'
 alias gcpa='git cherry-pick --abort'
 alias gcpc='git cherry-pick --continue'
+
+function gca() { git commit -v -a -m "$@" && git push }
 
 ######################################################################
 #

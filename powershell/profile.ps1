@@ -230,6 +230,13 @@ Set-Alias k-l CallAlias-k-l
 function CallAlias-k-cp { & kubectl cp $args }
 Set-Alias k-cp CallAlias-k-cp
 
+# Debug
+function CallAlias-k-dbgpc { & kubectl debug -it --image=ubuntu --share-processes --copy-to=debug-pod-${env:USERNAME} $args }
+Set-Alias k-dbgpc CallAlias-k-dbgpc
+
+function CallAlias-k-dbgc { & kubectl delete pod debug-pod-${env:USERNAME} $args }
+Set-Alias k-dbgc CallAlias-k-dbgc
+
 ################################################################
 #
 # Other stuffs
