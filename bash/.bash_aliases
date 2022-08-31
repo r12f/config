@@ -130,7 +130,7 @@ alias gcp='git cherry-pick'
 alias gcpa='git cherry-pick --abort'
 alias gcpc='git cherry-pick --continue'
 
-function gca() { git commit -v -a -m "$@" && git push }
+function gca() { git commit -v -a -m "$@" && git push; }
 
 ######################################################################
 #
