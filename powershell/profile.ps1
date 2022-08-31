@@ -78,6 +78,8 @@ function CallAlias-l { dir -Force $args }
 Set-Alias l CallAlias-l
 function CallAlias-la { dir -Force  $args }
 Set-Alias la CallAlias-la
+function CallAlias-hf { if ($args -ne 0) { Get-Content (Get-PSReadlineOption).HistorySavePath | Select-String $args } else { Get-Content (Get-PSReadlineOption).HistorySavePath } }
+Set-Alias hf CallAlias-hf
 
 ################################################################
 #
@@ -236,6 +238,19 @@ Set-Alias k-dbgpc CallAlias-k-dbgpc
 
 function CallAlias-k-dbgc { & kubectl delete pod debug-pod-${env:USERNAME} $args }
 Set-Alias k-dbgc CallAlias-k-dbgc
+
+################################################################
+#
+# 3. Winget
+# 
+################################################################
+
+function CallAlias-wgi { & winget install $args }
+Set-Alias wgi CallAlias-wgi
+function CallAlias-wgu { & winget uninstall $args }
+Set-Alias wgu CallAlias-wgu
+function CallAlias-wgs { & winget search $args }
+Set-Alias wgs CallAlias-wgs
 
 ################################################################
 #
