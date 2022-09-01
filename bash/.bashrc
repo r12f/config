@@ -76,3 +76,6 @@ fi
 if [ -f ~/.bashrc.local ]; then
     source ~/.bashrc.local
 fi
+
+# Add user bin folder for go
+export PATH="$PATH:~/go/bin"
