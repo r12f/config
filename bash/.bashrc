@@ -78,4 +78,4 @@ if [ -f ~/.bashrc.local ]; then
 fi
 
 # Add user bin folder for go
-export PATH="$PATH:~/go/bin"
+export PATH="$PATH:/home/${USER}/go/bin"
