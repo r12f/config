@@ -184,3 +184,13 @@ alias k-l='kubectl logs'
 
 # Copy
 alias k-cp='kubectl cp'
+
+
+######################################################################
+#
+# 7. Ansible
+#
+######################################################################
+
+function asb-p() { ansible $1 -e "$2" -m ping "${@:3}"; }
+function asb-exec() { ansible $1 -e "$2" -m shell -a "${@:3}"; }
