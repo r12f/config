@@ -192,5 +192,21 @@ alias k-cp='kubectl cp'
 #
 ######################################################################
 
-function asb-p() { ansible $1 -e "$2" -m ping "${@:3}"; }
-function asb-exec() { ansible $1 -e "$2" -m shell -a "${@:3}"; }
+function asb-p() { ansible $1 -e @${ANSIBLE_VAULT_FILE} -m ping "${@:2}"; }
+function asb-dv() { ansible $1 -e @${ANSIBLE_VAULT_FILE} -m debug -a "var=$2" "${@:3}"; }
+function asb-exec() { ansible $1 -e @${ANSIBLE_VAULT_FILE} -m shell -a "${@:2}"; }
+function asb-pi() { ansible $1 -e @${ANSIBLE_VAULT_FILE} -m package -b -a "state=present name=$2" "${@:3}"; }
+function asb-pu() { ansible $1 -e @${ANSIBLE_VAULT_FILE} -m package -b -a "state=absent name=$2" "${@:3}"; }
+function asb-psi() { ansible $1 -e @${ANSIBLE_VAULT_FILE} -m snap -b -a "state=present name=$2" "${@:3}"; }
+function asb-psic() { ansible $1 -e @${ANSIBLE_VAULT_FILE} -m snap -b -a "state=present classic=yes name=$2" "${@:3}"; }
+function asb-psiec() { ansible $1 -e @${ANSIBLE_VAULT_FILE} -m snap -b -a "state=present channel=latest/edge classic=yes name=$2" "${@:3}"; }
+function asb-psu() { ansible $1 -e @${ANSIBLE_VAULT_FILE} -m snap -b -a "state=absent name=$2" "${@:3}"; }
+
+function asbp() { ansible-playbook $1 -e @${ANSIBLE_VAULT_FILE} "${@:2}"; }
+
+function asbv-e() { ansible-vault encrypt "$@"; }
+function asbv-ec() { ANSIBLE_VAULT_PASSWORD_FILE= ansible-vault encrypt -ask-vault-pass "$@"; }
+function asbv-d() { ansible-vault decrypt "$@"; }
+function asbv-dc() { ANSIBLE_VAULT_PASSWORD_FILE= ansible-vault decrypt -ask-vault-pass "$@"; }
+function asbv-r() { ansible-vault rekey "$@"; }
+function asbv-rc() { ANSIBLE_VAULT_PASSWORD_FILE= ansible-vault rekey -ask-vault-pass "$@"; }

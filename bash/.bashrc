@@ -72,13 +72,19 @@ fi
 # 1. Others
 #
 ######################################################################
-# Some settings are different on each machine, so we load local environment here.
-if [ -f ~/.bashrc.local ]; then
-    source ~/.bashrc.local
-fi
-
 # Add user bin folder for go
 export PATH="$PATH:/home/${USER}/go/bin"
 
 # Ansible local password file
 export ANSIBLE_VAULT_PASSWORD_FILE=~/.vault_pass
+export ANSIBLE_VAULT_FILE=
+
+######################################################################
+#
+# x. Local overrides
+#
+######################################################################
+# Some settings are different on each machine, so we load local environment here.
+if [ -f ~/.bashrc.local ]; then
+    source ~/.bashrc.local
+fi
