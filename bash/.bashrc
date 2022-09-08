@@ -73,7 +73,7 @@ fi
 #
 ######################################################################
 # Add user bin folder for go
-export PATH="$PATH:/home/${USER}/go/bin"
+export PATH="$PATH:/home/${USER}/tools/go/bin"
 
 # Ansible local password file
 export ANSIBLE_VAULT_PASSWORD_FILE=~/.vault_pass
