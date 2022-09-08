@@ -193,29 +193,29 @@ alias k-cp='kubectl cp'
 ######################################################################
 
 # Ansible debug commands
-function asb-p() { ansible $1 -e @${ANSIBLE_VAULT_FILE} -m ping "${@:2}"; }
-function asb-dv() { ansible $1 -e @${ANSIBLE_VAULT_FILE} -m debug -a "var=$2" "${@:3}"; }
+function asbl-p() { ansible $1 -e @${ANSIBLE_VAULT_FILE} -m ping "${@:2}"; }
+function asbl-dv() { ansible $1 -e @${ANSIBLE_VAULT_FILE} -m debug -a "var=$2" "${@:3}"; }
 
 # Ansible frequently used commands
-function asb-exec() { ansible $1 -e @${ANSIBLE_VAULT_FILE} -m shell -a "${@:2}"; }
-function asb-upload() { ansible $1 -e @${ANSIBLE_VAULT_FILE} -m copy -a "src=$2 dest=$3" "${@:4}"; }
-function asb-cp() { ansible $1 -e @${ANSIBLE_VAULT_FILE} -m copy -a "remote_src=true src=$2 dest=$3" "${@:4}"; }
+function asbl-exec() { ansible $1 -e @${ANSIBLE_VAULT_FILE} -m shell -a "${@:2}"; }
+function asbl-upload() { ansible $1 -e @${ANSIBLE_VAULT_FILE} -m copy -a "src=$2 dest=$3" "${@:4}"; }
+function asbl-cp() { ansible $1 -e @${ANSIBLE_VAULT_FILE} -m copy -a "remote_src=true src=$2 dest=$3" "${@:4}"; }
 
 # Ansible package commands
-function asb-pi() { ansible $1 -e @${ANSIBLE_VAULT_FILE} -m package -b -a "state=present name=$2" "${@:3}"; }
-function asb-pu() { ansible $1 -e @${ANSIBLE_VAULT_FILE} -m package -b -a "state=absent name=$2" "${@:3}"; }
-function asb-snapi() { ansible $1 -e @${ANSIBLE_VAULT_FILE} -m snap -b -a "state=present name=$2" "${@:3}"; }
-function asb-snapic() { ansible $1 -e @${ANSIBLE_VAULT_FILE} -m snap -b -a "state=present classic=yes name=$2" "${@:3}"; }
-function asb-snapiec() { ansible $1 -e @${ANSIBLE_VAULT_FILE} -m snap -b -a "state=present channel=latest/edge classic=yes name=$2" "${@:3}"; }
-function asb-snapu() { ansible $1 -e @${ANSIBLE_VAULT_FILE} -m snap -b -a "state=absent name=$2" "${@:3}"; }
+function asbl-pi() { ansible $1 -e @${ANSIBLE_VAULT_FILE} -m package -b -a "state=present name=$2" "${@:3}"; }
+function asbl-pu() { ansible $1 -e @${ANSIBLE_VAULT_FILE} -m package -b -a "state=absent name=$2" "${@:3}"; }
+function asbl-snapi() { ansible $1 -e @${ANSIBLE_VAULT_FILE} -m snap -b -a "state=present name=$2" "${@:3}"; }
+function asbl-snapic() { ansible $1 -e @${ANSIBLE_VAULT_FILE} -m snap -b -a "state=present classic=yes name=$2" "${@:3}"; }
+function asbl-snapiec() { ansible $1 -e @${ANSIBLE_VAULT_FILE} -m snap -b -a "state=present channel=latest/edge classic=yes name=$2" "${@:3}"; }
+function asbl-snapu() { ansible $1 -e @${ANSIBLE_VAULT_FILE} -m snap -b -a "state=absent name=$2" "${@:3}"; }
 
 # Ansible playbook command
-function asbp() { ansible-playbook $1 -e @${ANSIBLE_VAULT_FILE} "${@:2}"; }
+function asblp() { ansible-playbook $1 -e @${ANSIBLE_VAULT_FILE} "${@:2}"; }
 
 # Ansible vault commands
-function asbv-e() { ansible-vault encrypt "$@"; }
-function asbv-ec() { ANSIBLE_VAULT_PASSWORD_FILE= ansible-vault encrypt -ask-vault-pass "$@"; }
-function asbv-d() { ansible-vault decrypt "$@"; }
-function asbv-dc() { ANSIBLE_VAULT_PASSWORD_FILE= ansible-vault decrypt -ask-vault-pass "$@"; }
-function asbv-r() { ansible-vault rekey "$@"; }
-function asbv-rc() { ANSIBLE_VAULT_PASSWORD_FILE= ansible-vault rekey -ask-vault-pass "$@"; }
+function asblv-e() { ansible-vault encrypt "$@"; }
+function asblv-ec() { ANSIBLE_VAULT_PASSWORD_FILE= ansible-vault encrypt -ask-vault-pass "$@"; }
+function asblv-d() { ansible-vault decrypt "$@"; }
+function asblv-dc() { ANSIBLE_VAULT_PASSWORD_FILE= ansible-vault decrypt -ask-vault-pass "$@"; }
+function asblv-r() { ansible-vault rekey "$@"; }
+function asblv-rc() { ANSIBLE_VAULT_PASSWORD_FILE= ansible-vault rekey -ask-vault-pass "$@"; }
