@@ -232,4 +232,4 @@ function j-t() { just test "$@"; }
 function j-f() { just format "$@"; }
 function j-l() { just lint "$@"; }
 function j-lf() { just lint-fix "$@"; }
-function j-doc()) { just doc "$@"; }
+function j-doc() { just doc "$@"; }
