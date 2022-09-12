@@ -219,3 +219,17 @@ function asblv-d() { ansible-vault decrypt "$@"; }
 function asblv-dc() { ANSIBLE_VAULT_PASSWORD_FILE= ansible-vault decrypt -ask-vault-pass "$@"; }
 function asblv-r() { ansible-vault rekey "$@"; }
 function asblv-rc() { ANSIBLE_VAULT_PASSWORD_FILE= ansible-vault rekey -ask-vault-pass "$@"; }
+
+######################################################################
+#
+# 8. Dev aliases
+#
+######################################################################
+
+function j() { just "$@"; }
+function j-b() { just build "$@"; }
+function j-t() { just test "$@"; }
+function j-f() { just format "$@"; }
+function j-l() { just lint "$@"; }
+function j-lf() { just lint-fix "$@"; }
+function j-doc()) { just doc "$@"; }
