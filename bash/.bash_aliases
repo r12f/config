@@ -214,11 +214,11 @@ function asblp() { ansible-playbook $1 -e @${ANSIBLE_VAULT_FILE} "${@:2}"; }
 
 # Ansible vault commands
 function asblv-e() { ansible-vault encrypt "$@"; }
-function asblv-ec() { ANSIBLE_VAULT_PASSWORD_FILE= ansible-vault encrypt -ask-vault-pass "$@"; }
+function asblv-ec() { ANSIBLE_VAULT_PASSWORD_FILE= ansible-vault encrypt --ask-vault-pass "$@"; }
 function asblv-d() { ansible-vault decrypt "$@"; }
-function asblv-dc() { ANSIBLE_VAULT_PASSWORD_FILE= ansible-vault decrypt -ask-vault-pass "$@"; }
+function asblv-dc() { ANSIBLE_VAULT_PASSWORD_FILE= ansible-vault decrypt --ask-vault-pass "$@"; }
 function asblv-r() { ansible-vault rekey "$@"; }
-function asblv-rc() { ANSIBLE_VAULT_PASSWORD_FILE= ansible-vault rekey -ask-vault-pass "$@"; }
+function asblv-rc() { ANSIBLE_VAULT_PASSWORD_FILE= ansible-vault rekey --ask-vault-pass "$@"; }
 
 ######################################################################
 #
