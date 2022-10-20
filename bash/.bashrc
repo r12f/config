@@ -79,6 +79,10 @@ export ANSIBLE_VAULT_FILE=
 # Add user bin folder for go
 if [ -d "/usr/local/bin/go" ]; then 
   export PATH="$PATH:/usr/local/bin/go/bin"
+
+  if [ -d "$(go env GOPATH)/bin" ]; then 
+    export PATH="$PATH:$(go env GOPATH)/bin"
+  fi
 fi
 
 # Wasmtime environment
