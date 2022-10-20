@@ -256,15 +256,19 @@ Set-Alias wgs CallAlias-wgs
 
 function New-IngenGitHubTask {
   param (
-    [Parameter(Position = 0)] [string] $Title,
-    [Parameter] [string] $Label
+    [Parameter()] [string] $Title,
+    [Parameter()] [string] $Label
   )
   New-GithubIssue -Uri "https://github.com/futurewei-cloud/ingen" -Milestone 1 -Label $Label -Assignee r12f -Title $Title
 }
-function CallAlias-ingen-newft  { New-IngenGitHubTask -Label "feature" $args }
+function CallAlias-ingen-newft   { param($Title) New-IngenGitHubTask -Label "feature" -Title $Title }
 Set-Alias ingen-newft CallAlias-ingen-newft
-function CallAlias-ingen-newbug  { New-IngenGitHubTask -Label "Bug" $args }
+function CallAlias-ingen-newbug  { param($Title) New-IngenGitHubTask -Label "bug" -Title $Title }
 Set-Alias ingen-newbug CallAlias-ingen-newbug
+function CallAlias-ingen-newdoc  { param($Title) New-IngenGitHubTask -Label "documentation" -Title $Title }
+Set-Alias ingen-newdoc CallAlias-ingen-newdoc
+function CallAlias-ingen-newdevenv  { param($Title) New-IngenGitHubTask -Label "devenv" -Title $Title }
+Set-Alias ingen-newdevenv CallAlias-ingen-newdevenv
 
 ################################################################
 #
