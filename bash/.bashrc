@@ -80,8 +80,8 @@ export ANSIBLE_VAULT_FILE=
 if [ -d "/usr/local/bin/go" ]; then 
   export PATH="$PATH:/usr/local/bin/go/bin"
 
-  if [ -d "$(go env GOPATH)/bin" ]; then 
-    export PATH="$PATH:$(go env GOPATH)/bin"
+  if [ -d "$HOME/go/bin" ]; then 
+    export PATH="$PATH:$HOME/go/bin"
   fi
 fi
 
