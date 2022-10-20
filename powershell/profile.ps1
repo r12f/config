@@ -265,8 +265,8 @@ function CallAlias-ingen-newbug     { param($Title) New-IngenGitHubTask -Label "
 Set-Alias ingen-newbug CallAlias-ingen-newbug
 function CallAlias-ingen-newdoc     { param($Title) New-IngenGitHubTask -Label "documentation" -Title "[Doc] " + $Title }
 Set-Alias ingen-newdoc CallAlias-ingen-newdoc
-function CallAlias-ingen-newdevenv  { param($Title) New-IngenGitHubTask -Label "devenv" -Title "[Devenv] " + $Title }
-Set-Alias ingen-newdevenv CallAlias-ingen-newdevenv
+function CallAlias-ingen-newdev  { param($Title) New-IngenGitHubTask -Label "dev" -Title "[dev] " + $Title }
+Set-Alias ingen-newdev CallAlias-ingen-newdev
 
 function New-MerakGitHubTask {
   param (
