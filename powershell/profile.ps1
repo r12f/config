@@ -120,15 +120,13 @@ function CallAlias-grba { & git rebase --abort }
 Set-Alias grba CallAlias-grba
 function CallAlias-grbc { & git rebase --continue }
 Set-Alias grbc CallAlias-grbc
-function CallAlias-grbm { & git rebase origin/master $args }
+function CallAlias-grbm { & git rebase --onto origin/main $args }
 Set-Alias grbm CallAlias-grbm
-function CallAlias-grbmo { & git rebase --onto origin/master $args }
-Set-Alias grbmo CallAlias-grbmo
 function CallAlias-gca { & git add .; & git commit -m $args; & git push }
 Set-Alias gca CallAlias-gca
 function CallAlias-gco { & git checkout $args }
 Set-Alias gco CallAlias-gco
-function CallAlias-gcom { & git checkout master }
+function CallAlias-gcom { & git checkout main }
 Set-Alias gcom CallAlias-gcom
 function CallAlias-gcb { & git checkout user/${env:USERNAME}/$args }
 Set-Alias gcb CallAlias-gcb
