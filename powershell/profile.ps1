@@ -261,14 +261,32 @@ function New-IngenGitHubTask {
   )
   New-GithubIssue -Uri "https://github.com/futurewei-cloud/ingen" -Milestone 1 -Label $Label -Assignee r12f -Title $Title
 }
-function CallAlias-ingen-newft   { param($Title) New-IngenGitHubTask -Label "feature" -Title $Title }
+function CallAlias-ingen-newft      { param($Title) New-IngenGitHubTask -Label "feature" -Title "[Feature] " + $Title }
 Set-Alias ingen-newft CallAlias-ingen-newft
-function CallAlias-ingen-newbug  { param($Title) New-IngenGitHubTask -Label "bug" -Title $Title }
+function CallAlias-ingen-newbug     { param($Title) New-IngenGitHubTask -Label "bug" -Title "[Bugfix] " + $Title }
 Set-Alias ingen-newbug CallAlias-ingen-newbug
-function CallAlias-ingen-newdoc  { param($Title) New-IngenGitHubTask -Label "documentation" -Title $Title }
+function CallAlias-ingen-newdoc     { param($Title) New-IngenGitHubTask -Label "documentation" -Title "[Doc] " + $Title }
 Set-Alias ingen-newdoc CallAlias-ingen-newdoc
-function CallAlias-ingen-newdevenv  { param($Title) New-IngenGitHubTask -Label "devenv" -Title $Title }
+function CallAlias-ingen-newdevenv  { param($Title) New-IngenGitHubTask -Label "devenv" -Title "[Devenv] " + $Title }
 Set-Alias ingen-newdevenv CallAlias-ingen-newdevenv
+
+function New-MerakGitHubTask {
+  param (
+    [Parameter()] [string] $Title,
+    [Parameter()] [string] $Label
+  )
+  New-GithubIssue -Uri "https://github.com/futurewei-cloud/merak" -Label $Label -Assignee r12f -Title $Title
+}
+function CallAlias-merak-newma      { param($Title) New-MerakGitHubTask -Label "enhancement" -Title "Merak Agent: " + $Title }
+Set-Alias merak-newma CallAlias-merak-newma
+function CallAlias-merak-newmabug   { param($Title) New-MerakGitHubTask -Label "bug" -Title "Merak Agent: " + $Title }
+Set-Alias merak-newmabug CallAlias-merak-newmabug
+function CallAlias-merak-newdoc      { param($Title) New-MerakGitHubTask -Label "documentation" -Title "Document: " + $Title }
+Set-Alias merak-newdoc CallAlias-merak-newdoc
+function CallAlias-merak-newdep      { param($Title) New-MerakGitHubTask -Label "deployment" -Title "Deployment: " + $Title }
+Set-Alias merak-newdep CallAlias-merak-newdep
+function CallAlias-merak-newinfra    { param($Title) New-MerakGitHubTask -Label "infrastructure" -Title "Infrastructure: " + $Title }
+Set-Alias merak-newinfra CallAlias-merak-newinfra
 
 ################################################################
 #
