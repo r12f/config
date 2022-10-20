@@ -3,10 +3,6 @@
 # r12f's powershell init script (https#//github.com/r12f/config)
 # email# r12f.code@gmail.com
 #
-# This init script contains several sections:
-# 0. Environment settings
-# 1. Aliases
-#
 ################################################################
 
 ################################################################
@@ -241,7 +237,7 @@ Set-Alias k-dbgc CallAlias-k-dbgc
 
 ################################################################
 #
-# 3. Winget
+# 4. Winget
 # 
 ################################################################
 
@@ -251,6 +247,24 @@ function CallAlias-wgu { & winget uninstall $args }
 Set-Alias wgu CallAlias-wgu
 function CallAlias-wgs { & winget search $args }
 Set-Alias wgs CallAlias-wgs
+
+################################################################
+#
+# 5. Github
+# 
+################################################################
+
+function New-IngenGitHubTask {
+  param (
+    [Parameter(Position = 0)] [string] $Title,
+    [Parameter] [string] $Label
+  )
+  New-GithubIssue -Uri "https://github.com/futurewei-cloud/ingen" -Milestone 1 -Label $Label -Assignee r12f -Title $Title
+}
+function CallAlias-ingen-newft  { New-IngenGitHubTask -Label "feature" $args }
+Set-Alias ingen-newft CallAlias-ingen-newft
+function CallAlias-ingen-newbug  { New-IngenGitHubTask -Label "Bug" $args }
+Set-Alias ingen-newbug CallAlias-ingen-newbug
 
 ################################################################
 #
