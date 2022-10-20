@@ -72,12 +72,14 @@ fi
 # 1. Others
 #
 ######################################################################
-# Add user bin folder for go
-export PATH="$PATH:/home/${USER}/tools/go/bin"
-
 # Ansible local password file
 export ANSIBLE_VAULT_PASSWORD_FILE=~/.vault_pass
 export ANSIBLE_VAULT_FILE=
+
+# Add user bin folder for go
+if [ -d "/usr/local/bin/go" ]; then 
+  export PATH="$PATH:/usr/local/bin/go"
+fi
 
 # Wasmtime environment
 if [ -d "$HOME/.wasmtime" ]; then 
