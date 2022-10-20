@@ -281,11 +281,11 @@ function CallAlias-merak-newma      { param($Title) New-MerakGitHubTask -Label "
 Set-Alias merak-newma CallAlias-merak-newma
 function CallAlias-merak-newmabug   { param($Title) New-MerakGitHubTask -Label "bug" -Title "Merak Agent: " + $Title }
 Set-Alias merak-newmabug CallAlias-merak-newmabug
-function CallAlias-merak-newdoc      { param($Title) New-MerakGitHubTask -Label "documentation" -Title "Document: " + $Title }
+function CallAlias-merak-newdoc     { param($Title) New-MerakGitHubTask -Label "documentation" -Title "Document: " + $Title }
 Set-Alias merak-newdoc CallAlias-merak-newdoc
-function CallAlias-merak-newdep      { param($Title) New-MerakGitHubTask -Label "deployment" -Title "Deployment: " + $Title }
+function CallAlias-merak-newdep     { param($Title) New-MerakGitHubTask -Label "deployment" -Title "Deployment: " + $Title }
 Set-Alias merak-newdep CallAlias-merak-newdep
-function CallAlias-merak-newinfra    { param($Title) New-MerakGitHubTask -Label "infrastructure" -Title "Infrastructure: " + $Title }
+function CallAlias-merak-newinfra   { param($Title) New-MerakGitHubTask -Label "infrastructure" -Title "Infrastructure: " + $Title }
 Set-Alias merak-newinfra CallAlias-merak-newinfra
 
 ################################################################
