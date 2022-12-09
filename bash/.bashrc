@@ -96,6 +96,11 @@ if [ -d "$HOME/.cargo" ]; then
   . "$HOME/.cargo/env"
 fi
 
+# User bin
+if [ -d "$HOME/bin" ]; then
+  export PATH="$HOME/bin:$PATH"
+fi
+
 ######################################################################
 #
 # x. Local overrides
