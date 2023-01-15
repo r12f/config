@@ -354,7 +354,10 @@ if not "USER" in (env).name {
   let-env USER = $env.USERNAME
 }
 
-let-env PROMPT_COMMAND = { $"(ansi blue)($env.USER)(ansi reset)@(ansi green)(hostname)(ansi reset):(ansi yellow)(pwd)(ansi reset)" }
+let-env HOSTNAME = $"(cat /etc/hostname)"
+
+# Prompt settings
+let-env PROMPT_COMMAND = { $"(ansi blue)($env.USER)(ansi reset)@(ansi green)($env.HOSTNAME)(ansi reset):(ansi yellow)($env.PWD)(ansi reset)" }
 let-env PROMPT_COMMAND_RIGHT = { $"[($env.LAST_EXIT_CODE)] [(date now | date format '%m/%d/%Y %I:%M:%S')]" }
 let-env PROMPT_INDICATOR = "$ "
 let-env PROMPT_INDICATOR_VI_INSERT = "$ "
