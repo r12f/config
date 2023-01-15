@@ -99,7 +99,7 @@ alias gcpc = git cherry-pick --continue
 
 def gcb [name: string] { git checkout user/($env.USER)/$name; }
 def gcnb [name: string] { git checkout -b user/($env.USER)/$name; }
-def gca [message: string] { git commit -v -a -m "$message" && git push; }
+def gca [message: string] { git commit -v -a -m "$message"; git push; }
 
 ######################################################################
 #

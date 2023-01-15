@@ -1,6 +1,6 @@
 # Nushell Config File
+use ~/.config/nushell/nu_scripts/themes/themes/dracula.nu *
 
-# The default config record. This is where much of your global configuration is setup.
 let-env config = {
   ls: {
     use_ls_colors: true # use the LS_COLORS environment variable to colorize output
@@ -13,7 +13,7 @@ let-env config = {
     abbreviations: false # allows `cd s/o/f` to expand to `cd some/other/folder`
   }
   table: {
-    mode: rounded # basic, compact, compact_double, light, thin, with_love, rounded, reinforced, heavy, none, other
+    mode: compact # basic, compact, compact_double, light, thin, with_love, rounded, reinforced, heavy, none, other
     index_mode: always # "always" show indexes, "never" show indexes, "auto" = show indexes when a table has "index" column
     trim: {
       methodology: wrapping # wrapping or truncating
@@ -99,15 +99,15 @@ let-env config = {
     metric: true # true => KB, MB, GB (ISO standard), false => KiB, MiB, GiB (Windows standard)
     format: "auto" # b, kb, kib, mb, mib, gb, gib, tb, tib, pb, pib, eb, eib, zb, zib, auto
   }
-  color_config: $dark_theme   # if you want a light theme, replace `$dark_theme` to `$light_theme`
+  color_config: (dracula)
   use_grid_icons: true
   footer_mode: "25" # always, never, number_of_rows, auto
   float_precision: 2
   # buffer_editor: "emacs" # command that will be used to edit the current line buffer with ctrl+o, if unset fallback to $env.EDITOR and $env.VISUAL
   use_ansi_coloring: true
-  edit_mode: emacs # emacs, vi
+  edit_mode: vi # emacs, vi
   shell_integration: true # enables terminal markers and a workaround to arrow keys stop working issue
-  show_banner: true # true or false to enable or disable the banner
+  show_banner: false # true or false to enable or disable the banner
   render_right_prompt_on_last_line: false # true or false to enable or disable right prompt to be rendered on last line of the prompt.
 
   hooks: {
@@ -354,5 +354,30 @@ if not "USER" in (env).name {
   let-env USER = $env.USERNAME
 }
 
+let-env PROMPT_COMMAND = { $"(ansi blue)($env.USER)(ansi reset)@(ansi green)(hostname)(ansi reset):(ansi yellow)(pwd)(ansi reset)" }
+let-env PROMPT_COMMAND_RIGHT = { $"[($env.LAST_EXIT_CODE)] [(date now | date format '%m/%d/%Y %I:%M:%S')]" }
+let-env PROMPT_INDICATOR = "$ "
+let-env PROMPT_INDICATOR_VI_INSERT = "$ "
+
 # Import configs
-source ~/.config/nushell/aliases.nu
+#
+# Note: Nushell doesn't support sourcing files from a variable. It has to be a constant, hence using the code below to workaround.
+def refresh_config [] {
+  echo $"Rebuilding config list to ~/.config/nushell/config_list.nu ..."
+  echo "source ~/.config/nushell/aliases.nu\n" | save "~/.config/nushell/config_list.nu" -f
+  echo "source ~/.config/nushell/nu_scripts/custom-completions/git/git-completions.nu\n" | save "~/.config/nushell/config_list.nu"  --append --raw
+  echo "source ~/.config/nushell/nu_scripts/custom-completions/cargo/cargo-completions.nu\n" | save "~/.config/nushell/config_list.nu"  --append --raw
+  echo "source ~/.config/nushell/nu_scripts/custom-completions/winget/winget-completions.nu\n" | save "~/.config/nushell/config_list.nu"  --append --raw
+  echo "source ~/.config/nushell/nu_scripts/custom-completions/npm/npm-completions.nu\n" | save "~/.config/nushell/config_list.nu"  --append --raw
+  echo "source ~/.config/nushell/nu_scripts/custom-completions/make/make-completions.nu\n" | save "~/.config/nushell/config_list.nu"  --append --raw
+
+  for x in (ls ~/.config/nushell/nu_scripts/custom-completions/auto-generate/completions/*.nu | get name) {
+    for k in ["7z"] {
+      if ($x | str index-of $k) >= 0 {
+        echo $"source ($x)\n" | save "~/.config/nushell/config_list.nu" --append --raw
+      }
+    }
+  }
+}
+
+source ~/.config/nushell/config_list.nu
