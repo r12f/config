@@ -6,6 +6,7 @@
 alias c = clear
 alias ? = where
 alias % = each
+alias %! = par-each
 
 ######################################################################
 #
