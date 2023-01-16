@@ -349,19 +349,6 @@ let-env config = {
   ]
 }
 
-# Environment variables
-if not "USER" in (env).name {
-  let-env USER = $env.USERNAME
-}
-
-let-env HOSTNAME = $"(cat /etc/hostname)"
-
-# Prompt settings
-let-env PROMPT_COMMAND = { $"(ansi blue)($env.USER)(ansi reset)@(ansi green)($env.HOSTNAME)(ansi reset):(ansi yellow)($env.PWD)(ansi reset)" }
-let-env PROMPT_COMMAND_RIGHT = { $"[($env.LAST_EXIT_CODE)] [(date now | date format '%m/%d/%Y %I:%M:%S')]" }
-let-env PROMPT_INDICATOR = "$ "
-let-env PROMPT_INDICATOR_VI_INSERT = "$ "
-
 # Import configs
 #
 # Note: Nushell doesn't support sourcing files from a variable. It has to be a constant, hence using the code below to workaround.
