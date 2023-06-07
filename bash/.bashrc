@@ -77,16 +77,16 @@ export ANSIBLE_VAULT_PASSWORD_FILE=~/.vault_pass
 export ANSIBLE_VAULT_FILE=
 
 # Add user bin folder for go
-if [ -d "/usr/local/bin/go" ]; then 
+if [ -d "/usr/local/bin/go" ]; then
   export PATH="$PATH:/usr/local/bin/go/bin"
 
-  if [ -d "$HOME/go/bin" ]; then 
+  if [ -d "$HOME/go/bin" ]; then
     export PATH="$PATH:$HOME/go/bin"
   fi
 fi
 
 # Wasmtime environment
-if [ -d "$HOME/.wasmtime" ]; then 
+if [ -d "$HOME/.wasmtime" ]; then
   export WASMTIME_HOME="$HOME/.wasmtime"
   export PATH="$WASMTIME_HOME/bin:$PATH"
 fi
@@ -99,6 +99,10 @@ fi
 # User bin
 if [ -d "$HOME/bin" ]; then
   export PATH="$HOME/bin:$PATH"
+fi
+
+if [ -d "$HOME/.local/bin" ]; then
+  export PATH="$HOME/.local/bin:$PATH"
 fi
 
 ######################################################################
