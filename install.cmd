@@ -22,6 +22,7 @@ if not exist "%USERPROFILE%\Documents\PowerShell" (
     mkdir "%USERPROFILE%\Documents\PowerShell"
 )
 call :CreateSymbolLinkWithBackup %POWERSHELL_CONFIG_ROOT%\profile.ps1 %USERPROFILE%\Documents\PowerShell\Microsoft.PowerShell_profile.ps1
+call :CreateSymbolLinkWithBackup %POWERSHELL_CONFIG_ROOT%\profile.ps1 %USERPROFILE%\Documents\PowerShell\Profile.ps1
 
 :: Install VIM configuration
 echo.
