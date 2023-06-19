@@ -105,6 +105,12 @@ if [ -d "$HOME/.local/bin" ]; then
   export PATH="$HOME/.local/bin:$PATH"
 fi
 
+# SONiC build environment
+export NOJESSIE=1
+export NOSTRETCH=1
+export NOBUSTER=1
+export SONIC_BUILD_JOBS=12
+
 ######################################################################
 #
 # x. Local overrides
