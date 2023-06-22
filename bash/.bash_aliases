@@ -134,7 +134,33 @@ function gca() { git commit -v -a -m "$@" && git push; }
 
 ######################################################################
 #
-# 6. Minikube
+# 6. Docker
+#
+######################################################################
+
+alias d='docker'
+
+# Containers
+alias d-ps='docker ps'
+alias d-psa='docker ps -a'
+alias d-rm='docker rm'
+alias d-start='docker start'
+alias d-stop='docker stop'
+alias d-save='docker save'
+alias d-load='docker load'
+alias d-top='docker top'
+alias d-ins='docker inspect'
+function d-sh() { docker exec -it $1 bash; }
+function d-shu() { docker exec -u ${USER} -it $1 bash; }
+function d-shcu() { docker exec -u $2 -it $1 bash; }
+
+# Images
+alias d-i='docker images'
+alias d-rmi='docker rmi'
+
+######################################################################
+#
+# 7. K8s
 #
 # - n: nodes
 # - d: deployment
@@ -188,7 +214,7 @@ alias k-cp='kubectl cp'
 
 ######################################################################
 #
-# 7. Ansible
+# 8. Ansible
 #
 ######################################################################
 
@@ -222,7 +248,7 @@ function asblv-rc() { ANSIBLE_VAULT_PASSWORD_FILE= ansible-vault rekey --ask-vau
 
 ######################################################################
 #
-# 8. Dev aliases
+# 9. Dev aliases
 #
 ######################################################################
 
