@@ -109,7 +109,7 @@ fi
 export NOJESSIE=1
 export NOSTRETCH=1
 export NOBUSTER=1
-export SONIC_BUILD_JOBS=12
+export SONIC_BUILD_JOBS=24
 
 ######################################################################
 #
