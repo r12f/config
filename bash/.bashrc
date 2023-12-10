@@ -96,6 +96,11 @@ if [ -d "$HOME/.cargo" ]; then
   . "$HOME/.cargo/env"
 fi
 
+# Esp32
+if [ -f "$HOME/export-esp.sh" ]; then
+  . "$HOME/export-esp.sh"
+fi
+
 # User bin
 if [ -d "$HOME/bin" ]; then
   export PATH="$HOME/bin:$PATH"
