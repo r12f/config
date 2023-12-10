@@ -13,6 +13,11 @@
 $env:CONFIG_ROOT = Split-Path -Parent $MyInvocation.MyCommand.Definition
 $env:MY_EDITOR = "gvim"
 
+if ($IsLinux) {
+  $env:USERNAME = $env:USER
+  $env:COMPUTERNAME = hostname
+}
+
 function Prompt
 {
     $origLastExitCode = $LASTEXITCODE
@@ -39,7 +44,12 @@ function Prompt
     }
 
     Write-Host ''
-    Write-Host ">" -NoNewLine
+
+    if ($env:USERNAME -eq "root") {
+        Write-Host "#" -NoNewLine
+    } else {
+        Write-Host "$" -NoNewLine
+    }
 
     $LASTEXITCODE = $origLastExitCode
     return " ";
