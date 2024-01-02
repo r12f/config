@@ -3,7 +3,7 @@
 sudo apt update
 
 # Install common tools
-sudo apt install iptables \
+sudo apt install -y iptables \
     iotop \
     bash-completion \
     ca-certificates \
@@ -26,7 +26,7 @@ sudo apt install iptables \
     setserial \
 
 # Install common dev tools
-sudo apt install build-essential \
+sudo apt install -y build-essential \
     g++ \
     git \
     cmake \
@@ -44,3 +44,10 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 # Install Go
 sudo snap install go --classic
+
+# Install config
+if [ -d ~/config ]; then
+    rm -rf ~/config
+fi
+git clone https://github.com/r12f/config.git ~/config --recurse-submodules
+~/config/install.sh
