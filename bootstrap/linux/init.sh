@@ -24,6 +24,7 @@ sudo apt install -y iptables \
     tshark \
     uuid \
     setserial \
+    tio \
 
 # Install common dev tools
 sudo apt install -y build-essential \
@@ -47,7 +48,9 @@ sudo snap install go --classic
 
 # Install config
 if [ -d ~/config ]; then
-    rm -rf ~/config
+    cd ~/config && git pull && git submodule update --init --recursive && cd -
+else
+    git clone https://github.com/r12f/config.git ~/config --recurse-submodules
 fi
-git clone https://github.com/r12f/config.git ~/config --recurse-submodules
+
 ~/config/install.sh
