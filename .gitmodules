@@ -4,3 +4,6 @@
 [submodule "g13"]
 	path = g13
 	url = https://github.com/r12f/LogitechG13Profiles.git
+[submodule "gdb/gef"]
+	path = gdb/gef
+	url = https://github.com/hugsy/gef.git

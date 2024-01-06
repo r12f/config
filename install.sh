@@ -56,6 +56,12 @@ fi
 echo "Bash configuration installation complete!"
 echo ""
 
+# Install gdb configuration
+if ! CreateSymbolLinkWithBackup "$CONFIG_ROOT/gdb/.gdbinit" "$HOME/.gdbinit"; then
+    echo "Install failed."
+    exit 1
+fi
+
 # Install VIM configuration
 VIM_CONFIG_ROOT="$CONFIG_ROOT/vimrc"
 $VIM_CONFIG_ROOT/install.sh
