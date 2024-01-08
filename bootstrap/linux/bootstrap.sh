@@ -1,8 +1,19 @@
 #!/bin/bash
 
 if [ -z "$DESIRED_USER" ]; then
-    echo "Please set DESIRED_USER environment variable to the desired user name"
-    exit 1
+    read -p "Please input your user name: " DESIRED_USER
+    if [ -z "$DESIRED_USER" ]; then
+        echo "Desired user cannot be empty. Please set DESIRED_USER environment variable or input one."
+        exit 1
+    fi
+fi
+
+if [ -z "$DESIRED_HOSTNAME" ]; then
+    read -p "Please input your host name: " DESIRED_HOSTNAME
+    if [ -z "$DESIRED_HOSTNAME" ]; then
+        echo "Desired host name cannot be empty. Please set DESIRED_HOSTNAME environment variable or input one."
+        exit 1
+    fi
 fi
 
 # Check if desired user already exists
@@ -14,7 +25,7 @@ fi
 if [ -d "/home/$DESIRED_USER" ]; then
     echo "User $DESIRED_USER already exists, skip creating."
 else
-    echo "Creating user $DESIRED_USER:"
+    echo "Creating user $DESIRED_USER ..."
     sudo useradd -m -s /bin/bash $DESIRED_USER
     sudo passwd $DESIRED_USER
 fi
@@ -28,6 +39,10 @@ done
 
 # Add user to sudoers
 sudo grep -q $DESIRED_USER /etc/sudoers || echo "$DESIRED_USER ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee -a /etc/sudoers
+
+# Update hostname
+echo "Updating hostname to $DESIRED_HOSTNAME ..."
+sudo hostnamectl hostname $DESIRED_HOSTNAME
 
 # Done
 echo "User $DESIRED_USER is ready."
