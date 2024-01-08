@@ -14,7 +14,6 @@ fi
 if [ -d "/home/$DESIRED_USER" ]; then
     echo "User $DESIRED_USER already exists, skip creating."
 else
-    # Create user
     echo "Creating user $DESIRED_USER:"
     sudo useradd -m -s /bin/bash $DESIRED_USER
     sudo passwd $DESIRED_USER
@@ -32,4 +31,4 @@ sudo grep -q $DESIRED_USER /etc/sudoers || echo "$DESIRED_USER ALL=(ALL:ALL) NOP
 
 # Done
 echo "User $DESIRED_USER is ready."
-echo "Please login as $DESIRED_USER and delete current user with \"userdel -r $USER\" if you don't need it anymore."
+echo "Please login as $DESIRED_USER and delete current user with \"sudo userdel -r $USER\" if you don't need it anymore."

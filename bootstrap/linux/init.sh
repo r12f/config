@@ -16,7 +16,7 @@ sudo apt install -y iptables \
     net-tools \
     bridge-utils \
     traceroute \
-    iperf3 \
+    iperf \
     tcpdump \
     minicom \
     fio \
