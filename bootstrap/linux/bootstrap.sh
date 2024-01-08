@@ -18,11 +18,8 @@ fi
 
 # Check if desired user already exists
 if [ "$DESIRED_USER" == "$USER" ]; then
-    echo "Current user is the desired user, nothing to do."
-    exit 1
-fi
-
-if [ -d "/home/$DESIRED_USER" ]; then
+    echo "Current user is the desired user, skip creating."
+elif [ -d "/home/$DESIRED_USER" ]; then
     echo "User $DESIRED_USER already exists, skip creating."
 else
     echo "Creating user $DESIRED_USER ..."

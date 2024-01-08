@@ -7,8 +7,8 @@ To bootstrap the machine, run the following command:
 # https://raw.githubusercontent.com/r12f/config/master/bootstrap/linux/wifi-nmcli.sh
 
 # Bootstrap the machine. Create user and set machine name.
-curl -sSf https://raw.githubusercontent.com/r12f/config/master/bootstrap/linux/bootstrap.sh | sh
+bash <(curl -sSf https://raw.githubusercontent.com/r12f/config/master/bootstrap/linux/bootstrap.sh)
 
 # After bootstrap, login as new user and run the following command:
-curl -sSf https://raw.githubusercontent.com/r12f/config/master/bootstrap/linux/init.sh | sh
+bash <(curl -sSf https://raw.githubusercontent.com/r12f/config/master/bootstrap/linux/init.sh)
 ```
