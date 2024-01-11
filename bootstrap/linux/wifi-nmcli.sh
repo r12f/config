@@ -1,5 +1,5 @@
 # Enable WIFI
-nmcli radio wifi on
+sudo nmcli radio wifi on
 nmcli dev status
 
 # Connect to WIFI
