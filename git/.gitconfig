@@ -1,0 +1,5 @@
+[user]
+	email = r12f.code@gmail.com
+	name = r12f
+[credential]
+	helper = cache --timeout=2592000
