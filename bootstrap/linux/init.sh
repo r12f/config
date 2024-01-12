@@ -54,3 +54,18 @@ else
 fi
 
 ~/config/install.sh
+
+# Redirect multiple folders that can be crazily large to home folder, so we can mount it to large disk.
+if [ -d "$HOST/data" ]; then
+    echo "Redirecting large data folder to $HOME/data:"
+
+    if [ ! -L "$HOME/data/.vscode-server" ]; then
+        echo "Redirecting vscode-server data folder ..."
+        ln -s $HOME/data/.vscode-server .vscode-server
+    fi
+
+    if [ ! -L "$HOME/data/docker" ]; then
+        echo "Redirecting docker data folder ..."
+        sudo ln -s $HOME/data/docker /var/lib/docker
+    fi
+fi
