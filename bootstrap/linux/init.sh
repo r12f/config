@@ -117,7 +117,6 @@ function redirect_folder() {
 function install_dev_tools() {
     install_dev_essential_tools
     install_dotnet
-    install_gcm
     install_python
     install_rust
     install_go
@@ -152,21 +151,6 @@ function install_dotnet() {
     fi
 
     sudo apt install dotnet-sdk-7.0
-}
-
-function install_gcm() {
-    echo ""
-    echo "Installing git-credential-manager ..."
-
-    if command -v git-credential-manager &> /dev/null; then
-        echo "git-credential-manager is already installed. Updating ..."
-        dotnet tool update -g git-credential-manager
-    else
-        dotnet tool install -g git-credential-manager
-    fi
-
-    # PATH might not be taking effect yet here.
-    $HOME/.dotnet/tools/git-credential-manager configure
 }
 
 function install_python() {
@@ -216,7 +200,7 @@ function install_docker() {
         sudo apt-get update
     fi
 
-    sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+    sudo apt-get -y install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 }
 
 main
