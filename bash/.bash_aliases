@@ -130,8 +130,13 @@ alias gcpc='git cherry-pick --continue'
 
 function gcf() {
     gf=`echo $@ | sed 's#github.com/[^/][^/]*/#github.com/r12f/#'`
-    f=`basename $u | sed 's/.git//'`
+    f=`basename $@ | sed 's/.git//'`
+
+    echo "Cloning fork: $gf"
     git clone $gf --recurse-submodules
+
+    echo ""
+    echo "Setting up upstream to $@"
     cd $f && git remote add upstream $@ && git fetch upstream && cd -
 }
 function gcb() { git checkout user/${USER}/$@; }
