@@ -30,6 +30,8 @@ function main() {
     install_common_tools
     install_config
     install_dev_tools
+
+    clean_up
 }
 
 function install_common_tools() {
@@ -201,6 +203,13 @@ function install_docker() {
     fi
 
     sudo apt-get -y install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+}
+
+function clean_up() {
+    echo ""
+    echo "Clean up ..."
+
+    sudo apt autoremove -y
 }
 
 main
