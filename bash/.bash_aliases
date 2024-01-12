@@ -128,6 +128,12 @@ alias gcp='git cherry-pick'
 alias gcpa='git cherry-pick --abort'
 alias gcpc='git cherry-pick --continue'
 
+function gcf() {
+    gf=`echo $@ | sed 's#github.com/[^/][^/]*/#github.com/r12f/#'`
+    f=`basename $u | sed 's/.git//'`
+    git clone $gf --recurse-submodules
+    cd $f && git remote add upstream $@ && git fetch upstream && cd -
+}
 function gcb() { git checkout user/${USER}/$@; }
 function gcnb() { git checkout -b user/${USER}/$@; }
 function gca() { git commit -v -a -m "$@" && git push; }
