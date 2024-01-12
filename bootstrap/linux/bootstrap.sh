@@ -43,6 +43,34 @@ echo "Updating hostname to $DESIRED_HOSTNAME ..."
 sudo hostnamectl hostname $DESIRED_HOSTNAME
 sudo sed -i "s/$HOSTNAME/$DESIRED_HOSTNAME/g" /etc/hosts
 
+# Configurate SSH
+echo "Configurating SSH ..."
+if [ ! -d "$HOME/.ssh" ]; then
+    echo "Creating $HOME/.ssh folder ..."
+    mkdir -p "$HOME/.ssh"
+fi
+
+if [ ! -f "$HOME/.ssh/authorized_keys" ]; then
+    echo "Creating $HOME/.ssh/authorized_keys file ..."
+    touch "$HOME/.ssh/authorized_keys"
+fi
+
+echo "Upating $HOME/.ssh permission ..."
+chmod -R go= "$HOME/.ssh"
+sudo chown -R $DESIRED_USER:$DESIRED_USER "$HOME/.ssh"
+
+echo "Upating SSH confgurations ..."
+sudo sed -i -e "/PubkeyAuthentication/s/^.*$/PubkeyAuthentication yes/" \
+    -e "/PubkeyAuthentication/aAuthorizedKeysFile .ssh\/authorized_keys" \
+    -e "/AuthorizedKeysFile/d" \
+    -e "/PubkeyAcceptedAlgorithms/d" \
+    -e "/PubkeyAuthentication/aPubkeyAcceptedAlgorithms +ssh-rsa" \
+    /etc/ssh/sshd_config
+
+echo "Restarting SSH ..."
+sudo systemctl restart ssh
+sudo systemctl status ssh
+
 # Done
 echo "User $DESIRED_USER is ready."
 echo "Please login as $DESIRED_USER and delete current user with \"sudo userdel -r $USER\" if you don't need it anymore."
