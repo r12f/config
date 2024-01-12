@@ -25,6 +25,7 @@ sudo apt install -y iptables \
     uuid \
     setserial \
     tio \
+    gnupg \
 
 # Install common dev tools
 sudo apt install -y build-essential \
@@ -39,12 +40,6 @@ sudo apt install -y build-essential \
     python3-setuptools \
     pkg-config \
     protobuf-compiler \
-
-# Install rust
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-
-# Install Go
-sudo snap install go --classic
 
 # Install config
 if [ -d ~/config ]; then
@@ -69,3 +64,24 @@ if [ -d "$HOST/data" ]; then
         sudo ln -s $HOME/data/docker /var/lib/docker
     fi
 fi
+
+# Install rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+# Install Go
+sudo snap install go --classic
+
+# Install docker
+. /etc/os-release
+
+# Add Docker's official GPG key:
+sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/$ID/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+sudo chmod a+r /etc/apt/keyrings/docker.gpg
+
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/$ID \
+  $VERSION_CODENAME stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
