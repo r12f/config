@@ -38,8 +38,10 @@ done
 sudo grep -q $DESIRED_USER /etc/sudoers || echo "$DESIRED_USER ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee -a /etc/sudoers
 
 # Update hostname
+HOSTNAME=`hostname`
 echo "Updating hostname to $DESIRED_HOSTNAME ..."
 sudo hostnamectl hostname $DESIRED_HOSTNAME
+sudo sed -i "s/$HOSTNAME/$DESIRED_HOSTNAME/g" /etc/hosts
 
 # Done
 echo "User $DESIRED_USER is ready."
