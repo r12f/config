@@ -18,7 +18,7 @@
 - name: Update rust when rustup exists
   tags: rust
   become: false
-  when: is_cargo_exists.rc == 0
+  when: is_rustup_exists.rc == 0
   ansible.builtin.shell: |
     rustup update
   args:
