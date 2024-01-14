@@ -1,14 +1,40 @@
 ---
+- name: Create SSH config folder
+  tags: ssh
+  file:
+    path: /etc/ssh/sshd_config.d
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  register: sshd_config_folder_created
+
 - name: Updating SSH configurations
   tags: ssh
   template:
     src: templates/sshd.conf.j2
     dest: /etc/ssh/sshd_config.d/sshd.conf
 
+- name: Update SSH global config
+  tags: ssh
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^#Include /etc/ssh/sshd_config.d/\*.conf'
+    insertbefore: '^#*Port '
+    line: "Include /etc/ssh/sshd_config.d/*.conf"
+    state: present
+
 # SSH will force the port in systemd, hence every systemctl restart or reboot will reset the port back to 22.
 # Here, we change the ListenStream setting in ssh.socket file, so that SSH will listen on the port we want.
+- name: Check SSH socket systemd file exists
+  tags: ssh
+  stat:
+    path: /lib/systemd/system/ssh.socket
+  register: ssh_socket_file_stat
+
 - name: Updating systemd SSH socket
   tags: ssh
+  when: ssh_socket_file_stat.stat.exists
   lineinfile:
     path: /lib/systemd/system/ssh.socket
     regexp: '^ListenStream='
