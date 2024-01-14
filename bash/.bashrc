@@ -76,7 +76,7 @@ fi
 
 # Inventory setting.
 # We can use multiple -i <path> to specify multiple inventories.
-export ANSIBLE_INVENTORY="-i ~/.ansible_hosts.yaml"
+export ANSIBLE_INVENTORY="-i ~/.ansible_inventory"
 
 # Vault
 export ANSIBLE_VAULT_FILE="~/.ansible_vault.yaml"

@@ -72,6 +72,11 @@ if ! CreateSymbolLinkWithBackup "$CONFIG_ROOT/ansible/ansible.cfg" "$HOME/.ansib
     exit 1
 fi
 
+if ! CreateSymbolLinkWithBackup "$CONFIG_ROOT/ansible/inventory" "$HOME/.ansible_inventory"; then
+    echo "Install failed."
+    exit 1
+fi
+
 # Install VIM configuration
 VIM_CONFIG_ROOT="$CONFIG_ROOT/vimrc"
 $VIM_CONFIG_ROOT/install.sh

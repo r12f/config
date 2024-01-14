@@ -1,0 +1,4 @@
+---
+- import_tasks: install-config.yaml
+- import_tasks: redirect-folders.yaml
+- import_tasks: install-packages.yaml

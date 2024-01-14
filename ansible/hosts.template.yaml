@@ -7,16 +7,8 @@ all:
     ansible_ssh_user: r12f
     ansible_ssh_common_args: "-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
 
-    # User settings
-    desired_user: r12f
+    # Device network settings
     desired_ssh_port: 12345
-    users_to_remove:
-      - ubuntu
-      - debian
-      - rock
-      - radxa
-
-    # Device settings
     wifi_ssid: WIFI_SSID
   
   children:

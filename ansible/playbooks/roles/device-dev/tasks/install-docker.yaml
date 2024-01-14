@@ -1,0 +1,38 @@
+---
+- name: Check docker exists
+  tags: docker
+  become: false
+  shell: command -v docker >/dev/null 2>&1
+  register: is_docker_exists 
+  ignore_errors: true
+
+- name: Install docker repository
+  tags: docker
+  when: is_docker_exists.rc != 0
+  ansible.builtin.shell: |
+    sudo install -m 0755 -d /etc/apt/keyrings
+    curl -fsSL https://download.docker.com/linux/{{ ansible_facts["ansible_lsb"]["id"] }}/gpg | sudo gpg --dearmor --yes -o /etc/apt/keyrings/docker.gpg
+    sudo chmod a+r /etc/apt/keyrings/docker.gpg
+
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/{{ ansible_facts["ansible_lsb"]["id"] }} {{ ansible_facts["ansible_lsb"]["codename"] }} stable" | \
+        sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+  args:
+    executable: /bin/bash
+
+- name: Update package source after installing docker repository
+  tags: docker
+  when: is_docker_exists.rc != 0
+  include_tasks:
+    file: roles/utils/pkg/tasks/package_source_update.yaml
+    apply: { tags: [ "package", "docker" ] }
+
+- name: Install docker packages
+  tags: docker
+  package:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
+

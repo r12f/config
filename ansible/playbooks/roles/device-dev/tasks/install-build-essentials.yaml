@@ -1,0 +1,13 @@
+---
+- name: Install common dev packages
+  tags: common
+  package:
+    name:
+      - build-essential
+      - g++
+      - cmake
+      - libboost-all-dev
+      - libssl-dev
+      - libpcap-dev
+      - pkg-config
+      - protobuf-compiler

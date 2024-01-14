@@ -1,0 +1,25 @@
+---
+- name: Check rustup exists
+  tags: rust
+  become: false
+  shell: command -v rustup >/dev/null 2>&1
+  register: is_rustup_exists
+  ignore_errors: true
+
+- name: Install rust when rustup not exists
+  tags: rust
+  become: false
+  when: is_rustup_exists.rc != 0
+  ansible.builtin.shell: |
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | bash -s -- -y
+  args:
+    executable: /bin/bash
+
+- name: Update rust when rustup exists
+  tags: rust
+  become: false
+  when: is_cargo_exists.rc == 0
+  ansible.builtin.shell: |
+    rustup update
+  args:
+    executable: /bin/bash

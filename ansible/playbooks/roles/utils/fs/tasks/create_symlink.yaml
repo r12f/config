@@ -1,6 +1,7 @@
 ---
 # Create symlink: {{item.link}} => {{item.target}}
-- name: "Create target as folder, if not exists: {{item.target}}"
+- name: "Ensure target folder exists: {{item.target}}"
+  when: "'create_target_as_folder' is not in item"
   file:
     path: "{{item.target}}"
     state: directory
@@ -11,19 +12,27 @@
   register: link_stat
 
 - name: "Remove existing link if it is a symlink: {{item.link}}"
-  when: link_stat.stat.islnk
+  when: link_stat.stat.exists and link_stat.stat.islnk
   file:
     path: "{{item.link}}"
     state: absent
 
 - name: "Backup existing file: {{item.link}}"
-  when:
-    - link_stat.stat.exists
-    - not link_stat.stat.islnk
+  when: link_stat.stat.exists and not link_stat.stat.islnk
   command: 'mv {{item.link}} {{item.link}}.bak'
 
 - name: "Create symlink: {{item.link}} => {{item.target}}"
-  file:
-    src: "{{item.target}}"
-    dest: "{{item.link}}"
-    state: link
+  block:
+    - name: "Create symlink without sudo: {{item.link}} => {{item.target}}"
+      become: false
+      file:
+        src: "{{item.target}}"
+        dest: "{{item.link}}"
+        state: link
+  rescue:
+    - name: "Create symlink with sudo: {{item.link}} => {{item.target}}"
+      become: true
+      file:
+        src: "{{item.target}}"
+        dest: "{{item.link}}"
+        state: link

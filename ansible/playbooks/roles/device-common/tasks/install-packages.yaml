@@ -1,0 +1,39 @@
+---
+- name: Install basic command line tools
+  tags: package
+  package:
+    name:
+      - bash-completion
+      - git
+      - curl
+      - wget
+      - vim
+      - jq
+      - yq
+      - zip
+      - unzip
+      - lsof
+      - htop
+      - iotop
+      - uuid
+      - tree
+      - minicom
+      - setserial
+      - tio
+      - stress-ng
+
+- name: Install network tools
+  tags: package
+  package:
+    name:
+      - iftop
+      - iperf
+      - iperf3
+      - net-tools
+      - nmap
+      - tcpdump
+      - tshark
+      - traceroute
+      - bridge-utils
+      - iptables
+

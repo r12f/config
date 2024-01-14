@@ -1,0 +1,34 @@
+---
+- name: Ensure packages needed for config repo are installed
+  tags: config
+  package:
+    name:
+      - git
+      - vim
+
+- name: Create config directory
+  tags: config
+  become: false
+  file:
+    path: "{{config_dir}}"
+    state: directory
+    mode: 0755
+
+- name: Git clone config repo
+  tags: config
+  become: false
+  git:
+    repo: "{{config_repo}}"
+    dest: "{{config_dir}}"
+    version: "{{config_branch}}"
+    clone: yes
+    recursive: yes
+    update: yes
+
+- name: Run install script from config repo
+  tags: config
+  become: false
+  shell: "{{config_dir}}/install.sh"
+  args:
+    chdir: "{{config_dir}}"
+    executable: /bin/bash

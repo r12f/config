@@ -1,0 +1,7 @@
+---
+- name: Redirect large folders to data disk
+  tags: redirect-folders
+  include_tasks:
+    file: roles/utils/fs/tasks/create_symlink.yaml
+    apply: { tags: [ "redirect-folders" ] }
+  with_items: "{{redirect_folders}}"

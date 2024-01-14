@@ -1,0 +1,19 @@
+# User settings
+desired_user: r12f
+users_to_remove:
+  - ubuntu
+  - debian
+  - rock
+  - radxa
+
+# Config settings
+config_dir: "/home/{{desired_user}}/config"
+config_repo: "https://github.com/r12f/config.git"
+config_branch: "master"
+
+# Directory redirection
+redirect_folders:
+- link: "/home/{{desired_user}}/.vscode-server"
+  target: "/home/{{desired_user}}/data/.vscode-server"
+- link: "/var/lib/docker"
+  target: "/home/{{desired_user}}/data/docker"

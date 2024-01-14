@@ -1,0 +1,10 @@
+---
+- hosts: '{{ targets | default("all") }}'
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Update package source after cert installation
+      tags: package
+      include_tasks:
+        file: roles/utils/pkg/tasks/package_source_update.yaml
+        apply: { tags: [ "package" ] }
