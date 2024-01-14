@@ -1,0 +1,45 @@
+# All machines
+all:
+  vars:
+    # Ansible connection settings
+    ansible_connection: ssh
+    ansible_port: 12345
+    ansible_ssh_user: r12f
+    ansible_ssh_common_args: "-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
+
+    # User settings
+    desired_user: r12f
+    desired_ssh_port: 12345
+    users_to_remove:
+      - ubuntu
+      - debian
+      - rock
+      - radxa
+
+    # Device settings
+    wifi_ssid: WIFI_SSID
+  
+  children:
+    # All machines
+    fleet:
+      hosts:
+        host_a:
+          ansible_host: 192.168.0.100
+          assigned_ip: 192.168.0.10
+          board: rock5
+          machine_roles:
+            - manager
+            - dev
+
+    # All dev machines
+    dev:
+      hosts:
+        host_a:
+
+    # All new machines for bootstrap
+    bootstrap:
+      vars:
+        # ansible_port: 22
+        # ansible_ssh_user: default_user
+      hosts:
+        host_a:

@@ -11,7 +11,10 @@ function CreateSymbolLinkWithBackup {
     local source_file=$1
     local dest_file=$2
 
-    if [ -e "$dest_file" ]; then
+    if [ -L "$dest_file" ]; then
+        echo "Removing existing symbol link: \"$dest_file\" ..."
+        rm "$dest_file"
+    elif [ -e "$dest_file" ]; then
         local backup_id=0
         local backup_file="$dest_file.bak"
         while [ -f "$backup_file" ]; do
@@ -24,9 +27,6 @@ function CreateSymbolLinkWithBackup {
             echo "Create backup failed."
             return 1
         fi
-    elif [ -h "$dest_file" ]; then
-        echo "Removing existing symbol link: \"$dest_file\" ..."
-        rm "$dest_file"
     fi
 
     echo "Creating symbol link: \"$dest_file\" -> \"$source_file\""
@@ -39,8 +39,6 @@ function CreateSymbolLinkWithBackup {
 }
 
 # Install bash configuration
-echo "Install bash configuration ..."
-
 if ! CreateSymbolLinkWithBackup "$BASH_CONFIG_ROOT/.bash_profile" "$HOME/.bash_profile"; then
     echo "Install failed."
     exit 1
@@ -56,9 +54,6 @@ if ! CreateSymbolLinkWithBackup "$BASH_CONFIG_ROOT/.bashrc" "$HOME/.bashrc"; the
     exit 1
 fi
 
-echo "Bash configuration installation complete!"
-echo ""
-
 # Install git configuration
 if ! CreateSymbolLinkWithBackup "$CONFIG_ROOT/git/.gitconfig" "$HOME/.gitconfig"; then
     echo "Install failed."
@@ -67,6 +62,12 @@ fi
 
 # Install gdb configuration
 if ! CreateSymbolLinkWithBackup "$CONFIG_ROOT/gdb/.gdbinit" "$HOME/.gdbinit"; then
+    echo "Install failed."
+    exit 1
+fi
+
+# Install ansible configuration
+if ! CreateSymbolLinkWithBackup "$CONFIG_ROOT/ansible/ansible.cfg" "$HOME/.ansible.cfg"; then
     echo "Install failed."
     exit 1
 fi

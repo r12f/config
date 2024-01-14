@@ -1,0 +1,46 @@
+---
+- name: Updating SSH configurations
+  tags: ssh
+  template:
+    src: templates/sshd.conf.j2
+    dest: /etc/ssh/sshd_config.d/sshd.conf
+
+# SSH will force the port in systemd, hence every systemctl restart or reboot will reset the port back to 22.
+# Here, we change the ListenStream setting in ssh.socket file, so that SSH will listen on the port we want.
+- name: Updating systemd SSH socket
+  tags: ssh
+  lineinfile:
+    path: /lib/systemd/system/ssh.socket
+    regexp: '^ListenStream='
+    line: "ListenStream={{desired_ssh_port}}"
+    state: present
+
+- name: Init .ssh folder
+  tags: ssh
+  file:
+    path: "/home/{{desired_user}}/.ssh"
+    state: directory
+    owner: "{{desired_user}}"
+    group: "{{desired_user}}"
+    mode: 0700
+
+- name: Init authorized_keys file
+  tags: ssh
+  template:
+    src: templates/authorized_keys.j2
+    dest: "/home/{{desired_user}}/.ssh/authorized_keys"
+
+- name: Change authorized_keys file permission
+  tags: ssh
+  file:
+    path: "/home/{{desired_user}}/.ssh/authorized_keys"
+    state: file
+    owner: "{{desired_user}}"
+    group: "{{desired_user}}"
+    mode: 0600
+
+- name: Reload SSH to make new config taking effect
+  tags: ssh
+  service:
+    name: sshd
+    state: reloaded

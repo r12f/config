@@ -1,0 +1,29 @@
+---
+# Create symlink: {{item.link}} => {{item.target}}
+- name: "Create target as folder, if not exists: {{item.target}}"
+  file:
+    path: "{{item.target}}"
+    state: directory
+
+- name: "Check if link already exists: {{item.link}}"
+  stat:
+    path: "{{item.link}}"
+  register: link_stat
+
+- name: "Remove existing link if it is a symlink: {{item.link}}"
+  when: link_stat.stat.islnk
+  file:
+    path: "{{item.link}}"
+    state: absent
+
+- name: "Backup existing file: {{item.link}}"
+  when:
+    - link_stat.stat.exists
+    - not link_stat.stat.islnk
+  command: 'mv {{item.link}} {{item.link}}.bak'
+
+- name: "Create symlink: {{item.link}} => {{item.target}}"
+  file:
+    src: "{{item.target}}"
+    dest: "{{item.link}}"
+    state: link

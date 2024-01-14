@@ -1,0 +1,53 @@
+---
+- name: Create user
+  tags: user
+  user:
+    name: "{{desired_user}}"
+    comment: "{{desired_user}}"
+    password: "{{desired_password | password_hash('sha512')}}"
+    expires: -1
+
+- name: Get all user groups
+  tags: user
+  getent:
+    database: group
+
+- name: Add user to well known user groups
+  tags: user
+  user:
+    name: "{{desired_user}}"
+    groups: '{{item}}'
+    append: true
+  when: item in ansible_facts.getent_group
+  loop:
+    - sudo
+    - adm
+    - dialout
+    - audio
+    - video
+    - plugdev
+    - games
+    - users
+    - input
+    - render
+    - netdev
+    - gpio
+    - spi
+    - i2c
+    - cdrom
+    - floppy
+    - dip
+    - lxd
+    - kvm
+    - libvirt
+    - ubridge
+    - wireshark
+    - docker
+
+- name: Add user to sudoers
+  tags: user
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers
+    regexp: '^{{desired_user}}'
+    insertafter: 'EOF'
+    line: "{{desired_user}} ALL=(ALL) NOPASSWD:ALL"

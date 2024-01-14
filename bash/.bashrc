@@ -10,6 +10,7 @@
 # 0. Shell settings
 #
 ######################################################################
+
 # Color definitions for output
 export COLOR_NORMAL="\[\e[0m\]"
 export COLOR_RED="\[\e[31m\]"
@@ -69,12 +70,23 @@ fi
 
 ######################################################################
 #
-# 1. Others
+# 1. Ansible
 #
 ######################################################################
-# Ansible local password file
-export ANSIBLE_VAULT_PASSWORD_FILE=~/.vault_pass
-export ANSIBLE_VAULT_FILE=
+
+# Inventory setting.
+# We can use multiple -i <path> to specify multiple inventories.
+export ANSIBLE_INVENTORY="-i ~/.ansible_hosts.yaml"
+
+# Vault
+export ANSIBLE_VAULT_FILE="~/.ansible_vault.yaml"
+export ANSIBLE_VAULT_PASSWORD_FILE="~/.ansible_vault_pass"
+
+######################################################################
+#
+# 2. Others
+#
+######################################################################
 
 # Add user bin folder for go
 if [ -d "/usr/local/bin/go" ]; then
@@ -121,6 +133,7 @@ export SONIC_BUILD_JOBS=24
 # x. Local overrides
 #
 ######################################################################
+
 # Some settings are different on each machine, so we load local environment here.
 if [ -f ~/.bashrc.local ]; then
     source ~/.bashrc.local

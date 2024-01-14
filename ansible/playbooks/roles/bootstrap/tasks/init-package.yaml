@@ -1,0 +1,28 @@
+---
+- name: Update package source
+  tags: package
+  include_tasks:
+    file: roles/utils/pkg/tasks/package_source_update.yaml
+    apply: { tags: [ "package" ] }
+
+- name: Install cert related packages
+  tags: package
+  package:
+    name:
+      - ca-certificates
+      - gnupg
+
+- name: Update package source after cert installation
+  tags: package
+  include_tasks:
+    file: roles/utils/pkg/tasks/package_source_update.yaml
+    apply: { tags: [ "package" ] }
+
+- name: Install critical packages for bootstrap
+  tags: package
+  package:
+    name:
+      - git
+      - curl
+      - wget
+      - unzip

@@ -1,0 +1,13 @@
+network:
+version: 2
+renderer: networkd
+ethernets:
+  {% for if in net_ifs %}
+  {{if.name}}:
+    addresses: [{{if.ip}}]
+    routes:
+      - to: default
+        via: {{if.gw}}
+    nameservers:
+      addresses: [{{if.dns}}]
+  {% endfor %}

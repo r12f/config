@@ -1,0 +1,8 @@
+---
+# We don't wait for the reboot to complete, because network configuration could be changed,
+# and we will never be able to connect to the machine again using the old network configuration.
+- name: Reboot after bootstrap
+  tags: post
+  reboot:
+  async: 0
+  poll: 0
