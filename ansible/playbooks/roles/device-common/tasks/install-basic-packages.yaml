@@ -9,7 +9,6 @@
       - wget
       - vim
       - jq
-      - yq
       - zip
       - unzip
       - lsof
@@ -30,9 +29,9 @@
       - iperf
       - net-tools
       - ethtool
+      - bridge-utils
       - nmap
       - tcpdump
       - tshark
       - traceroute
-      - bridge-utils
       - iptables
