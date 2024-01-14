@@ -4,5 +4,6 @@
 - name: Reboot after bootstrap
   tags: post
   reboot:
-  async: 0
-  poll: 0
+    reboot_timeout: 1
+    connect_timeout: 1
+  ignore_errors: true
