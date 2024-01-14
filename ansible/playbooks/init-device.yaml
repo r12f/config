@@ -1,6 +1,6 @@
 ---
 - hosts: '{{ targets | default("all") }}'
   become: true
-  gather_facts: false
+  gather_facts: true
   roles:
     - device-common

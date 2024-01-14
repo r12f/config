@@ -70,23 +70,14 @@ fi
 
 ######################################################################
 #
-# 1. Ansible
+# 1. Path
 #
 ######################################################################
 
-# Inventory setting.
-# We can use multiple -i <path> to specify multiple inventories.
-export ANSIBLE_INVENTORY="-i ~/.ansible_inventory"
-
-# Vault
-export ANSIBLE_VAULT_FILE="~/.ansible_vault.yaml"
-export ANSIBLE_VAULT_PASSWORD_FILE="~/.ansible_vault_pass"
-
-######################################################################
-#
-# 2. Others
-#
-######################################################################
+# Some embedded systems don't have */sbin in PATH, so we add it here.
+if [[ $PATH =~ "/sbin" ]]; then
+  export PATH="$PATH:/sbin:/usr/sbin:/usr/local/sbin"
+fi
 
 # Add user bin folder for go
 if [ -d "/usr/local/bin/go" ]; then
@@ -122,11 +113,32 @@ if [ -d "$HOME/.local/bin" ]; then
   export PATH="$HOME/.local/bin:$PATH"
 fi
 
+######################################################################
+#
+# 2. Ansible
+#
+######################################################################
+
+# Inventory setting.
+# We can use multiple -i <path> to specify multiple inventories.
+export ANSIBLE_INVENTORY="-i ~/.ansible_inventory"
+
+# Vault
+export ANSIBLE_VAULT_FILE="~/.ansible_vault.yaml"
+export ANSIBLE_VAULT_PASSWORD_FILE="~/.ansible_vault_pass"
+
+######################################################################
+#
+# x. Others
+#
+######################################################################
+
 # SONiC build environment
 export NOJESSIE=1
 export NOSTRETCH=1
 export NOBUSTER=1
 export SONIC_BUILD_JOBS=24
+
 
 ######################################################################
 #

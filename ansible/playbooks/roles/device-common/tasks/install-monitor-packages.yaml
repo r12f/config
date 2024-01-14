@@ -1,0 +1,23 @@
+---
+- name: Install node exporter
+  tags: [ package, monitor ]
+  package:
+    name:
+      - prometheus-node-exporter
+
+- name: Update node exporter default config
+  tags: [ package, monitor ]
+  template:
+    src: templates/prometheus-node-exporter-defaults.j2
+    dest: /etc/default/prometheus-node-exporter
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Restart node exporter
+  tags: [ package, monitor ]
+  service:
+    name: prometheus-node-exporter
+    state: restarted
+    enabled: true
+    daemon_reload: true

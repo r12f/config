@@ -1,4 +1,6 @@
 ---
 - import_tasks: install-config.yaml
 - import_tasks: redirect-folders.yaml
-- import_tasks: install-packages.yaml
+- import_tasks: install-basic-packages.yaml
+- import_tasks: install-docker.yaml
+- import_tasks: install-monitor-packages.yaml

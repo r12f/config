@@ -1,13 +1,13 @@
 ---
 - name: Check docker exists
-  tags: docker
+  tags: [ package, docker ]
   become: false
   shell: command -v docker >/dev/null 2>&1
   register: is_docker_exists 
   ignore_errors: true
 
 - name: Install docker repository
-  tags: docker
+  tags: [ package, docker ]
   when: is_docker_exists.rc != 0
   ansible.builtin.shell: |
     sudo install -m 0755 -d /etc/apt/keyrings
@@ -20,14 +20,14 @@
     executable: /bin/bash
 
 - name: Update package source after installing docker repository
-  tags: docker
+  tags: [ package, docker ]
   when: is_docker_exists.rc != 0
   include_tasks:
     file: roles/utils/pkg/tasks/package_source_update.yaml
     apply: { tags: [ "package", "docker" ] }
 
 - name: Install docker packages
-  tags: docker
+  tags: [ package, docker ]
   package:
     name:
       - docker-ce

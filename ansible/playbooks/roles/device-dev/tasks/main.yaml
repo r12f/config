@@ -1,5 +1,4 @@
 ---
 - import_tasks: install-build-essentials.yaml
-- import_tasks: install-docker.yaml
 - import_tasks: install-python.yaml
 - import_tasks: install-rust.yaml
