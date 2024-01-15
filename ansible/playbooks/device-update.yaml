@@ -6,5 +6,5 @@
     - name: Update package source after cert installation
       tags: package
       include_tasks:
-        file: roles/utils/pkg/tasks/package_source_update.yaml
+        file: roles/utils/pkg/tasks/package-source-update.yaml
         apply: { tags: [ "package" ] }

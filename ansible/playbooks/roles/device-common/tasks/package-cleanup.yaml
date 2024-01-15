@@ -1,0 +1,6 @@
+---
+- name: Cleanup unused packages
+  tags: cleanup
+  include_tasks:
+    file: roles/utils/pkg/tasks/package_cleanup.yaml
+    apply: { tags: [ "cleanup" ] }

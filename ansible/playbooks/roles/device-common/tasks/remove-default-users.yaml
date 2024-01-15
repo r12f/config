@@ -1,0 +1,9 @@
+---
+- name: Remove default user
+  tags: cleanup
+  user:
+    name: '{{item}}'
+    state: absent
+    remove: true
+  with_items: '{{users_to_remove}}'
+  ignore_errors: true
