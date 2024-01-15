@@ -20,10 +20,13 @@ redirect_folders:
 
 # Device overlay
 device_overlays:
+  # Rock 5B: https://docs.radxa.com/en/rock5/rock5b/hardware/rock5b-gpio
   rock5b:
     - rk3588-uart2-m0             # UART2-M0:   GPIO0_B5_PIN8 (TX),     GPIO0_B6_PIN10 (RX)
     - rk3588-spi0-m2-cs0-spidev   # SPI0-M2:    GPIO1_B3_PIN23 (SCLK),  GPIO1_B2_PIN19 (MOSI),  GPIO1_B1_PIN21 (MISO),  GPIO1_B4_PIN24 (CS0)
     - rk3588-spi1-m1-cs0-spidev   # SPI1-M1:    GPIO3_C1_PIN11 (SCLK),  GPIO3_B7_PIN13 (MOSI),  GPIO3_C0_PIN15 (MISO),  GPIO3_C2_PIN32 (CS0)
+  
+  # Radax Zero: https://wiki.radxa.com/Zero/hardware/gpio
   radax_zero1:
     - meson-g12-uart-ao-a         # UART_AO-A:  GPIOAO_0_PIN8  (TX),    GPIOAO_1_PIN10 (RX)
     - radxa-zero-uart-ao-b-89     # UART_AO-B:  GPIOAO_8_PIN35 (TX),    GPIOAO_9_PIN37 (RX)
