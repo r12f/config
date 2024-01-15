@@ -36,3 +36,9 @@
       - docker-buildx-plugin
       - docker-compose-plugin
 
+- name: Add user to docker group
+  tags: docker
+  user:
+    name: "{{ansible_ssh_user}}"
+    groups: 'docker'
+    append: true

@@ -2,5 +2,12 @@
 - hosts: '{{ targets | default("all") }}'
   become: true
   gather_facts: true
-  roles:
-    - device-common
+  tasks:
+    # Tasks for all devices
+    - import_role:
+        name: device-common
+    
+    # Tasks for dev devices only
+    - import_role:
+        name: device-dev
+      when: "host_roles is contains('dev')"
