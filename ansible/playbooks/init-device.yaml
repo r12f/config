@@ -15,4 +15,4 @@
     # Tasks for iot devices only
     - import_role:
         name: device-iot
-      when: "host_roles is contains('iot')"
+      when: "host_roles is contains('iot') or host_roles is contains('dev-iot')"
