@@ -43,7 +43,6 @@
 
 - name: Init .ssh folder
   tags: ssh
-  become: false
   file:
     path: "/home/{{desired_user}}/.ssh"
     state: directory
@@ -53,17 +52,9 @@
 
 - name: Init authorized_keys file
   tags: ssh
-  become: false
   template:
     src: templates/authorized_keys.j2
     dest: "/home/{{desired_user}}/.ssh/authorized_keys"
-
-- name: Change authorized_keys file permission
-  tags: ssh
-  become: false
-  file:
-    path: "/home/{{desired_user}}/.ssh/authorized_keys"
-    state: file
     owner: "{{desired_user}}"
     group: "{{desired_user}}"
     mode: 0600

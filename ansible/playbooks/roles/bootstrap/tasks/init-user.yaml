@@ -6,6 +6,7 @@
     comment: "{{desired_user}}"
     password: "{{desired_password | password_hash('sha512')}}"
     expires: -1
+    shell: /bin/bash
 
 - name: Get all user groups
   tags: user

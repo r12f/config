@@ -8,10 +8,11 @@
 
 - name: Create config directory
   tags: config
-  become: false
   file:
     path: "{{config_dir}}"
     state: directory
+    owner: "{{ansible_ssh_user}}"
+    group: "{{ansible_ssh_user}}"
     mode: 0755
 
 - name: Git clone config repo

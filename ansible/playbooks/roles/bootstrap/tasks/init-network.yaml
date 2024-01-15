@@ -13,6 +13,7 @@
   when: is_nmcli_exists.rc == 0
   shell: "nmcli con mod {{item.con}} ipv4.addresses {{item.ip}} ipv4.gateway {{item.gw}} ipv4.dns {{item.dns}} ipv4.method manual"
   with_items: "{{net_ifs}}"
+  ignore_errors: true # Ignore errors, since some netifs may not be available, e.g. not connected yet.
 
 - name: "Update inteface settings using netplan"
   tags: network
