@@ -1,0 +1,12 @@
+---
+- name: Install i2c tools
+  tags: i2c
+  package:
+    name:
+      - i2c-tools
+
+- name: Modprobe i2c-dev kernel module
+  tags: i2c
+  ansible.builtin.modprobe:
+    name: i2c-dev
+    state: present
