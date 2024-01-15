@@ -1,2 +1,3 @@
 ---
 - import_tasks: install-i2c-tools.yaml
+- import_tasks: update-device-overlay.yaml

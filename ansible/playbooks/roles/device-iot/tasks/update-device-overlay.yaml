@@ -1,0 +1,24 @@
+---
+- name: Get all enabled overlays from the device
+  tags: overlay
+  shell: "cd /boot/dtbo && ls *.dtbo"
+  register: enabled_overlays
+  ignore_errors: true
+
+- name: Disable all enabled overlays
+  tags: overlay
+  when: enabled_overlays.stdout_lines | length > 0
+  shell: "mv /boot/dtbo/{{ item }} /boot/dtbo/{{ item }}.disabled"
+  with_items: "{{ enabled_overlays.stdout_lines }}"
+
+- name: "Enable selected overlays for {{ board }}"
+  tags: overlay
+  when: board is in device_overlays
+  shell: "mv /boot/dtbo/{{ item }}.dtbo.disabled /boot/dtbo/{{ item }}.dtbo"
+  with_items: "{{ device_overlays[board] }}"
+  register: enabled_overlays
+
+- name: Update u-boot
+  tags: overlay
+  when: enabled_overlays.changed
+  shell: "/usr/sbin/u-boot-update"

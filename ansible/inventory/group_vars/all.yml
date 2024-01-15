@@ -17,3 +17,10 @@ redirect_folders:
   target: "/home/{{desired_user}}/data/.vscode-server"
 - link: "/var/lib/docker"
   target: "/home/{{desired_user}}/data/docker"
+
+# Device overlay
+device_overlays:
+  rock5b:
+    - rk3588-spi0-m2-cs0-spidev
+    - rk3588-spi1-m1-cs0-spidev
+    - rk3588-uart2-m0
