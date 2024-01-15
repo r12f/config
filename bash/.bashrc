@@ -75,7 +75,7 @@ fi
 ######################################################################
 
 # Some embedded systems don't have */sbin in PATH, so we add it here.
-if [[ $PATH =~ "/sbin" ]]; then
+if [[ ! $PATH =~ "/sbin" ]]; then
   export PATH="$PATH:/sbin:/usr/sbin:/usr/local/sbin"
 fi
 
