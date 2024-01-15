@@ -16,3 +16,8 @@
     - import_role:
         name: device-iot
       when: "host_roles is contains('iot') or host_roles is contains('dev-iot')"
+
+    # Tasks for watchdog devices only
+    - import_role:
+        name: device-watchdog
+      when: "host_roles is contains('watchdog')"
