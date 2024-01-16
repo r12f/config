@@ -87,7 +87,6 @@ code_repos:
       forked: true
     - repo: https://github.com/r12f/sonic-book.git
       path: sonic/sonic-book
-      forked: true
   dev_dpu:
     - repo: https://gitlab.com/nvidia/networking/bluefield/doca-sample-applications.git
       path: dpu/doca-samples

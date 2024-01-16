@@ -27,3 +27,9 @@ After bootstrap, we can start the real initialization by running:
 ```bash
 asblp init-device.yaml
 ```
+
+If we need to run init on specific devices, we can do:
+
+```bash
+asblp init-device.yaml -e "targets=<host_group>"
+```

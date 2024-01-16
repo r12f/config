@@ -4,7 +4,7 @@
   user:
     name: "{{desired_user}}"
     comment: "{{desired_user}}"
-    password: "{{desired_password | password_hash('sha512')}}"
+    password: "{{secrets.desired_password | password_hash('sha512')}}"
     expires: -1
     shell: /bin/bash
 

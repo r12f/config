@@ -1,1 +1,3 @@
-{{ssh_authorized_key}}
+{% for key in secrets.ssh.authorized_keys %}
+{{key}}
+{% endfor %}

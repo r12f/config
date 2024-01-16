@@ -18,7 +18,7 @@ all:
         host_a:
           ansible_host: 192.168.0.100
           assigned_ip: 192.168.0.10
-          board: rock5
+          device: rock5
           machine_roles:
             - manager
             - dev

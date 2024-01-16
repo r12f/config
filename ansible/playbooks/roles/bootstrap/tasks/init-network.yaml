@@ -1,23 +1,27 @@
 ---
-- name: "Check if nmcli exists"
+- name: Update NetIf settings if specified
   tags: network
-  shell: command -v nmcli >/dev/null 2>&1
-  register: is_nmcli_exists 
-  ignore_errors: true
+  when: net_ifs is defined and net_ifs | length > 0
+  block:
+    - name: "Check if nmcli exists"
+      tags: network
+      shell: command -v nmcli >/dev/null 2>&1
+      register: is_nmcli_exists 
+      ignore_errors: true
 
-# `nmcli con mod` will persist the changes to `/etc/NetworkManager/system-connections/*.nmconnection` files.
-# We cannot apply the changes immediately, because the network connection will break. But later, we will reboot the machine.
-# And the changes will be applied by then.
-- name: "Update interface settings using nmcli if nmcli exists"
-  tags: network
-  when: is_nmcli_exists.rc == 0
-  shell: "nmcli con mod {{item.con}} ipv4.addresses {{item.ip}} ipv4.gateway {{item.gw}} ipv4.dns {{item.dns}} ipv4.method manual"
-  with_items: "{{net_ifs}}"
-  ignore_errors: true # Ignore errors, since some netifs may not be available, e.g. not connected yet.
+    # `nmcli con mod` will persist the changes to `/etc/NetworkManager/system-connections/*.nmconnection` files.
+    # We cannot apply the changes immediately, because the network connection will break. But later, we will reboot the machine.
+    # And the changes will be applied by then.
+    - name: "Update interface settings using nmcli if nmcli exists"
+      tags: network
+      when: is_nmcli_exists.rc == 0
+      shell: "nmcli con mod {{item.con}} ipv4.addresses {{item.ip}} ipv4.gateway {{item.gw}} ipv4.dns {{item.dns}} ipv4.method manual"
+      with_items: "{{net_ifs}}"
+      ignore_errors: true # Ignore errors, since some netifs may not be available, e.g. not connected yet.
 
-- name: "Update inteface settings using netplan"
-  tags: network
-  when: is_nmcli_exists.rc != 0
-  template:
-    src: "templates/netplan.j2"
-    dest: "/etc/netplan/01-netcfg.yaml"
+    - name: "Update inteface settings using netplan"
+      tags: network
+      when: is_nmcli_exists.rc != 0
+      template:
+        src: "templates/netplan.j2"
+        dest: "/etc/netplan/01-netcfg.yaml"
