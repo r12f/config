@@ -1,0 +1,8 @@
+---
+- name: "Clone repos for host role: {{ host_role }}"
+  tags: "{{ host_role }}"
+  when: "host_role | replace('-', '_') in code_repos"
+  include_tasks:
+    file: roles/utils/git/tasks/git-clone-repo.yaml
+    apply: { tags: [ "{{ host_role }}" ] }
+  with_items: "{{ code_repos[host_role | replace('-', '_')] }}"

@@ -1,0 +1,41 @@
+---
+- name: "Generate repo path: {{ item.path }}"
+  set_fact:
+    repo_path: "{{ code_dir + '/' + item.path }}"
+    repo_name: "{{ item.repo | regex_replace('^.*/([^/][^/]*)', '\\1') }}"
+
+- name: "Git clone forked repo: {{ item.repo }}"
+  when: "item.forked is defined and item.forked"
+  block:
+    - name: "Generate forked repo path for {{ item.path }}"
+      set_fact:
+        forked_repo: "{{ 'https://github.com/' + github_name + '/' + repo_name }}"
+
+    - name: "Git clone repo: {{ forked_repo }}"
+      git:
+        repo: "{{ forked_repo }}"
+        dest: "{{ repo_path }}"
+        clone: yes
+        recursive: yes
+        update: yes
+
+    - name: Check if git upstream remote is already created
+      stat:
+        path: "{{ repo_path }}/.git/refs/remotes/upstream"
+      register: upstream_remote_exists
+
+    - name: "Add repo as upstream: {{ item.repo }}"
+      when: "not upstream_remote_exists.stat.exists"
+      ansible.builtin.shell: |
+        cd {{ repo_path }}
+        git remote add upstream {{ item.repo }}
+        git fetch upstream
+
+- name: "Git clone repo: {{ item.repo }}"
+  when: "not (item.forked is defined and item.forked)"
+  git:
+    repo: "{{ item.repo }}"
+    dest: "{{ repo_path }}"
+    clone: yes
+    recursive: yes
+    update: yes

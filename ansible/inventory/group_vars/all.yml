@@ -7,16 +7,16 @@ users_to_remove:
   - radxa
 
 # Config settings
-config_dir: "/home/{{desired_user}}/config"
+config_dir: "/home/{{ansible_ssh_user}}/config"
 config_repo: "https://github.com/r12f/config.git"
 config_branch: "master"
 
 # Directory redirection
 redirect_folders:
-- link: "/home/{{desired_user}}/.vscode-server"
-  target: "/home/{{desired_user}}/data/.vscode-server"
+- link: "/home/{{ansible_ssh_user}}/.vscode-server"
+  target: "/home/{{ansible_ssh_user}}/data/.vscode-server"
 - link: "/var/lib/docker"
-  target: "/home/{{desired_user}}/data/docker"
+  target: "/home/{{ansible_ssh_user}}/data/docker"
 
 # Device overlay
 device_overlays:
@@ -33,3 +33,35 @@ device_overlays:
     - meson-g12-i2c-ee-m3-a       # I2C_EE-M3:  GPIOA_15_PIN5  (SCL),   GPIOA_14_PIN3  (SDA)
     - meson-g12-spi-a-spidev      # SPI-A:      GPIOX_11_PIN13 (SCLK),  GPIOX_8_PIN18  (MOSI),  GPIOX_9_PIN12 (MISO),   GPIOX_10_PIN16 (CS)
     - meson-g12-spi-b-spidev      # SPI-B:      GPIOH_7_PIN23  (SCLK),  GPIOH_4_PIN19  (MOSI),  GPIOH_5_PIN21 (MISO),   GPIOH_6_PIN24  (CS)
+
+# Code settings
+code_dir: "/home/{{ansible_ssh_user}}/data/code"
+github_name: "r12f"
+code_repos:
+  dev_dp:
+    - repo: https://gerrit.fd.io/r/vpp
+      path: dp/vpp
+    - repo: https://github.com/DPDK/dpdk.git
+      path: dp/dpdk
+  dev_sonic:
+    - repo: https://github.com/sonic-net/SONiC.git
+      path: sonic/SONiC
+      forked: true
+    - repo: https://github.com/sonic-net/sonic-buildimage.git
+      path: sonic/sonic-buildimage
+      forked: true
+    - repo: https://github.com/sonic-net/DASH.git
+      path: sonic/DASH
+      forked: true
+    - repo: https://github.com/opencomputeproject/SAI.git
+      path: sonic/SAI
+      forked: true
+    - repo: https://github.com/sonic-net/sonic-platform-vpp.git
+      path: sonic/sonic-platform-vpp
+      forked: true
+    - repo: https://github.com/sonic-net/sonic-mgmt.git
+      path: sonic/sonic-mgmt
+      forked: true
+    - repo: https://github.com/r12f/sonic-book.git
+      path: sonic/sonic-book
+      forked: true

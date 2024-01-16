@@ -1,0 +1,9 @@
+---
+- name: "Clone all repos for host role: {{ inventory_hostname }}"
+  tags: "always"
+  include_tasks:
+    file: clone-host-role-repos.yaml
+    apply: { tags: [ "{{ host_role }}" ] }
+  loop: "{{ host_roles }}"
+  loop_control:
+    loop_var: host_role
