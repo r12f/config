@@ -7,3 +7,12 @@
   loop: "{{ host_roles }}"
   loop_control:
     loop_var: host_role
+
+- name: "Clone all private repos for host role: {{ inventory_hostname }}"
+  tags: "always"
+  include_tasks:
+    file: clone-private-host-role-repos.yaml
+    apply: { tags: [ "{{ host_role }}" ] }
+  loop: "{{ host_roles }}"
+  loop_control:
+    loop_var: host_role

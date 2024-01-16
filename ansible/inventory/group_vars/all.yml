@@ -38,11 +38,34 @@ device_overlays:
 code_dir: "/home/{{ansible_ssh_user}}/data/code"
 github_name: "r12f"
 code_repos:
+  dev_r12f:
+    - repo: https://github.com/r12f/divoom.git
+      path: r12f/divoom
+    - repo: https://github.com/r12f/rnp.git
+      path: r12f/rnp
+    - repo: https://github.com/r12f/potr.git
+      path: r12f/potr
+  dev_linux:
+    - repo: https://github.com/torvalds/linux.git
+      path: linux/linux
   dev_dp:
     - repo: https://gerrit.fd.io/r/vpp
       path: dp/vpp
     - repo: https://github.com/DPDK/dpdk.git
       path: dp/dpdk
+    - repo: https://github.com/p4lang/ptf.git
+      path: dp/ptf
+  dev_p4:
+    - repo: https://github.com/p4lang/p4c.git
+      path: p4/p4c
+    - repo: https://github.com/p4lang/behavioral-model.git
+      path: p4/behavioral-model
+    - repo: https://github.com/p4lang/tutorials.git
+      path: p4/tutorials
+    - repo: https://github.com/mininet/mininet.git
+      path: p4/mininet
+    - repo: https://github.com/barefootnetworks/Open-Tofino.git
+      path: p4/OpenTofino
   dev_sonic:
     - repo: https://github.com/sonic-net/SONiC.git
       path: sonic/SONiC
@@ -65,3 +88,8 @@ code_repos:
     - repo: https://github.com/r12f/sonic-book.git
       path: sonic/sonic-book
       forked: true
+  dev_dpu:
+    - repo: https://gitlab.com/nvidia/networking/bluefield/doca-sample-applications.git
+      path: dpu/doca-samples
+    - repo: https://github.com/oneapi-src/oneAPI-samples.git
+      path: dpu/oneapi-samples
