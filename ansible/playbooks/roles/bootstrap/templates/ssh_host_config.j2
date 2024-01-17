@@ -1,0 +1,7 @@
+{% for ssh_host in item.value %}
+Host {{ ssh_host.name }}
+  HostName {{ ssh_host.host_name }}
+  IdentityFile {{ ssh_host.cert }}
+  IdentitiesOnly yes
+
+{% endfor %}

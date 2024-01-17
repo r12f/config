@@ -1,5 +1,5 @@
 ---
-- hosts: bootstrap
+- hosts: '{{ targets | default("bootstrap") }}'
   become: true
   gather_facts: false
   roles:

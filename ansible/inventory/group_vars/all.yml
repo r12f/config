@@ -76,6 +76,9 @@ code_repos:
     - repo: https://github.com/sonic-net/DASH.git
       path: sonic/DASH
       forked: true
+    - repo: https://github.com/sonic-net/DASH.git
+      path: sonic/DASH-exp
+      forked: true
     - repo: https://github.com/opencomputeproject/SAI.git
       path: sonic/SAI
       forked: true

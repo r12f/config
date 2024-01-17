@@ -1,0 +1,77 @@
+---
+- name: Check if SSHD is supported
+  tags: sshd
+  stat:
+    path: /etc/ssh/sshd_config
+  register: sshd_config_stat
+
+# In WSL, sshd is not enabled at all, hence skip all initializations.
+- name: Update SSH configurations when SSHD is supported
+  tags: sshd
+  when: sshd_config_stat.stat.exists
+  block:
+    - name: Create SSH config folder
+      tags: sshd
+      file:
+        path: /etc/ssh/sshd_config.d
+        state: directory
+        owner: root
+        group: root
+        mode: 0755
+      register: sshd_config_folder_created
+
+    - name: Updating SSH configurations
+      tags: sshd
+      template:
+        src: templates/sshd.conf.j2
+        dest: /etc/ssh/sshd_config.d/sshd.conf
+
+    - name: Update SSH global config
+      tags: sshd
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^#Include /etc/ssh/sshd_config.d/\*.conf'
+        insertbefore: '^#*Port '
+        line: "Include /etc/ssh/sshd_config.d/*.conf"
+        state: present
+
+    # SSH will force the port in systemd, hence every systemctl restart or reboot will reset the port back to 22.
+    # Here, we change the ListenStream setting in ssh.socket file, so that SSH will listen on the port we want.
+    - name: Check SSH socket systemd file exists
+      tags: sshd
+      stat:
+        path: /lib/systemd/system/ssh.socket
+      register: ssh_socket_file_stat
+
+    - name: Updating systemd SSH socket
+      tags: sshd
+      when: ssh_socket_file_stat.stat.exists
+      lineinfile:
+        path: /lib/systemd/system/ssh.socket
+        regexp: '^ListenStream='
+        line: "ListenStream={{desired_ssh_port}}"
+        state: present
+
+    - name: Init .ssh folder
+      tags: sshd
+      file:
+        path: "/home/{{desired_user}}/.ssh"
+        state: directory
+        owner: "{{desired_user}}"
+        group: "{{desired_user}}"
+        mode: 0700
+
+    - name: Init authorized_keys file
+      tags: sshd
+      template:
+        src: templates/authorized_keys.j2
+        dest: "/home/{{desired_user}}/.ssh/authorized_keys"
+        owner: "{{desired_user}}"
+        group: "{{desired_user}}"
+        mode: 0600
+
+    - name: Reload SSH to make new config taking effect
+      tags: sshd
+      service:
+        name: ssh
+        state: reloaded

@@ -1,6 +1,6 @@
 ---
-- name: Install basic command line tools
-  tags: package
+- name: Install basic tools
+  tags: [ package, package-basic ]
   package:
     name:
       - bash-completion
@@ -14,6 +14,7 @@
       - lsof
       - htop
       - iotop
+      - strace
       - lm-sensors
       - uuid
       - tree
@@ -22,8 +23,21 @@
       - tio
       - stress-ng
 
+- name: Install debian specific tools
+  tags: [ package, package-basic ]
+  when: ansible_facts["lsb"]["id"] | lower == "debian"
+  package:
+    name:
+      - yq
+      - btop
+
+- name: Install ubuntu specific tools from snap
+  tags: [ package, package-basic ]
+  when: ansible_facts["lsb"]["id"] | lower == "ubuntu"
+  shell: snap install yq btop
+
 - name: Install network tools
-  tags: package
+  tags: [ package, package-basic ]
   package:
     name:
       - iftop

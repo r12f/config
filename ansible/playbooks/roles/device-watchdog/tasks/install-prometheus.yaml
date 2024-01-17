@@ -1,8 +1,8 @@
 ---
 - name: Get all node exporter addresses for scraping
-  tags: prometheus
+  tags: [always, prometheus]
   set_fact:
-    all_node_exporter_targets: "{{ all_node_exporter_targets | default([]) + [ { 'targets': [ hostvars[item]['ansible_host'] + ':9100'], 'labels': { 'node_name': item } } ] }}"
+    all_node_exporter_targets: "{{ all_node_exporter_targets | default([]) + [ { 'targets': [ hostvars[item]['ansible_host'] | default(item) + ':9100'], 'labels': { 'node_name': item } } ] }}"
   loop: "{{ groups[secrets.monitor.host_group] }}"
 
 # If we don't stop node exporter, the prometheus role will fail due to user being already in use
