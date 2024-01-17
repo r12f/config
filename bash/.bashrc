@@ -133,6 +133,9 @@ export ANSIBLE_VAULT_PASSWORD_FILE="~/.ansible_vault_pass"
 #
 ######################################################################
 
+# Github account
+export GITHUB_USER=$USER
+
 # SONiC build environment
 export NOJESSIE=1
 export NOSTRETCH=1

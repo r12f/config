@@ -139,8 +139,8 @@ function gcf() {
     echo "Setting up upstream to $@"
     cd $f && git remote add upstream $@ && git fetch upstream && cd -
 }
-function gcb() { git checkout user/${USER}/$@; }
-function gcnb() { git checkout -b user/${USER}/$@; }
+function gcb() { git checkout user/${GITHUB_USER}/$@; }
+function gcnb() { git checkout -b user/${GITHUB_USER}/$@; }
 function gca() { git commit -v -a -m "$@" && git push; }
 
 ######################################################################
