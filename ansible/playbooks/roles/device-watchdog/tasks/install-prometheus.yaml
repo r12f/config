@@ -9,7 +9,7 @@
 - name: Stop node exporter
   tags: prometheus
   service:
-    name: prometheus-node-exporter
+    name: node_exporter
     state: stopped
 
 - name: Install prometheus
@@ -32,5 +32,5 @@
 - name: Start node exporter after install
   tags: prometheus
   service:
-    name: prometheus-node-exporter
+    name: node_exporter
     state: started

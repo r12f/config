@@ -1,23 +1,42 @@
 ---
-- name: Install node exporter
+- name: Uninstall node exporter from package manager
   tags: [ package, monitor ]
   package:
     name:
       - prometheus-node-exporter
+    state: absent
 
-- name: Update node exporter default config
+- name: Install prometheus node exporter
   tags: [ package, monitor ]
-  template:
-    src: templates/prometheus-node-exporter-defaults.j2
-    dest: /etc/default/prometheus-node-exporter
-    owner: root
-    group: root
-    mode: 0644
+  import_role:
+    name: prometheus.prometheus.node_exporter
+  vars:
+    node_exporter_enabled_collectors:
+      - filesystem:
+          mount-points-exclude: ^/(run/|sys/|proc/|dev/|snap/|var/lib/docker/|var/lib/kubelet/).*$
+          fs-types-exclude: ^(tmpfs|devtmpfs|proc|sysfs)$
+      - netclass:
+          ignored-devices: ^(br-VM|ovs-|virbr|docker).*$ 
+      - netdev:
+          device-exclude: ^(br-VM|ovs-|virbr|docker).*$ 
+    node_exporter_disabled_collectors:
+      - systemd
+      - nfs
+      - cpufreq
+      - infiniband
+      - ipvs
+
+- name: Remove self metrics from node exporter
+  tags: [ package, monitor ]
+  lineinfile:
+    path: /etc/systemd/system/node_exporter.service
+    insertafter: '^ExecStart=/usr/local/bin/node_exporter'
+    line: "'--web.disable-exporter-metrics' \\"
 
 - name: Restart node exporter
   tags: [ package, monitor ]
   service:
-    name: prometheus-node-exporter
+    name: node_exporter
     state: restarted
     enabled: true
     daemon_reload: true
