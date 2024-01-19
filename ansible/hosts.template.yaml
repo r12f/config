@@ -16,12 +16,13 @@ all:
     fleet:
       hosts:
         host_a:
-          ansible_host: 192.168.0.100
-          assigned_ip: 192.168.0.10
+          ansible_host: 192.168.0.234
           device: rock5
-          machine_roles:
-            - manager
-            - dev
+          host_roles: [ dev, watchdog ]
+          net_ifs:
+            - { if: "wlan0", con: "{{wifi_ssid}}", ip: "192.168.0.123/24", gw: "192.168.0.1", dns: "192.168.0.1" }
+          # monitor_stack_disabled: true
+          # keep_default_user: true
 
     # All dev machines
     dev:

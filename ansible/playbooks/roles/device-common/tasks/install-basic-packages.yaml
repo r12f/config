@@ -34,7 +34,10 @@
 - name: Install ubuntu specific tools from snap
   tags: [ package, package-basic ]
   when: ansible_facts["lsb"]["id"] | lower == "ubuntu"
-  shell: snap install yq btop
+  community.general.snap:
+    name:
+      - yq
+      - btop
 
 - name: Install network tools
   tags: [ package, package-basic ]
@@ -50,3 +53,4 @@
       - tshark
       - traceroute
       - iptables
+      - iptables-persistent

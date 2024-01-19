@@ -8,17 +8,23 @@
   tags: hostname
   ansible.builtin.lineinfile:
     path: /etc/hosts
-    regexp: '^127\.0\.0\.1\s+{{desired_hostname}}'
+    regexp: '^127\.0\.1\.1\s+{{desired_hostname}}'
     insertafter: '^#*127\.0\.0\.1'
-    line: "127.0.0.1 {{desired_hostname}}"
+    line: "127.0.1.1 {{desired_hostname}}"
 
-- name: Add hostname as IPv6 localhost in /etc/hosts
+- name: Remove unexpected IPv4 hostname entry in /etc/hosts
+  tags: hostname
+  ansible.builtin.lineinfile:
+    path: /etc/hosts
+    regexp: '^127\.0\.1\.1\s+{{desired_hostname}}'
+    state: absent
+
+- name: Remove IPv6 hostname entry in /etc/hosts
   tags: hostname
   ansible.builtin.lineinfile:
     path: /etc/hosts
     regexp: '^::1\s+{{desired_hostname}}'
-    insertafter: '^#*::1'
-    line: "::1 {{desired_hostname}}"
+    state: absent
 
 - name: Update hostname
   tags: hostname

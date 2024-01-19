@@ -1,6 +1,7 @@
 ---
 - name: Remove default user
   tags: cleanup
+  when: keep_default_user is not defined or not keep_default_user
   user:
     name: '{{item}}'
     state: absent
