@@ -10,7 +10,7 @@ all:
     # Device network settings
     desired_ssh_port: 12345
     wifi_ssid: WIFI_SSID
-  
+
   children:
     # All machines
     fleet:
@@ -22,7 +22,6 @@ all:
           net_ifs:
             - { if: "wlan0", con: "{{wifi_ssid}}", ip: "192.168.0.123/24", gw: "192.168.0.1", dns: "192.168.0.1" }
           # monitor_stack_disabled: true
-          # keep_default_user: true
 
     # All dev machines
     dev:
