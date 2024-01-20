@@ -30,7 +30,7 @@
   lineinfile:
     path: /etc/dnsmasq.conf
     regexp: '^#?interface=.*'
-    line: 'interface={{ gateway.if_internal }}'
+    line: 'interface={{ gateway.dhcp.interface }}'
 
 - name: Enable bind-interfaces in dnsmasq
   tags: dnsmasq
@@ -50,7 +50,7 @@
   tags: dnsmasq
   template:
     src: dnsmasq.dhcp.conf.j2
-    dest: "/etc/dnsmasq.d/dhcp.{{gateway.dhcp.set}}.conf"
+    dest: "/etc/dnsmasq.d/dhcp.{{ gateway.dhcp.set }}.conf"
 
 - name: Restart dnsmasq
   tags: dnsmasq

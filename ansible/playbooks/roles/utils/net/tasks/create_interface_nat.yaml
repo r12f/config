@@ -1,0 +1,24 @@
+---
+- name: Accept Forwarded Traffic from Internal to External Interface
+  iptables:
+    table: filter
+    chain: FORWARD
+    in_interface: "{{ item.internal }}"
+    out_interface: "{{ item.external }}"
+    jump: ACCEPT
+
+- name: Accept Established and Related Forwarded Traffic from External to Internal Interface
+  iptables:
+    table: filter
+    chain: FORWARD
+    in_interface: "{{ item.external }}"
+    out_interface: "{{ item.internal }}"
+    ctstate: ESTABLISHED,RELATED
+    jump: ACCEPT
+
+- name: MASQUERADE Outgoing Traffic on External Interface
+  iptables:
+    table: nat
+    chain: POSTROUTING
+    out_interface: "{{ item.external }}"
+    jump: MASQUERADE
