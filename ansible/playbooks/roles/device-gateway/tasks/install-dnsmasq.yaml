@@ -1,22 +1,18 @@
 ---
-- name: Get all hosts with interfaces
-  tags: dnsmasq
-  ansible.builtin.set_fact:
-    all_net_ifs: "{{ all_net_ifs | default([]) + hostvars[item]['net_ifs'] | default([]) | map('combine', { 'host_name': item | replace('_', '-') }) }}"
-  loop: "{{ groups['all'] }}"
-
-- name: Get all network interfaces in the DHCP set
-  tags: dnsmasq
-  ansible.builtin.set_fact:
-    net_ifs_in_dhcp_set: "{{ net_ifs_in_dhcp_set | default([]) + [ item ] }}"
-  loop: "{{ all_net_ifs }}"
-  when: item.dhcp_set is defined and item.dhcp_set == gateway.dhcp.set
-
 - name: Install dnsmasq
   tags: dnsmasq
   package:
     name:
       - dnsmasq
+
+- name: "Create dnsmasq config for all subnets"
+  tags: dnsmasq
+  include_tasks:
+    file: roles/utils/net/tasks/create-dhcp-subnet-config.yaml
+    apply: { tags: [ "dnsmasq" ] }
+  loop: "{{ gateway.dhcp.subnets }}"
+  loop_control:
+    loop_var: subnet_item
 
 - name: Disable DNS in dnsmasq
   tags: dnsmasq
@@ -25,12 +21,20 @@
     regexp: '^#?port=.*'
     line: 'port=0'
 
-- name: Bind dnsmasq to internal interface only
+- name: Remove all bound interfaces in dnsmasq
   tags: dnsmasq
   lineinfile:
     path: /etc/dnsmasq.conf
     regexp: '^#?interface=.*'
-    line: 'interface={{ gateway.dhcp.interface }}'
+    state: absent
+
+- name: Bind dnsmasq to interfaces
+  tags: dnsmasq
+  lineinfile:
+    path: /etc/dnsmasq.conf
+    insertafter: '^# Repeat the line for more than one interface'
+    line: 'interface={{ item }}'
+  loop: '{{ gateway.dhcp.interfaces }}'
 
 - name: Enable bind-interfaces in dnsmasq
   tags: dnsmasq
@@ -45,12 +49,6 @@
     path: /etc/dnsmasq.conf
     regexp: '^#?conf-dir='
     line: 'conf-dir=/etc/dnsmasq.d/,*.conf'
-
-- name: Deploy dnsmasq configuration
-  tags: dnsmasq
-  template:
-    src: dnsmasq.dhcp.conf.j2
-    dest: "/etc/dnsmasq.d/dhcp.{{ gateway.dhcp.set }}.conf"
 
 - name: Restart dnsmasq
   tags: dnsmasq

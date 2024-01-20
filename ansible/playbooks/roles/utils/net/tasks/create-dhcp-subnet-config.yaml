@@ -1,0 +1,20 @@
+---
+- name: Get all hosts with interfaces
+  tags: dnsmasq
+  ansible.builtin.set_fact:
+    all_net_ifs: "{{ all_net_ifs | default([]) + hostvars[item]['net_ifs'] | default([]) | map('combine', { 'host_name': item | replace('_', '-') }) }}"
+    net_ifs_in_subnet: []
+  loop: "{{ groups['all'] }}"
+
+- name: "Get all network interfaces in subnet: {{ subnet_item.name }}"
+  tags: dnsmasq
+  ansible.builtin.set_fact:
+    net_ifs_in_subnet: "{{ net_ifs_in_subnet | default([]) + [ item ] }}"
+  loop: "{{ all_net_ifs }}"
+  when: item.subnet is defined and item.subnet == subnet_item.name
+
+- name: "Deploy dnsmasq configuration for subnet: {{ subnet_item.name }}"
+  tags: dnsmasq
+  template:
+    src: dnsmasq.dhcp.conf.j2
+    dest: "/etc/dnsmasq.d/dhcp.{{ subnet_item.name }}.conf"

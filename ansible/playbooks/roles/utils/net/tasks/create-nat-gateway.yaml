@@ -3,16 +3,16 @@
   iptables:
     table: filter
     chain: FORWARD
-    in_interface: "{{ item.internal }}"
-    out_interface: "{{ item.external }}"
+    in_interface: "{{ item.if_gateway }}"
+    out_interface: "{{ item.if_external }}"
     jump: ACCEPT
 
 - name: Accept Established and Related Forwarded Traffic from External to Internal Interface
   iptables:
     table: filter
     chain: FORWARD
-    in_interface: "{{ item.external }}"
-    out_interface: "{{ item.internal }}"
+    in_interface: "{{ item.if_external }}"
+    out_interface: "{{ item.if_gateway }}"
     ctstate: ESTABLISHED,RELATED
     jump: ACCEPT
 

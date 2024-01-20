@@ -10,6 +10,6 @@
 - name: Update IPTable rules for NATing between interfaces
   tags: natgw
   include_tasks:
-    file: roles/utils/net/tasks/create_interface_nat.yaml
+    file: roles/utils/net/tasks/create-nat-gateway.yaml
     apply: { tags: [ "natgw" ] }
-  loop: "{{ gateway.if_nat }}"
+  loop: "{{ gateway.nat_gateways }}"
