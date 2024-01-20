@@ -2,7 +2,7 @@
 - name: Get all hosts with interfaces
   tags: dnsmasq
   ansible.builtin.set_fact:
-    all_net_ifs: "{{ all_net_ifs | default([]) + [ hostvars[item]['net_ifs'] | default([]) | flatten | combine([{ 'host_name': item }]) ] }}"
+    all_net_ifs: "{{ all_net_ifs | default([]) + hostvars[item]['net_ifs'] | default([]) | map('combine', { 'host_name': item }) }}"
   loop: "{{ groups['all'] }}"
 
 - name: Get all network interfaces in the DHCP set
