@@ -13,6 +13,8 @@ config_branch: "master"
 
 # Directory redirection
 redirect_folders:
+- link: "/home/{{ansible_ssh_user}}/code"
+  target: "/home/{{ansible_ssh_user}}/data/code"
 - link: "/home/{{ansible_ssh_user}}/.vscode-server"
   target: "/home/{{ansible_ssh_user}}/data/.vscode-server"
 - link: "/var/lib/docker"
