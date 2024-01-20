@@ -1,6 +1,6 @@
 ---
 - name: Enable IPv4 IP forwarding
-  tags: nat
+  tags: natgw
   ansible.posix.sysctl:
     name: net.ipv4.ip_forward
     value: '1'
@@ -8,8 +8,8 @@
     reload: yes
 
 - name: Update IPTable rules for NATing between interfaces
-  tags: nat
+  tags: natgw
   include_tasks:
     file: roles/utils/net/tasks/create_interface_nat.yaml
-    apply: { tags: [ "nat" ] }
+    apply: { tags: [ "natgw" ] }
   loop: "{{ gateway.if_nat }}"

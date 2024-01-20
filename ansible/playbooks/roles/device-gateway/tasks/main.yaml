@@ -1,3 +1,3 @@
 ---
 - import_tasks: install-dnsmasq.yaml
-- import_tasks: init-if-nat.yaml
+- import_tasks: init-natgw.yaml
