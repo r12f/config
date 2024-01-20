@@ -1,0 +1,12 @@
+# DHCP IP range
+dhcp-range=set:{{ gateway.dhcp.set }},{{ gateway.dhcp.range[0] }},{{ gateway.dhcp.range[1] }},{{ gateway.dhcp.ttl }}
+
+# DHCP options
+{% for option in gateway.dhcp.options %}
+dhcp-option=tag:{{ gateway.dhcp.set }},{{ option.option }},{{ option.value }}
+{% endfor %}
+
+# dhcp-host settings for all hosts
+{% for net_if in net_ifs_in_dhcp_set %}
+dhcp-host={{ net_if.mac }},{{ net_if.ip }},{{net_if.host_name}},{{ gateway.dhcp.ttl }},set:{{ net_if.dhcp_set }}
+{% endfor %}

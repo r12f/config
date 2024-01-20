@@ -1,7 +1,8 @@
 ---
 - name: Update NetIf settings if specified
   tags: network
-  when: net_ifs is defined and net_ifs | length > 0
+  # Filter out all net_ifs that has dhcp_set defined.
+  when: net_ifs is defined and net_ifs | selectattr('dhcp_set', 'defined') | list | length > 0
   block:
     - name: "Check if nmcli exists"
       tags: network
@@ -16,7 +17,7 @@
       tags: network
       when: is_nmcli_exists.rc == 0
       shell: "nmcli con mod {{item.con}} ipv4.addresses {{item.ip}} ipv4.gateway {{item.gw}} ipv4.dns {{item.dns}} ipv4.method manual"
-      with_items: "{{net_ifs}}"
+      with_items: "{{ net_ifs | selectattr('dhcp_set', 'undefined') | list }}"
       ignore_errors: true # Ignore errors, since some netifs may not be available, e.g. not connected yet.
 
     - name: "Update inteface settings using netplan"

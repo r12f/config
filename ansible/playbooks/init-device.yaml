@@ -1,5 +1,5 @@
 ---
-- hosts: '{{ targets | default("all") }}'
+- hosts: '{{ targets | default("fleet") }}'
   become: true
   gather_facts: true
   tasks:
@@ -21,3 +21,8 @@
     - import_role:
         name: device-watchdog
       when: "host_roles is contains('watchdog')"
+
+    # Tasks for gateway devices only
+    - import_role:
+        name: device-gateway
+      when: "host_roles is contains('gateway')"

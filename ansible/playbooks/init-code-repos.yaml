@@ -1,5 +1,5 @@
 ---
-- hosts: '{{ targets | default("all") }}'
+- hosts: '{{ targets | default("fleet") }}'
   become: false
   gather_facts: true
   roles:
