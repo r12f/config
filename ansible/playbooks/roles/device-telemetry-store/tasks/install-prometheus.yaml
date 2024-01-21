@@ -1,0 +1,34 @@
+---
+# If we don't stop node exporter, the prometheus role will fail due to user being already in use
+- name: Stop node exporter
+  tags: prometheus
+  service:
+    name: node_exporter
+    state: stopped
+
+- name: Install prometheus
+  tags: prometheus
+  import_role:
+    name: prometheus.prometheus.prometheus
+  vars:
+    prometheus_web_listen_address: "0.0.0.0:{{ secrets.telemetry_store.prometheus.port}}"
+    prometheus_web_external_url: "http://{{ secrets.telemetry_store.prometheus.domain }}:{{ secrets.telemetry_store.prometheus.port }}"
+    prometheus_web_config: "{{ secrets.telemetry_store.prometheus.auth }}"
+    prometheus_db_dir: "{{ secrets.telemetry_store.prometheus.db_dir }}"
+    prometheus_global:
+      scrape_interval: 60s
+      scrape_timeout: 10s
+      evaluation_interval: 60s
+
+- name: Enable remote write receiver for prometheus
+  tags: prometheus
+  lineinfile:
+    path: /etc/systemd/system/prometheus.service
+    insertafter: '^ExecStart=/usr/local/bin/prometheus'
+    line: "'--web.enable-remote-write-receiver' \\"
+
+- name: Start node exporter after install
+  tags: prometheus
+  service:
+    name: node_exporter
+    state: started

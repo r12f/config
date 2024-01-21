@@ -1,0 +1,3 @@
+---
+- import_tasks: install-prometheus.yaml
+- import_tasks: install-grafana.yaml
