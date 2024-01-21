@@ -1,5 +1,5 @@
 # DHCP IP range
-dhcp-range=set:{{ subnet_item.name }},{{ subnet_item.range[0] }},{{ subnet_item.range[1] }},{{ subnet_item.ttl }}
+dhcp-range=set:{{ subnet_item.name }},{{ subnet_item.allocation_range[0] }},{{ subnet_item.allocation_range[1] }},{{ subnet_item.ttl }}
 
 # DHCP options
 dhcp-option=tag:{{ subnet_item.name }},121,0.0.0.0/0,{{ subnet_item.gateway }}
