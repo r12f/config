@@ -2,12 +2,12 @@
 - name: Update NetIf settings if specified
   tags: network
   # Filter out all net_ifs that has subnet defined.
-  when: net_ifs is defined and net_ifs | selectattr('subnet', 'defined') | list | length > 0
+  when: net_ifs is defined and net_ifs | selectattr('subnet', 'undefined') | list | length > 0
   block:
     - name: "Check if nmcli exists"
       tags: network
       shell: command -v nmcli >/dev/null 2>&1
-      register: is_nmcli_exists 
+      register: is_nmcli_exists
       ignore_errors: true
 
     # `nmcli con mod` will persist the changes to `/etc/NetworkManager/system-connections/*.nmconnection` files.
@@ -16,7 +16,7 @@
     - name: "Update interface settings using nmcli if nmcli exists"
       tags: network
       when: is_nmcli_exists.rc == 0
-      shell: "nmcli con mod {{item.con}} ipv4.addresses {{item.ip}} ipv4.gateway {{item.gw}} ipv4.dns {{item.dns}} ipv4.method manual"
+      shell: "nmcli con mod \"{{item.con}}\" ipv4.addresses {{item.ip}} ipv4.gateway {{item.gw}} ipv4.dns {{item.dns}} ipv4.method manual"
       with_items: "{{ net_ifs | selectattr('subnet', 'undefined') | list }}"
       ignore_errors: true # Ignore errors, since some netifs may not be available, e.g. not connected yet.
 
