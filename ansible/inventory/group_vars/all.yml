@@ -37,7 +37,7 @@ device_overlays:
     - meson-g12-spi-b-spidev      # SPI-B:      GPIOH_7_PIN23  (SCLK),  GPIOH_4_PIN19  (MOSI),  GPIOH_5_PIN21 (MISO),   GPIOH_6_PIN24  (CS)
 
 # Code settings
-code_dir: "/home/{{ansible_ssh_user}}/data/code"
+code_dir: "/home/{{ansible_ssh_user}}/code"
 github_name: "r12f"
 code_repos:
   dev_r12f:
@@ -73,7 +73,7 @@ code_repos:
       path: sonic/SONiC
       forked: true
     - repo: https://github.com/sonic-net/sonic-buildimage.git
-      path: sonic/sonic-buildimage
+      path: sonic/buildimage
       forked: true
     - repo: https://github.com/sonic-net/DASH.git
       path: sonic/DASH
@@ -85,13 +85,13 @@ code_repos:
       path: sonic/SAI
       forked: true
     - repo: https://github.com/sonic-net/sonic-platform-vpp.git
-      path: sonic/sonic-platform-vpp
+      path: sonic/platform-vpp
       forked: true
     - repo: https://github.com/sonic-net/sonic-mgmt.git
-      path: sonic/sonic-mgmt
+      path: sonic/mgmt
       forked: true
     - repo: https://github.com/r12f/sonic-book.git
-      path: sonic/sonic-book
+      path: sonic/book
   dev_dpu:
     - repo: https://gitlab.com/nvidia/networking/bluefield/doca-sample-applications.git
       path: dpu/doca-samples

@@ -22,6 +22,7 @@
       - setserial
       - tio
       - stress-ng
+      - ntp
 
 - name: Install debian specific tools
   tags: [ package, package-basic ]
