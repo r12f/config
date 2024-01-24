@@ -11,3 +11,5 @@
       - libpcap-dev
       - pkg-config
       - protobuf-compiler
+      - meson
+      - ninja-build

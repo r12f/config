@@ -18,6 +18,7 @@
       - lm-sensors
       - uuid
       - tree
+      - hwloc
       - minicom
       - setserial
       - tio
