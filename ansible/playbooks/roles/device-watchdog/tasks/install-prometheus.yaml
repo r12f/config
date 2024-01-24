@@ -2,7 +2,7 @@
 - name: Get all node exporter addresses for scraping
   tags: [always, watchdog]
   set_fact:
-    all_node_exporter_targets: "{{ all_node_exporter_targets | default([]) + [ { 'targets': [ hostvars[item]['ansible_host'] | default(item) + ':9100'], 'labels': { 'node_name': item } } ] }}"
+    all_node_exporter_targets: "{{ all_node_exporter_targets | default([]) + [ { 'targets': [ hostvars[item]['ansible_host'] | default(item) + ':9100'], 'labels': { 'node_name': item | replace('_', '-') } } ] }}"
   loop: "{{ groups[secrets.monitor.host_group] }}"
   when: not (hostvars[item]['monitor_stack_disabled'] | default(false))
 
@@ -24,6 +24,20 @@
       evaluation_interval: 15s
     prometheus_targets:
       node: "{{ all_node_exporter_targets }}"
+    prometheus_scrape_configs:
+      - job_name: "prometheus"
+        metrics_path: "{{ prometheus_metrics_path }}"
+        static_configs:
+          - targets:
+              - "{{ ansible_fqdn | default(ansible_host) | default('localhost') }}:9090"
+      - job_name: "node"
+        file_sd_configs:
+          - files:
+              - "{{ prometheus_config_dir }}/file_sd/node.yml"
+        relabel_configs:
+          - source_labels: [ node_name ]
+            target_label: instance
+            action: replace
     prometheus_remote_write:
       - url: "{{ secrets.prometheus.remote_write_url }}"
         basic_auth:
