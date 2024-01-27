@@ -28,6 +28,7 @@
 
 - name: Install docker packages
   tags: [ package, docker ]
+  when: is_docker_exists.rc != 0
   package:
     name:
       - docker-ce

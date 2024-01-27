@@ -20,5 +20,5 @@
   iptables:
     table: nat
     chain: POSTROUTING
-    out_interface: "{{ item.external }}"
+    out_interface: "{{ item.if_external }}"
     jump: MASQUERADE

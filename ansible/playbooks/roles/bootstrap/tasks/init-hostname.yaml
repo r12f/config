@@ -16,7 +16,7 @@
   tags: hostname
   ansible.builtin.lineinfile:
     path: /etc/hosts
-    regexp: '^127\.0\.1\.1\s+{{desired_hostname}}'
+    regexp: '^127\.0\.0\.1\s+{{desired_hostname}}'
     state: absent
 
 - name: Remove IPv6 hostname entry in /etc/hosts
