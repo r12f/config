@@ -1,0 +1,14 @@
+---
+- name: Create a empty list of hosts
+  set_fact:
+    host_names: []
+
+- name: Create a list of hosts to include
+  set_fact:
+    host_names: "{{ host_names | default([]) + groups[item] }}"
+  loop: "{{ includes_groups | default([])}}"
+
+- name: Exclude hosts from the excluded groups
+  set_fact:
+    host_names: "{{ host_names | difference(groups[item]) }}"
+  loop: "{{ excludes_groups | default([])}}"

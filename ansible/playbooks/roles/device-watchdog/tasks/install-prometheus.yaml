@@ -1,9 +1,18 @@
 ---
+- name: Get all node names in monitor groups
+  tags: [always, watchdog]
+  include_tasks:
+    file: roles/utils/hosts/tasks/get-host-with-filters.yaml
+    apply: { tags: [always, watchdog] }
+  vars:
+    includes_groups: "{{ monitor.host_group.includes | default([]) }}"
+    excludes_groups: "{{ monitor.host_group.excludes | default([]) }}"
+
 - name: Get all node exporter addresses for scraping
   tags: [always, watchdog]
   set_fact:
     all_node_exporter_targets: "{{ all_node_exporter_targets | default([]) + [ { 'targets': [ hostvars[item]['ansible_host'] | default(item) + ':9100'], 'labels': { 'node_name': item | replace('_', '-') } } ] }}"
-  loop: "{{ groups[secrets.monitor.host_group] }}"
+  loop: "{{ host_names }}"
   when: not (hostvars[item]['monitor_stack_disabled'] | default(false))
 
 # If we don't stop node exporter, the prometheus role will fail due to user being already in use
