@@ -22,6 +22,7 @@
       scrape_interval: 60s
       scrape_timeout: 10s
       evaluation_interval: 15s
+    prometheus_agent_mode: true
     prometheus_targets:
       node: "{{ all_node_exporter_targets }}"
     prometheus_scrape_configs:
