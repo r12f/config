@@ -3,3 +3,5 @@
 	name = r12f
 [credential]
 	helper = cache --timeout=2592000
+[http]
+    sslverify = false
