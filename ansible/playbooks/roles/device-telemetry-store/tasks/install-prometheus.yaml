@@ -11,7 +11,7 @@
   import_role:
     name: prometheus.prometheus.prometheus
   vars:
-    prometheus_web_listen_address: "0.0.0.0:{{ secrets.telemetry_store.prometheus.port}}"
+    prometheus_web_listen_address: "0.0.0.0:{{ secrets.telemetry_store.prometheus.port }}"
     prometheus_web_external_url: "http://{{ secrets.telemetry_store.prometheus.domain }}:{{ secrets.telemetry_store.prometheus.port }}"
     prometheus_web_config: "{{ secrets.telemetry_store.prometheus.auth }}"
     prometheus_db_dir: "{{ secrets.telemetry_store.prometheus.db_dir }}"
@@ -19,6 +19,26 @@
       scrape_interval: 60s
       scrape_timeout: 10s
       evaluation_interval: 60s
+    prometheus_targets:
+      node:
+        - targets:
+            - 'localhost:9100'
+          labels:
+            node_name: "{{ inventory_hostname | replace('_', '-') }}"
+    prometheus_scrape_configs:
+      - job_name: "prometheus"
+        metrics_path: "{{ prometheus_metrics_path }}"
+        static_configs:
+          - targets:
+              - "localhost:{{ secrets.telemetry_store.prometheus.port }}"
+      - job_name: "node"
+        file_sd_configs:
+          - files:
+              - "{{ prometheus_config_dir }}/file_sd/node.yml"
+        relabel_configs:
+          - source_labels: [ node_name ]
+            target_label: instance
+            action: replace
 
 - name: Enable remote write receiver for prometheus
   tags: prometheus
