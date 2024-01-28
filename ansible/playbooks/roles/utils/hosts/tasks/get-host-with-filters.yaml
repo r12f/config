@@ -6,9 +6,9 @@
 - name: Create a list of hosts to include
   set_fact:
     host_names: "{{ host_names | default([]) + groups[item] }}"
-  loop: "{{ includes_groups | default([])}}"
+  loop: "{{ group.includes | default([])}}"
 
 - name: Exclude hosts from the excluded groups
   set_fact:
     host_names: "{{ host_names | difference(groups[item]) }}"
-  loop: "{{ excludes_groups | default([])}}"
+  loop: "{{ group.excludes | default([])}}"

@@ -13,4 +13,6 @@
     file: roles/utils/net/tasks/create-nat-gateway.yaml
     apply: { tags: [ "natgw" ] }
   loop: "{{ gateway.subnets }}"
-  when: "{{ item.if_external is defined }}"
+  loop_control:
+    loop_var: subnet
+  when: "{{ subnet.if_external is defined }}"

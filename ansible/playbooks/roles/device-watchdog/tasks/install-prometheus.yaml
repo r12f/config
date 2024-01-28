@@ -5,8 +5,7 @@
     file: roles/utils/hosts/tasks/get-host-with-filters.yaml
     apply: { tags: [always, watchdog] }
   vars:
-    includes_groups: "{{ monitor.host_group.includes | default([]) }}"
-    excludes_groups: "{{ monitor.host_group.excludes | default([]) }}"
+    group: "{{ monitor.host_group }}"
 
 - name: Get all node exporter addresses for scraping
   tags: [always, watchdog]

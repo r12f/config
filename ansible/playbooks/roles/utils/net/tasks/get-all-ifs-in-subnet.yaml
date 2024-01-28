@@ -1,0 +1,23 @@
+---
+- name: Init variables for getting interfaces
+  ansible.builtin.set_fact:
+    all_net_ifs: []
+    net_ifs_in_subnet: []
+
+- name: "Get all hosts in subnet: {{ subnet.name }}"
+  include_tasks:
+    file: roles/utils/hosts/tasks/get-host-with-filters.yaml
+    apply: { tags: [ "always" ] }
+  vars:
+    group: "{{ subnet.machine_group }}"
+
+- name: Get all hosts interfaces
+  ansible.builtin.set_fact:
+    all_net_ifs: "{{ all_net_ifs + hostvars[item]['net_ifs'] | default([]) | map('combine', { 'host_name': item | replace('_', '-') }) }}"
+  loop: "{{ host_names | default([]) }}"
+
+- name: "Get all network interfaces in subnet: {{ subnet.name }}"
+  ansible.builtin.set_fact:
+    net_ifs_in_subnet: "{{ net_ifs_in_subnet + [ item ] }}"
+  loop: "{{ all_net_ifs | default([]) }}"
+  when: item.subnet is defined and item.subnet == subnet.name

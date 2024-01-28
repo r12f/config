@@ -5,3 +5,7 @@ collections:
     version: 0.11.1
   - name: grafana.grafana
     version: 2.2.3
+
+roles:
+  - name: nginxinc.nginx
+    version: 0.24.1

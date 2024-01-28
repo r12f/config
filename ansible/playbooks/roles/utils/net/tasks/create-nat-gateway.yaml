@@ -3,16 +3,16 @@
   iptables:
     table: filter
     chain: FORWARD
-    in_interface: "{{ item.if_gateway }}"
-    out_interface: "{{ item.if_external }}"
+    in_interface: "{{ subnet.if_gateway }}"
+    out_interface: "{{ subnet.if_external }}"
     jump: ACCEPT
 
 - name: Accept Established and Related Forwarded Traffic from External to Internal Interface
   iptables:
     table: filter
     chain: FORWARD
-    in_interface: "{{ item.if_external }}"
-    out_interface: "{{ item.if_gateway }}"
+    in_interface: "{{ subnet.if_external }}"
+    out_interface: "{{ subnet.if_gateway }}"
     ctstate: ESTABLISHED,RELATED
     jump: ACCEPT
 
@@ -20,5 +20,39 @@
   iptables:
     table: nat
     chain: POSTROUTING
-    out_interface: "{{ item.if_external }}"
+    out_interface: "{{ subnet.if_external }}"
     jump: MASQUERADE
+
+- name: "Get all network interfaces in subnet: {{ subnet.name }}"
+  include_tasks:
+    file: roles/utils/net/tasks/get-all-ifs-in-subnet.yaml
+    apply: { tags: [ "always" ] }
+
+- name: "Get all exposed ports in subnet: {{ subnet.name }}"
+  ansible.builtin.set_fact:
+    exposed_ports_in_subnet: "{{ exposed_ports_in_subnet | default([]) + [ { 'net_if': item.0, 'port_mapping': item.1 | split(':') | map('int') } ] }}"
+  loop: "{{ net_ifs_in_subnet | default([]) | subelements('expose_ports', skip_missing=True) }}"
+
+- name: "Redirect incoming TCP traffic on port {{ item.port_mapping.0 }} to {{ item.net_if.ip }}:{{ item.port_mapping.1 }}"
+  ansible.builtin.iptables:
+    table: nat
+    chain: PREROUTING
+    in_interface: "{{ subnet.if_external }}"
+    protocol: tcp
+    destination_port: "{{ item.port_mapping.0 }}"
+    jump: DNAT
+    to_destination: "{{ item.net_if.ip }}:{{ item.port_mapping.1 }}"
+  loop: "{{ exposed_ports_in_subnet | default([]) }}"
+
+- name: MASQUERADE Outgoing Traffic on gateway interface
+  iptables:
+    table: nat
+    chain: POSTROUTING
+    out_interface: "{{ subnet.if_gateway }}"
+    jump: MASQUERADE
+
+- name: "Allow forwarding TCP traffic in external interface"
+  ansible.builtin.iptables:
+    chain: FORWARD
+    in_interface: "{{ subnet.if_external }}"
+    jump: ACCEPT
