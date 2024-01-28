@@ -33,8 +33,8 @@
   lineinfile:
     path: /etc/dnsmasq.conf
     insertafter: '^# Repeat the line for more than one interface'
-    line: 'interface={{ item }}'
-  loop: '{{ gateway.dhcp.interfaces }}'
+    line: 'interface={{ item.if_gateway }}'
+  loop: '{{ gateway.dhcp.subnets }}'
 
 - name: Enable bind-interfaces in dnsmasq
   tags: dnsmasq
