@@ -27,15 +27,16 @@
 
 - name: Install debian specific tools
   tags: [ package, package-basic ]
-  when: ansible_facts["lsb"]["id"] | lower == "debian"
+  when: ansible_facts["distribution"] | lower == "debian"
   package:
     name:
       - yq
       - btop
+  ignore_errors: true
 
 - name: Install ubuntu specific tools from snap
   tags: [ package, package-basic ]
-  when: ansible_facts["lsb"]["id"] | lower == "ubuntu"
+  when: ansible_facts["distribution"] | lower == "ubuntu"
   community.general.snap:
     name:
       - yq
