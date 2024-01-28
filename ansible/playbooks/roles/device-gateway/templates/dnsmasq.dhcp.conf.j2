@@ -1,19 +1,19 @@
 # DHCP IP range
-dhcp-range=set:{{ subnet_item.name }},{{ subnet_item.allocation_range[0] }},{{ subnet_item.allocation_range[1] }},{{ subnet_item.ttl }}
+dhcp-range=set:{{ subnet_item.name }},{{ subnet_item.dhcp.allocation_range[0] }},{{ subnet_item.dhcp.allocation_range[1] }},{{ subnet_item.dhcp.ttl }}
 
 # DHCP options
-dhcp-option=tag:{{ subnet_item.name }},121,0.0.0.0/0,{{ subnet_item.gateway }}
-dhcp-option=tag:{{ subnet_item.name }},3,{{ subnet_item.gateway }}
-dhcp-option=tag:{{ subnet_item.name }},1,{{ subnet_item.mask }}
-dhcp-option=tag:{{ subnet_item.name }},6,{{ subnet_item.dns }}
-{% for option in subnet_item.extra_options %}
+dhcp-option=tag:{{ subnet_item.name }},121,0.0.0.0/0,{{ subnet_item.dhcp.gateway }}
+dhcp-option=tag:{{ subnet_item.name }},3,{{ subnet_item.dhcp.gateway }}
+dhcp-option=tag:{{ subnet_item.name }},1,{{ subnet_item.dhcp.mask }}
+dhcp-option=tag:{{ subnet_item.name }},6,{{ subnet_item.dhcp.dns }}
+{% for option in subnet_item.dhcp.extra_options %}
 dhcp-option=tag:{{ subnet_item.name }},{{ option.option }},{{ option.value }}
 {% endfor %}
 
 # dhcp-host settings for all hosts
 {% for net_if in net_ifs_in_subnet %}
-dhcp-host={{ net_if.mac }},{{ net_if.ip }},{{ net_if.host_name }},{{ subnet_item.ttl }},set:{{ subnet_item.name }}
+dhcp-host={{ net_if.mac }},{{ net_if.ip }},{{ net_if.host_name }},{{ subnet_item.dhcp.ttl }},set:{{ subnet_item.name }}
 {% endfor %}
-{% for host in subnet_item.extra_hosts %}
-dhcp-host={{ host.mac }},{{ host.ip }},{{ host.host_name }},{{ subnet_item.ttl }},set:{{ subnet_item.name }}
+{% for host in subnet_item.dhcp.extra_hosts %}
+dhcp-host={{ host.mac }},{{ host.ip }},{{ host.host_name }},{{ subnet_item.dhcp.ttl }},set:{{ subnet_item.name }}
 {% endfor %}

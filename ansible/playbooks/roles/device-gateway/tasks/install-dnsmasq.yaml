@@ -10,7 +10,7 @@
   include_tasks:
     file: roles/utils/net/tasks/create-dhcp-subnet-config.yaml
     apply: { tags: [ "dnsmasq" ] }
-  loop: "{{ gateway.dhcp.subnets }}"
+  loop: "{{ gateway.subnets }}"
   loop_control:
     loop_var: subnet_item
 
@@ -34,7 +34,7 @@
     path: /etc/dnsmasq.conf
     insertafter: '^# Repeat the line for more than one interface'
     line: 'interface={{ item.if_gateway }}'
-  loop: '{{ gateway.dhcp.subnets }}'
+  loop: '{{ gateway.subnets }}'
 
 - name: Enable bind-interfaces in dnsmasq
   tags: dnsmasq
