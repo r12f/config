@@ -1,5 +1,4 @@
 # User settings
-desired_user: r12f
 users_to_remove:
   - ubuntu
   - debian

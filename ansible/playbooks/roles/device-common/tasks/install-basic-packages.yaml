@@ -23,7 +23,6 @@
       - setserial
       - tio
       - stress-ng
-      - ntp
 
 - name: Install debian specific tools
   tags: [ package, package-basic ]
@@ -56,5 +55,12 @@
       - tcpdump
       - tshark
       - traceroute
+
+- name: Install tools for non-sonic devices
+  tags: [ package, package-basic ]
+  when: device not in [ "sonic" ]
+  package:
+    name:
+      - ntp
       - iptables
       - iptables-persistent
