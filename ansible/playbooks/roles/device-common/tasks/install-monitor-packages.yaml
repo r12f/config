@@ -23,6 +23,10 @@
               ignored-devices: ^(br-VM|ovs-|virbr|docker).*$ 
           - netdev:
               device-exclude: ^(br-VM|ovs-|virbr|docker).*$ 
+          - processes
+          - slabinfo
+          - softirqs
+          - buddyinfo
         # node_exporter_disabled_collectors:
         #   - systemd
         #   - nfs
