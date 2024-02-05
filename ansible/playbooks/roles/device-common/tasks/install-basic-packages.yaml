@@ -31,6 +31,7 @@
     name:
       - yq
       - btop
+      - vim-nox   # vim with python support
   ignore_errors: true
 
 - name: Install ubuntu specific tools from snap
