@@ -1,0 +1,35 @@
+---
+- name: Create SSH tunnel if ssh tunnel port is specified
+  tags: [ ssh-tunnel ]
+  when: ssh_tunnel_port is defined
+  block:
+    - name: Create SSH tunnel service file
+      tags: [ ssh-tunnel ]
+      template:
+        src: ssh_tunnel.service.j2
+        dest: /etc/systemd/system/ssh-tunnel.service
+        owner: root
+        group: root
+        mode: 0644
+      register: ssh_tunnel_service_config
+
+    - name: Restart SSH tunnel service if config changed
+      tags: [ ssh-tunnel ]
+      when: ssh_tunnel_service_config.changed
+      block:
+        - name: Reload service daemon
+          tags: [ ssh-tunnel ]
+          systemd:
+            daemon_reload: yes
+
+        - name: Enable SSH tunnel service
+          tags: [ ssh-tunnel ]
+          systemd:
+            name: ssh-tunnel
+            enabled: yes
+
+        - name: Restart SSH tunnel service
+          tags: [ ssh-tunnel ]
+          systemd:
+            name: ssh-tunnel
+            state: restarted

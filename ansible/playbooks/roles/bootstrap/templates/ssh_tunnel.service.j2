@@ -1,0 +1,13 @@
+[Unit]
+Description=SSH reverse tunnel
+After=network.target
+StartLimitIntervalSec=0
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User={{ desired_user }}
+ExecStart=/usr/bin/env ssh -o StrictHostKeyChecking=no -o ExitOnForwardFailure=yes -NT -R {{ ssh_tunnel_port }}:localhost:{{ desired_ssh_port }} {{ secrets.ssh.tunnel.server_user }}@{{ secrets.ssh.tunnel.server_ip }} -p {{ secrets.ssh.tunnel.server_port }} -i {{ secrets.ssh.tunnel.server_cert }}
+
+[Install]
+WantedBy=multi-user.target

@@ -3,6 +3,7 @@
 - import_tasks: init-user.yaml
 - import_tasks: init-sshd.yaml
 - import_tasks: init-ssh.yaml
+- import_tasks: install-ssh-tunnel.yaml
 - import_tasks: init-package.yaml
 - import_tasks: init-network.yaml
 #- import_tasks: post-bootstrap.yaml
