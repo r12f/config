@@ -1,0 +1,25 @@
+---
+- name: Install FRP
+  tags: frps
+  include_tasks:
+    file: roles/utils/frp/tasks/install-frp.yaml
+    apply: { tags: [ "frps" ] }
+
+- name: Copy FRP server configuration
+  copy:
+    dest: /etc/frp/frps.toml
+    content: |
+      [common]
+      bind_port = {{ frps_port }}
+
+- name: Install FRP server service
+  tags: frps
+  include_tasks:
+    file: roles/utils/service/tasks/install-services.yaml
+    apply: { tags: [ "frps" ] }
+  vars:
+    services:
+      - name: frps
+        description: FRP Server
+        exec: "/usr/local/bin/frps -c /etc/frp/frps.toml"
+        after_target: network.target

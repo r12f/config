@@ -31,3 +31,8 @@
     - import_role:
         name: device-telemetry-store
       when: "host_roles is contains('telemetry-store')"
+
+    # Tasks for proxy
+    - import_role:
+        name: device-proxy
+      when: "host_roles is contains('proxy')"

@@ -1,0 +1,51 @@
+---
+- name: Install FRP
+  tags: frpc
+  include_tasks:
+    file: roles/utils/frp/tasks/install-frp.yaml
+    apply: { tags: [ "frpc" ] }
+
+- name: Copy FRP client common configuration
+  tags: frpc
+  copy:
+    dest: /etc/frp/frpc.toml
+    content: |
+      [common]
+      server_addr = {{ frps_address }}
+      server_port = {{ frps_port }}
+      includes = ["/etc/frp/config.d/*.toml"]
+
+- name: Find all old files under /etc/frp/config.d
+  find:
+    paths: "/etc/frp/config.d"
+    file_type: file
+  register: files_to_remove
+
+- name: Remove all files under the target directory
+  file:
+    path: "{{ item.path }}"
+    state: absent
+  with_items: "{{ files_to_remove.files }}"
+
+- name: Copy FRP client service configuration
+  tags: frpc
+  copy:
+    dest: "/etc/frp/config.d/{{ item.name }}.toml"
+    content: |
+      [{{ item.name }}]
+      type = {{ item.type }}
+      local_port = {{ item.local_port }}
+      remote_port = {{ item.remote_port }}
+  with_item: "{{ proxied_services }}"
+
+- name: Install FRP client service
+  tags: frpc
+  include_tasks:
+    file: roles/utils/service/tasks/install-services.yaml
+    apply: { tags: [ "frpc" ] }
+  vars:
+    services:
+      - name: frpc
+        description: FRP Client
+        exec: "/usr/local/bin/frpc -c /etc/frp/frpc.toml"
+        after_target: network.target

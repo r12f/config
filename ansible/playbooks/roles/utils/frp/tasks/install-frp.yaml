@@ -1,0 +1,44 @@
+---
+- name: Create FRP installation directory
+  tags: frps
+  file:
+    path: "{{ frp_install_dir }}"
+    state: directory
+    mode: '0755'
+
+- name: Download FRP binary package
+  get_url:
+    url: "https://github.com/fatedier/frp/releases/download/v{{ frp_version }}/frp_{{ frp_version }}_linux_amd64.tar.gz"
+    dest: "/tmp/frp_{{ frp_version }}_linux_amd64.tar.gz"
+
+- name: Extract FRP into installation directory
+  unarchive:
+    src: "/tmp/frp_{{ frp_version }}_linux_amd64.tar.gz"
+    dest: "{{ frp_install_dir }}"
+    remote_src: yes
+
+- name: Create symbolic links for frps and frpc
+  file:
+    src: "{{ frp_install_dir }}/frp_{{ frp_version }}_linux_amd64/{{ item }}"
+    dest: "/usr/local/bin/{{ item }}"
+    state: link
+  with_items:
+    - frps
+    - frpc
+
+- name: Clean up downloaded files
+  file:
+    path: "/tmp/frp_{{ frp_version }}_linux_amd64.tar.gz"
+    state: absent
+
+- name: Create configuration directory
+  file:
+    path: "/etc/frp"
+    state: directory
+    mode: '0755'
+
+- name: Create configuration directory
+  file:
+    path: "/etc/frp/config.d"
+    state: directory
+    mode: '0755'

@@ -98,3 +98,7 @@ code_repos:
       path: dpu/doca-samples
     - repo: https://github.com/oneapi-src/oneAPI-samples.git
       path: dpu/oneapi-samples
+
+# Tools
+frp_version: "0.37.1"
+frp_install_dir: "/usr/share/frp"

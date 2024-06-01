@@ -1,0 +1,27 @@
+---
+- name: Create systemd service for {{ item.description }}
+  copy:
+    dest: "/etc/systemd/system/{{ item.name }}.service"
+    content: |
+      [Unit]
+      Description={{ item.description }}
+      After={{ item.after_target }}
+
+      [Service]
+      ExecStart={{ item.exec }}
+      Restart=always
+
+      [Install]
+      WantedBy=multi-user.target
+  with_items: "{{ services }}"
+
+- name: Reload systemd daemon
+  systemd:
+    daemon_reload: yes
+
+- name: Enable and start "{{ item.description }}"
+  systemd:
+    name: "{{ item.name }}"
+    enabled: yes
+    state: started
+  with_items: "{{ services }}"
