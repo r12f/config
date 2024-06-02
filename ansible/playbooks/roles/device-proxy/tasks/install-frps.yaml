@@ -6,6 +6,7 @@
     apply: { tags: [ "frps" ] }
 
 - name: Copy FRP server configuration
+  tags: frps
   copy:
     dest: /etc/frp/frps.toml
     content: |

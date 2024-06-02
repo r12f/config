@@ -1,5 +1,5 @@
 ---
-- name: Create systemd service for {{ item.description }}
+- name: "Create systemd service for {{ item.description }}"
   copy:
     dest: "/etc/systemd/system/{{ item.name }}.service"
     content: |
@@ -19,7 +19,7 @@
   systemd:
     daemon_reload: yes
 
-- name: Enable and start "{{ item.description }}"
+- name: "Enable and start {{ item.description }}"
   systemd:
     name: "{{ item.name }}"
     enabled: yes

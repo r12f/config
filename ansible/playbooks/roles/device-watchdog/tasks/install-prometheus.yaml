@@ -7,6 +7,12 @@
   vars:
     group: "{{ monitor.host_group }}"
 
+- name: Get all node names in hosts
+  tags: [always, watchdog]
+  set_fact:
+    host_names: "{{ host_names | default([]) + [item] }}"
+  loop: "{{ monitor.hosts | default([])}}"
+
 - name: Get all node exporter addresses for scraping
   tags: [always, watchdog]
   set_fact:
