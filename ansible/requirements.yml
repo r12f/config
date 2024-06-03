@@ -9,3 +9,5 @@ collections:
 roles:
   - name: nginxinc.nginx
     version: 0.24.1
+  - name: gantsign.golang
+    version: 3.3.3

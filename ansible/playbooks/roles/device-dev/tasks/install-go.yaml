@@ -1,0 +1,5 @@
+---
+- name: Install Go
+  tags: go
+  import_role:
+    name: gantsign.golang
