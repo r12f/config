@@ -1,0 +1,15 @@
+{
+  order forward_proxy before file_server
+}
+:{{ caddy.port }}, {{ caddy.address }} {
+  tls {{ caddy.email }}
+  forward_proxy {
+    basic_auth {{ secrets.caddy.user }} {{ secrets.caddy.pass }}
+    hide_ip
+    hide_via
+    probe_resistance
+  }
+  file_server {
+    root /var/www/html
+  }
+}

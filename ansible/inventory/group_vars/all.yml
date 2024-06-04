@@ -102,4 +102,6 @@ code_repos:
 # Tools
 frp_version: "0.37.1"
 frp_install_dir: "/usr/share/frp"
+
+golang_install_dir: "/usr/local/go"
 golang_gopath: "/home/{{ansible_ssh_user}}/code/go"
