@@ -51,7 +51,7 @@
     src: "templates/Caddyfile.j2"
     dest: "/etc/caddy/Caddyfile"
 
-- name: Install NP server service
+- name: Install Caddy server as service
   tags: caddy
   include_tasks:
     file: roles/utils/service/tasks/install-services.yaml
