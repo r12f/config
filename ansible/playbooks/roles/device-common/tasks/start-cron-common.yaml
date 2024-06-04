@@ -1,0 +1,26 @@
+---
+- name: Ensure crontab script folder exists
+  tags: cron
+  become: false
+  file:
+    path: "{{ cron_script_dir }}"
+    state: directory
+    mode: 0755
+
+- name: Copy maintenance script to crontab script folder
+  tags: cron
+  become: false
+  copy:
+    src: "files/maintenance-common.sh"
+    dest: "{{ cron_script_dir }}/maintenance-common.sh"
+    mode: 0755
+
+- name: Setup cron schedule for maintenance script
+  tags: cron
+  cron:
+    name: "Run maintenance script"
+    minute: "0"
+    hour: "0"
+    job: "{{ cron_script_dir }}/maintenance-common.sh"
+    user: root
+    state: present
