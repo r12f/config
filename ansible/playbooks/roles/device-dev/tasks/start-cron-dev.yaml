@@ -6,6 +6,6 @@
     apply: { tags: [ "cron" ] }
   vars:
     cron_script_files:
-      - script: maintenance-common.sh
-        minute: "0"
+      - script: maintenance-dev.sh
+        minute: "30"
         hour: "0"
