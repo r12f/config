@@ -1,0 +1,5 @@
+---
+- name: Init key variables
+  tags: always
+  set_fact:
+    services: []

@@ -1,0 +1,20 @@
+---
+- name: "Ensure service root folders exist"
+  become: false
+  tags: always
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - "{{ svc_dir }}"
+    - "{{ svc_services_dir }}"
+    - "{{ svc_data_dir }}"
+
+- name: "Install services to docker"
+  tags: always
+  include_tasks:
+    file: install-service.yaml
+    apply: { tags: [ "always" ] }
+  loop: "{{ services }}"
+  loop_control:
+    loop_var: service

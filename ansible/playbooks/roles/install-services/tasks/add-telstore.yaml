@@ -1,9 +1,8 @@
 ---
-- name: Install prometheus as docker compose service
+- name: Add prometheus to service list
   tags: telstore
-  include_tasks:
-    file: roles/utils/service/tasks/install-service-to-docker.yaml
-    apply: { tags: [ "telstore" ] }
+  set_fact:
+    services: "{{ services + [ service ] }}"
   vars:
     service:
       name: telemetry store

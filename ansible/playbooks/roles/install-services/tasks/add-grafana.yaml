@@ -6,11 +6,10 @@
     path: "{{ svc_data_dir }}/grafana/config/datasources"
     state: directory
 
-- name: Install grafana as docker compose service
+- name: Add grafana to service list
   tags: grafana
-  include_tasks:
-    file: roles/utils/service/tasks/install-service-to-docker.yaml
-    apply: { tags: [ "grafana" ] }
+  set_fact:
+    services: "{{ services + [ service ] }}"
   vars:
     service:
       name: grafana
