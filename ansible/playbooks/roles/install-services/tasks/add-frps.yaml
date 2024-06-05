@@ -1,0 +1,15 @@
+---
+- name: Add frps to service list
+  tags: frps
+  set_fact:
+    services: "{{ services + [ service ] }}"
+  vars:
+    service:
+      name: frps
+      folders:
+        - "{{ svc_data_dir }}/frps/config"
+      templates:
+        - src: templates/frps/service.yaml.j2
+          dest: "{{ svc_services_dir }}/frps.yaml"
+        - src: templates/frps/frps.toml.j2
+          dest: "{{ svc_data_dir }}/frps/config/frps.toml"

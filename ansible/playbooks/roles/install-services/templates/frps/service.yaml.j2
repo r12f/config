@@ -1,0 +1,9 @@
+services:
+  frps:
+    image: snowdreamtech/frps
+    container_name: frps
+    ports:
+      - {{ frps.port }}:{{ frps.port }}
+    restart: unless-stopped
+    volumes:
+      - {{ svc_data_dir }}/frps/config/frps.toml:/etc/frp/frps.toml
