@@ -5,7 +5,7 @@ services:
     environment:
       - PATH=/etc/naiveproxy/Caddyfile
     ports:
-      - {{ secrets.telemetry_store.prometheus.port }}:{{ secrets.telemetry_store.prometheus.port }}
+      - {{ caddy.port }}:{{ caddy.port }}
     restart: unless-stopped
     volumes:
       - {{ svc_data_dir }}/naiveproxy/config:/etc/naiveproxy
