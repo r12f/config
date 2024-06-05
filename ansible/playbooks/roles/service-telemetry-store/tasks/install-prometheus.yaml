@@ -1,0 +1,18 @@
+---
+- name: Install prometheus as docker compose service
+  tags: telstore
+  include_tasks:
+    file: roles/utils/service/tasks/install-service-to-docker.yaml
+    apply: { tags: [ "telstore" ] }
+  vars:
+    service:
+      name: telemetry store
+      config_dir: "{{ svc_data_dir }}/telstore/config"
+      data_dir: "{{ svc_data_dir }}/telstore/data"
+      templates:
+        - src: templates/prom/service.yaml.j2
+          dest: "{{ svc_services_dir }}/telstore.yaml"
+        - src: templates/prom/prometheus.yml.j2
+          dest: "{{ svc_data_dir }}/telstore/config/prometheus.yml"
+        - src: templates/prom/web.yml.j2
+          dest: "{{ svc_data_dir }}/telstore/config/web.yml"

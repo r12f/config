@@ -1,0 +1,14 @@
+services:
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - {{ secrets.telemetry_store.grafana.port }}:3000
+    restart: unless-stopped
+    environment:
+      - GF_INSTANCE_NAME={{ inventory_hostname }}
+      - GF_SERVER_DOMAIN={{ secrets.telemetry_store.grafana.domain }}
+      - GF_SECURITY_ADMIN_USER={{ secrets.telemetry_store.grafana.admin_username }}
+      - GF_SECURITY_ADMIN_PASSWORD={{ secrets.telemetry_store.grafana.admin_password }}
+    volumes:
+      - {{ svc_data_dir }}/grafana/config/datasources:/etc/grafana/provisioning/datasources

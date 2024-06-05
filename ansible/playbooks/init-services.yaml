@@ -1,0 +1,14 @@
+---
+- hosts: '{{ targets | default("fleet") }}'
+  become: true
+  gather_facts: true
+  tasks:
+    # Tasks for telemetry store
+    - import_role:
+        name: service-telemetry-store
+      when: "docker_services is contains('telemetry-store')"
+
+    # Tasks for proxy
+    - import_role:
+        name: service-proxy
+      when: "docker_services is contains('proxy')"

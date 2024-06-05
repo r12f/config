@@ -1,0 +1,23 @@
+---
+- name: Ensure grafana config folder exists
+  tags: grafana
+  become: false
+  file:
+    path: "{{ svc_data_dir }}/grafana/config/datasources"
+    state: directory
+
+- name: Install grafana as docker compose service
+  tags: grafana
+  include_tasks:
+    file: roles/utils/service/tasks/install-service-to-docker.yaml
+    apply: { tags: [ "grafana" ] }
+  vars:
+    service:
+      name: grafana
+      config_dir: "{{ svc_data_dir }}/grafana/config"
+      data_dir: "{{ svc_data_dir }}/grafana/data"
+      templates:
+        - src: templates/grafana/service.yaml.j2
+          dest: "{{ svc_services_dir }}/grafana.yaml"
+        - src: templates/grafana/datasource.yml.j2
+          dest: "{{ svc_data_dir }}/grafana/config/datasources/datasource.yml"

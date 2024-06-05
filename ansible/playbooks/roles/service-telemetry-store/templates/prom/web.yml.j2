@@ -1,0 +1,4 @@
+basic_auth_users:
+{% for k, v in secrets.telemetry_store.prometheus.auth.basic_auth_users.items() %}
+  {{ k }}: {{ v | string | password_hash('bcrypt', ('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890' | shuffle(seed=inventory_hostname) | join)[:22], rounds=9) }}
+{% endfor %}

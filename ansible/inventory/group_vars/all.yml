@@ -10,6 +10,9 @@ config_dir: "/home/{{ansible_ssh_user}}/config"
 config_repo: "https://github.com/r12f/config.git"
 config_branch: "master"
 cron_script_dir: "/home/{{ ansible_ssh_user }}/.cron"
+svc_dir: "/data/{{ansible_ssh_user}}/services"
+svc_services_dir: "{{svc_dir}}/services.d"
+svc_data_dir: "{{svc_dir}}/data"
 
 # Directory redirection
 redirect_folders:
