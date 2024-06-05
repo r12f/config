@@ -1,0 +1,4 @@
+include:
+{% for v in services %}
+  - services.d/{{ v.name }}.yaml
+{% endfor %}

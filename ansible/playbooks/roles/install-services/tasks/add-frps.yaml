@@ -6,10 +6,9 @@
   vars:
     service:
       name: frps
+      service_config: templates/frps/service.yaml.j2
       folders:
         - "{{ svc_data_dir }}/frps/config"
       templates:
-        - src: templates/frps/service.yaml.j2
-          dest: "{{ svc_services_dir }}/frps.yaml"
         - src: templates/frps/frps.toml.j2
           dest: "{{ svc_data_dir }}/frps/config/frps.toml"

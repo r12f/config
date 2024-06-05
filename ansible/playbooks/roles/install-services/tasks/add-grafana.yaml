@@ -6,11 +6,10 @@
   vars:
     service:
       name: grafana
+      service_config: templates/grafana/service.yaml.j2
       folders:
         - "{{ svc_data_dir }}/grafana/config/datasources"
         - "{{ svc_data_dir }}/grafana/data"
       templates:
-        - src: templates/grafana/service.yaml.j2
-          dest: "{{ svc_services_dir }}/grafana.yaml"
         - src: templates/grafana/datasource.yml.j2
           dest: "{{ svc_data_dir }}/grafana/config/datasources/datasource.yml"

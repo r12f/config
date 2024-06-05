@@ -5,13 +5,12 @@
     services: "{{ services + [ service ] }}"
   vars:
     service:
-      name: telemetry store
+      name: telstore
+      service_config: templates/prom/service.yaml.j2
       folders:
         - "{{ svc_data_dir }}/telstore/config"
         - "{{ svc_data_dir }}/telstore/data"
       templates:
-        - src: templates/prom/service.yaml.j2
-          dest: "{{ svc_services_dir }}/telstore.yaml"
         - src: templates/prom/prometheus.yml.j2
           dest: "{{ svc_data_dir }}/telstore/config/prometheus.yml"
         - src: templates/prom/web.yml.j2

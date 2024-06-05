@@ -1,5 +1,5 @@
 ---
-- name: "Ensure service root folders exist"
+- name: Ensure service root folders exist
   become: false
   tags: always
   file:
@@ -10,7 +10,7 @@
     - "{{ svc_services_dir }}"
     - "{{ svc_data_dir }}"
 
-- name: "Install services to docker"
+- name: Install services to docker
   tags: always
   include_tasks:
     file: install-service.yaml
@@ -18,3 +18,22 @@
   loop: "{{ services }}"
   loop_control:
     loop_var: service
+
+- name: Create docker compose file
+  tags: always
+  template:
+    src: templates/docker-compose.yaml.j2
+    dest: "{{ svc_dir }}/docker-compose.yaml"
+    mode: 0644
+
+- name: Start all services
+  tags: always
+  docker_compose:
+    project_src: "{{ svc_dir }}"
+    state: present
+    build: no
+    pull: yes
+    remove_orphans: yes
+    recreate: always
+    timeout: 300
+  register: docker_compose
