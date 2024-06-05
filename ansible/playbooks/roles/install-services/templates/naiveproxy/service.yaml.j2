@@ -1,0 +1,13 @@
+services:
+  telstore:
+    image: pocat/naiveproxy
+    container_name: naiveproxy
+    environment:
+      - PATH=/etc/naiveproxy/Caddyfile
+    ports:
+      - {{ secrets.telemetry_store.prometheus.port }}:{{ secrets.telemetry_store.prometheus.port }}
+    restart: unless-stopped
+    volumes:
+      - {{ svc_data_dir }}/naiveproxy/config:/etc/naiveproxy
+      - {{ svc_data_dir }}/naiveproxy/data/html:/var/www/html
+      - /var/log/caddy:/var/log/caddy 

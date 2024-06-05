@@ -1,0 +1,17 @@
+---
+- name: Add naiveproxy to service list
+  tags: np
+  set_fact:
+    services: "{{ services + [ service ] }}"
+  vars:
+    service:
+      name: naiveproxy
+      folders:
+        - "{{ svc_data_dir }}/naiveproxy/config"
+        - "{{ svc_data_dir }}/naiveproxy/data/html"
+        - "/var/log/caddy"
+      templates:
+        - src: templates/naiveproxy/service.yaml.j2
+          dest: "{{ svc_services_dir }}/naiveproxy.yaml"
+        - src: templates/naiveproxy/Caddyfile.j2
+          dest: "{{ svc_data_dir }}/naiveproxy/config/Caddyfile"

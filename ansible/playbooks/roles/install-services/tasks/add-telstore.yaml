@@ -6,8 +6,9 @@
   vars:
     service:
       name: telemetry store
-      config_dir: "{{ svc_data_dir }}/telstore/config"
-      data_dir: "{{ svc_data_dir }}/telstore/data"
+      folders:
+        - "{{ svc_data_dir }}/telstore/config"
+        - "{{ svc_data_dir }}/telstore/data"
       templates:
         - src: templates/prom/service.yaml.j2
           dest: "{{ svc_services_dir }}/telstore.yaml"

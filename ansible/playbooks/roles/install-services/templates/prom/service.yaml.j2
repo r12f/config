@@ -1,7 +1,7 @@
 services:
   telstore:
     image: prom/prometheus
-    container_name: prometheus
+    container_name: telstore
     command:
       - '--web.enable-remote-write-receiver'
       - '--storage.tsdb.retention.time=360d'

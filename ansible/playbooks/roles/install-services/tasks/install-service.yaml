@@ -1,15 +1,10 @@
 ---
-- name: "Ensure {{ service.name }} config folder exists"
+- name: "Ensure {{ service.name }} folders exists"
   become: false
   file:
-    path: "{{ service.config_dir }}"
+    path: "{{ item }}"
     state: directory
-
-- name: "Ensure {{ service.name }} data folder exists"
-  become: false
-  file:
-    path: "{{ service.data_dir }}"
-    state: directory
+  with_items: "{{ service.folders }}"
 
 - name: Generate files from templates
   become: false
