@@ -1,2 +1,6 @@
 [common]
 bind_port = {{ frps_port }}
+
+[auth]
+method = "token"
+token = "{{ secrets.frp.token }}"
