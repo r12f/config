@@ -21,13 +21,15 @@
 
 - name: Create docker compose file
   tags: always
+  become: false
   template:
-    src: templates/docker-compose.yaml.j2
-    dest: "{{ svc_dir }}/docker-compose.yaml"
+    src: templates/compose.yaml.j2
+    dest: "{{ svc_dir }}/compose.yaml"
     mode: 0644
 
 - name: Start all services
   tags: always
+  become: false
   docker_compose:
     project_src: "{{ svc_dir }}"
     state: present
