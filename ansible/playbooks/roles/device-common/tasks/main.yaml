@@ -4,6 +4,7 @@
 - import_tasks: install-basic-packages.yaml
 - import_tasks: install-docker.yaml
 - import_tasks: install-monitor-packages.yaml
+- import_tasks: install-python.yaml
 - import_tasks: remove-default-users.yaml
 - import_tasks: package-cleanup.yaml
 - import_tasks: start-cron-common.yaml

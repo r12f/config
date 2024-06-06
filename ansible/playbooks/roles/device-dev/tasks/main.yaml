@@ -1,6 +1,5 @@
 ---
 - import_tasks: install-build-essentials.yaml
-- import_tasks: install-python.yaml
 - import_tasks: install-rust.yaml
 - import_tasks: install-go.yaml
 - import_tasks: start-cron-dev.yaml

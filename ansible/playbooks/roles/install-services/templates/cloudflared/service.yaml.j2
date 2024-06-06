@@ -1,0 +1,10 @@
+services:
+  cloudflared:
+    image: cloudflare/cloudflared
+    container_name: cloudflared-{{ service.tunnel.name }}
+    user: {{ ansible_user_id }}
+    restart: unless-stopped
+    command: tunnel run
+    network_mode: "host"
+    environment:
+      - TUNNEL_TOKEN={{ service.tunnel.token }}

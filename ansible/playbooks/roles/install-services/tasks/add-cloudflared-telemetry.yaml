@@ -1,0 +1,14 @@
+---
+- name: Add cloudflared to service list
+  tags: cloudflared
+  set_fact:
+    services: "{{ services + [ service ] }}"
+  vars:
+    service:
+      name: cloudflared-telemetry
+      service_config: templates/cloudflared/service.yaml.j2
+      tunnel:
+        name: telemetry
+        token: "{{ secrets.cloudflare.tunnel.telemetry.token }}"
+      folders: []
+      templates: []

@@ -2,6 +2,7 @@ services:
   telstore:
     image: prom/prometheus
     container_name: telstore
+    user: {{ ansible_user_id }}
     command:
       - '--web.enable-remote-write-receiver'
       - '--storage.tsdb.retention.time=360d'
@@ -11,7 +12,7 @@ services:
       - '--web.console.templates=/etc/prometheus/consoles'
       - '--config.file=/etc/prometheus/prometheus.yml'
     ports:
-      - {{ secrets.telemetry_store.prometheus.port }}:{{ secrets.telemetry_store.prometheus.port }}
+      - {{ secrets.telemetry_store.prometheus.port }}:9090
     restart: unless-stopped
     volumes:
       - {{ svc_data_dir }}/telstore/config:/etc/prometheus

@@ -7,6 +7,9 @@
 - import_tasks: add-grafana.yaml
   when: "docker_services is contains('telemetry-store')"
 
+- import_tasks: add-cloudflared-telemetry.yaml
+  when: "docker_services is contains('telemetry-store')"
+
 - import_tasks: add-naiveproxy.yaml
   when: "docker_services is contains('np')"
 
