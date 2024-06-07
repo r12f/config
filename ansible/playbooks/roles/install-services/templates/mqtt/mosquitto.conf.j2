@@ -1,0 +1,25 @@
+# Data store
+persistence true
+persistence_location /mosquitto/data/
+
+# Auth
+password_file /mosquitto/config/passwd_file
+allow_anonymous false
+
+# MQTT Default listener
+listener 1883
+
+# MQTT over WebSockets
+listener 9001
+protocol websockets
+
+# Logging
+log_type subscribe
+log_type unsubscribe
+log_type websockets
+log_type error
+log_type warning
+log_type notice
+log_type information
+log_dest file /mosquitto/log/mosquitto.log
+log_dest stdout

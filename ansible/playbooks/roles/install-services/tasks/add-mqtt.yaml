@@ -1,0 +1,18 @@
+---
+- name: Add mqtt to service list
+  tags: mqtt
+  set_fact:
+    services: "{{ services + [ service ] }}"
+  vars:
+    service:
+      name: mqtt
+      service_config: templates/mqtt/service.yaml.j2
+      folders:
+        - "{{ svc_data_dir }}/mqtt/config"
+        - "{{ svc_data_dir }}/mqtt/data"
+        - "{{ svc_data_dir }}/mqtt/log"
+      templates:
+        - src: templates/mqtt/mosquitto.conf.j2
+          dest: "{{ svc_data_dir }}/mqtt/config/mosquitto.conf"
+        - src: templates/mqtt/passwd_file.j2
+          dest: "{{ svc_data_dir }}/mqtt/config/passwd_file"

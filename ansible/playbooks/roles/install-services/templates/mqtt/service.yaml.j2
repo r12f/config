@@ -1,0 +1,13 @@
+services:
+  mqtt5:
+    image: eclipse-mosquitto
+    container_name: mqtt
+    user: {{ ansible_user_id }}
+    ports:
+      - "{{ secrets.mqtt.port }}:1883"
+      - "{{ secrets.mqtt.ws_port }}:9001"
+    volumes:
+      - {{ svc_data_dir }}/mqtt/config:/mosquitto/config:rw
+      - {{ svc_data_dir }}/mqtt/data:/mosquitto/data:rw
+      - {{ svc_data_dir }}/mqtt/log:/mosquitto/log:rw
+    restart: unless-stopped
