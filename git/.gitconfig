@@ -5,3 +5,5 @@
 	helper = cache --timeout=2592000
 [http]
     sslverify = false
+[pull]
+	ff = only
