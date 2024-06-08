@@ -7,8 +7,9 @@ services:
       - PATH=/etc/naiveproxy/Caddyfile
     ports:
       - {{ caddy.port }}:{{ caddy.port }}
+      - 80:80
     restart: unless-stopped
     volumes:
       - {{ svc_data_dir }}/naiveproxy/config:/etc/naiveproxy
       - {{ svc_data_dir }}/naiveproxy/data/html:/var/www/html
-      - /var/log/caddy:/var/log/caddy 
+      - {{ svc_data_dir }}/naiveproxy/log:/var/log/caddy

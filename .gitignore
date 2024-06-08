@@ -2,3 +2,4 @@
 .vscode/
 private/
 ansible/inventory/host.yaml
+__pycache__/

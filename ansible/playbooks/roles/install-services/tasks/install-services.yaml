@@ -30,12 +30,5 @@
 - name: Start all services
   tags: always
   become: false
-  docker_compose:
-    project_src: "{{ svc_dir }}"
-    state: present
-    build: no
-    pull: yes
-    remove_orphans: yes
-    recreate: always
-    timeout: 300
-  register: docker_compose
+  shell: |
+    docker compose --project-directory "{{ svc_dir }}" up -d

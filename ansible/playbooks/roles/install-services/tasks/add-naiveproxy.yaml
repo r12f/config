@@ -10,7 +10,7 @@
       folders:
         - "{{ svc_data_dir }}/naiveproxy/config"
         - "{{ svc_data_dir }}/naiveproxy/data/html"
-        - "/var/log/caddy"
+        - "{{ svc_data_dir }}/naiveproxy/log"
       templates:
         - src: templates/naiveproxy/Caddyfile.j2
           dest: "{{ svc_data_dir }}/naiveproxy/config/Caddyfile"

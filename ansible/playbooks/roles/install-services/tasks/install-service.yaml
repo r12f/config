@@ -6,13 +6,13 @@
     state: directory
   with_items: "{{ service.folders }}"
 
-- name: Generate service config
+- name: Generate {{ service.name }}} service config
   become: false
   template:
     src: "{{ service.service_config }}"
     dest: "{{ svc_services_dir }}/{{ service.name }}.yaml"
 
-- name: Generate files from templates
+- name: Generate {{ service.name }} files from templates
   become: false
   template:
     src: "{{ item.src }}"
