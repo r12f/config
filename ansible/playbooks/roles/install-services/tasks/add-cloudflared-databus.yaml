@@ -1,14 +1,14 @@
 ---
-- name: Add cloudflared telemetry tunnel to service list
+- name: Add cloudflared databus tunnel to service list
   tags: cloudflared
   set_fact:
     services: "{{ services + [ service ] }}"
   vars:
     service:
-      name: cloudflared-telemetry
+      name: cloudflared-databus
       service_config: templates/cloudflared/service.yaml.j2
       tunnel:
-        name: telemetry
-        token: "{{ secrets.cloudflare.tunnel.telemetry.token }}"
+        name: databus
+        token: "{{ secrets.cloudflare.tunnel.databus.token }}"
       folders: []
       templates: []

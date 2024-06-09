@@ -10,10 +10,16 @@
 - import_tasks: add-cloudflared-telemetry.yaml
   when: "docker_services is contains('telemetry-store')"
 
-- import_tasks: add-mqtt.yaml
-  when: "docker_services is contains('mqtt')"
-
 - import_tasks: add-naiveproxy.yaml
   when: "docker_services is contains('np')"
+
+- import_tasks: add-cloudflared-jumpbox.yaml
+  when: "docker_services is contains('jumpbox')"
+
+- import_tasks: add-mqtt.yaml
+  when: "docker_services is contains('databus')"
+
+- import_tasks: add-cloudflared-databus.yaml
+  when: "docker_services is contains('databus')"
 
 - import_tasks: install-services.yaml
