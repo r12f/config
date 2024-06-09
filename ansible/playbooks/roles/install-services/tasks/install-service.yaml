@@ -6,15 +6,23 @@
     state: directory
   with_items: "{{ service.folders }}"
 
-- name: Generate {{ service.name }}} service config
+- name: "Generate {{ service.name }} service config"
   become: false
   template:
     src: "{{ service.service_config }}"
     dest: "{{ svc_services_dir }}/{{ service.name }}.yaml"
 
-- name: Generate {{ service.name }} files from templates
-  become: false
+- name: "Generate {{ service.name }} files from templates"
+  become: true
   template:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
+  with_items: "{{ service.templates }}"
+
+- name: "Update file owner and permission: {{ item.dest }}"
+  become: true
+  file:
+    path: "{{ item.dest }}"
+    owner: "{{ ansible_ssh_user }}"
+    mode: 0666
   with_items: "{{ service.templates }}"

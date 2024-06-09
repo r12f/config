@@ -12,4 +12,6 @@ services:
       - GF_SECURITY_ADMIN_USER={{ secrets.telemetry_store.grafana.admin_username }}
       - GF_SECURITY_ADMIN_PASSWORD={{ secrets.telemetry_store.grafana.admin_password }}
     volumes:
-      - {{ svc_data_dir }}/grafana/config/datasources:/etc/grafana/provisioning/datasources
+      - {{ svc_data_dir }}/grafana/config:/etc/grafana/provisioning
+      - {{ svc_data_dir }}/grafana/data:/var/lib/grafana
+      - {{ svc_data_dir }}/grafana/log:/var/log/grafana

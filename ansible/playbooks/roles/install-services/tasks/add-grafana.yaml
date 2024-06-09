@@ -8,8 +8,14 @@
       name: grafana
       service_config: templates/grafana/service.yaml.j2
       folders:
+        - "{{ svc_data_dir }}/grafana/config/access-control"
+        - "{{ svc_data_dir }}/grafana/config/alerting"
+        - "{{ svc_data_dir }}/grafana/config/dashboards"
         - "{{ svc_data_dir }}/grafana/config/datasources"
+        - "{{ svc_data_dir }}/grafana/config/notifiers"
+        - "{{ svc_data_dir }}/grafana/config/plugins"
         - "{{ svc_data_dir }}/grafana/data"
+        - "{{ svc_data_dir }}/grafana/log"
       templates:
         - src: templates/grafana/datasource.yml.j2
           dest: "{{ svc_data_dir }}/grafana/config/datasources/datasource.yml"

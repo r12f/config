@@ -6,4 +6,7 @@ datasources:
   url: http://telstore:9090
   isDefault: true
   access: proxy
+  basicAuth: true
+  basicAuthUser: {{ secrets.telemetry_store.grafana.datasources.prometheus.username }}
+  basicAuthPassword: {{ secrets.telemetry_store.grafana.datasources.prometheus.password }}
   editable: true
