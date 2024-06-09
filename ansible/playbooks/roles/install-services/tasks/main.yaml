@@ -13,9 +13,6 @@
 - import_tasks: add-naiveproxy.yaml
   when: "docker_services is contains('np')"
 
-- import_tasks: add-cloudflared-jumpbox.yaml
-  when: "docker_services is contains('jumpbox')"
-
 - import_tasks: add-mqtt.yaml
   when: "docker_services is contains('databus')"
 
