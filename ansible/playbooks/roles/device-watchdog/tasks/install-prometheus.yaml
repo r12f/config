@@ -18,7 +18,7 @@
   set_fact:
     all_node_exporter_targets: "{{ all_node_exporter_targets | default([]) + [ { 'targets': [ '127.0.0.1:9100' ], 'labels': { 'nodename': inventory_hostname | replace('_', '-'), 'instance': inventory_hostname | replace('_', '-') } } ] }}"
     all_docker_exporter_targets: "{{ all_docker_exporter_targets | default([]) + [ { 'targets': [ '127.0.0.1:9323' ], 'labels': { 'nodename': inventory_hostname | replace('_', '-'), 'instance': inventory_hostname | replace('_', '-') } } ] }}"
-  when: monitor.local
+  when: "'local' in monitor and monitor.local"
 
 - name: Get all node exporter addresses for scraping
   tags: [always, watchdog]
