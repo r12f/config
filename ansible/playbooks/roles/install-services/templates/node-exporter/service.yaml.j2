@@ -1,0 +1,21 @@
+services:
+  node_exporter:
+    image: prom/node-exporter:latest
+    container_name: node-exporter
+    restart: unless-stopped
+    expose:
+      - 9100
+    volumes:
+      - '/:/host:ro,rslave'
+    command:
+      - '--path.rootfs=/host'
+      - '--collector.filesystem.mount-points-exclude=^/(run/|sys/|proc/|dev/|snap/|var/lib/docker/|var/lib/kubelet/).*$'
+      - '--collector.filesystem.fs-types-exclude=^(tmpfs|devtmpfs|proc|sysfs)$'
+      - '--collector.netclass.ignored-devices=^(br-VM|ovs-|virbr|docker).*$'
+      - '--collector.netdev.device-exclude=^(br-VM|ovs-|virbr|docker).*$'
+      - '--collector.systemd'
+      - '--collector.processes'
+      - '--collector.softirqs'
+      - '--collector.interrupts'
+      - '--collector.buddyinfo'
+      - '--collector.slabinfo'

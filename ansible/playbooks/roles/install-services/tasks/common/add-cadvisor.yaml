@@ -1,0 +1,11 @@
+---
+- name: Add cadvisor to service list
+  tags: [common, cadvisor]
+  set_fact:
+    services: "{{ services + [ service ] }}"
+  vars:
+    service:
+      name: cadvisor
+      service_config: templates/cadvisor/service.yaml.j2
+      folders: []
+      templates: []

@@ -1,0 +1,11 @@
+---
+- name: Add node exporter to service list
+  tags: [common, node-exporter]
+  set_fact:
+    services: "{{ services + [ service ] }}"
+  vars:
+    service:
+      name: node-exporter
+      service_config: templates/node-exporter/service.yaml.j2
+      folders: []
+      templates: []

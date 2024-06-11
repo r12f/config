@@ -1,22 +1,27 @@
 ---
 - import_tasks: init.yaml
 
-- import_tasks: add-telstore.yaml
-  when: "docker_services is contains('telemetry-store')"
+- name: Add common services
+  block:
+    - import_tasks: common/add-node-exporter.yaml
+    - import_tasks: common/add-cadvisor.yaml
 
-- import_tasks: add-grafana.yaml
+- name: Add services for telemetry store
   when: "docker_services is contains('telemetry-store')"
+  block:
+    - import_tasks: telstore/add-telstore.yaml
+    - import_tasks: telstore/add-grafana.yaml
+    - import_tasks: telstore/add-cloudflared-telemetry.yaml
 
-- import_tasks: add-cloudflared-telemetry.yaml
-  when: "docker_services is contains('telemetry-store')"
-
-- import_tasks: add-naiveproxy.yaml
+- name: Add services for np
   when: "docker_services is contains('np')"
+  block:
+    - import_tasks: np/add-naiveproxy.yaml
 
-- import_tasks: add-mqtt.yaml
+- name: Add services for databus
   when: "docker_services is contains('databus')"
-
-- import_tasks: add-cloudflared-databus.yaml
-  when: "docker_services is contains('databus')"
+  block:
+    - import_tasks: databus/add-mqtt.yaml
+    - import_tasks: databus/add-cloudflared-databus.yaml
 
 - import_tasks: install-services.yaml
