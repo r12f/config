@@ -3,6 +3,9 @@ services:
     image: gcr.io/cadvisor/cadvisor
     container_name: cadvisor
     restart: unless-stopped
+    command:
+      - '--housekeeping_interval=55s'
+      - '--docker_only'
     ports:
       - 127.0.0.1:8080:8080
     volumes:
