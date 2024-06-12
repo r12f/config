@@ -19,7 +19,7 @@
     dest: "{{ item.dest }}"
   with_items: "{{ service.templates }}"
 
-- name: "Update file owner and permission: {{ item.dest }}"
+- name: "Update file owner and permission for service: {{ service.name }}"
   become: true
   file:
     path: "{{ item.dest }}"

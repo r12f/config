@@ -3,12 +3,13 @@ services:
     image: prom/node-exporter:latest
     container_name: node-exporter
     restart: unless-stopped
+    user: {{ ansible_user_id }}
     ports:
-      - 9100:9100
+      - 127.0.0.1:9100:9100
     volumes:
       - '/:/host:ro,rslave'
     command:
-      - '--web.listen-address=127.0.0.1:9100'
+      - '--web.listen-address=0.0.0.0:9100'
       - '--path.rootfs=/host'
       - '--collector.filesystem.mount-points-exclude=^/(run/|sys/|proc/|dev/|snap/|var/lib/docker/|var/lib/kubelet/).*$'
       - '--collector.filesystem.fs-types-exclude=^(tmpfs|devtmpfs|proc|sysfs)$'

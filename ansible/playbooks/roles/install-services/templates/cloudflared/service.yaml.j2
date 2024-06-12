@@ -1,5 +1,5 @@
 services:
-  cloudflared:
+  cloudflared-{{ service.tunnel.name }}:
     image: cloudflare/cloudflared
     container_name: cloudflared-{{ service.tunnel.name }}
     user: {{ ansible_user_id }}
