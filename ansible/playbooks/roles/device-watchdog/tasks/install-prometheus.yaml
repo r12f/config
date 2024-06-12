@@ -18,6 +18,7 @@
   set_fact:
     all_node_exporter_targets: "{{ all_node_exporter_targets | default([]) + [ { 'targets': [ '127.0.0.1:9100' ], 'labels': { 'nodename': inventory_hostname | replace('_', '-'), 'instance': inventory_hostname | replace('_', '-') } } ] }}"
     all_docker_exporter_targets: "{{ all_docker_exporter_targets | default([]) + [ { 'targets': [ '127.0.0.1:9323' ], 'labels': { 'nodename': inventory_hostname | replace('_', '-'), 'instance': inventory_hostname | replace('_', '-') } } ] }}"
+    all_cadvisor_exporter_targets: "{{ all_cadvisor_exporter_targets | default([]) + [ { 'targets': [ '127.0.0.1:8080' ], 'labels': { 'nodename': inventory_hostname | replace('_', '-'), 'instance': inventory_hostname | replace('_', '-') } } ] }}"
   when: "'local' in monitor and monitor.local"
 
 - name: Get all node exporter addresses for scraping
@@ -25,6 +26,7 @@
   set_fact:
     all_node_exporter_targets: "{{ all_node_exporter_targets | default([]) + [ { 'targets': [ hostvars[item]['monitor_endpoints']['node'] | default(hostvars[item]['ansible_host'] | default(item) + ':9100') ], 'labels': { 'nodename': item | replace('_', '-'), 'instance': item | replace('_', '-') } } ] }}"
     all_docker_exporter_targets: "{{ all_docker_exporter_targets | default([]) + [ { 'targets': [ hostvars[item]['monitor_endpoints']['docker'] | default(hostvars[item]['ansible_host'] | default(item) + ':9323') ], 'labels': { 'nodename': item | replace('_', '-'), 'instance': item | replace('_', '-') } } ] }}"
+    all_cadvisor_exporter_targets: "{{ all_cadvisor_exporter_targets | default([]) + [ { 'targets': [ hostvars[item]['monitor_endpoints']['cadvisor'] | default(hostvars[item]['ansible_host'] | default(item) + ':8080') ], 'labels': { 'nodename': item | replace('_', '-'), 'instance': item | replace('_', '-') } } ] }}"
   loop: "{{ host_names }}"
   when: not (hostvars[item]['monitor_stack_disabled'] | default(false))
 
@@ -48,6 +50,7 @@
     prometheus_targets:
       node: "{{ all_node_exporter_targets }}"
       docker: "{{ all_docker_exporter_targets }}"
+      cadvisor: "{{ all_cadvisor_exporter_targets }}"
     prometheus_scrape_configs:
       - job_name: "prometheus"
         metrics_path: "{{ prometheus_metrics_path }}"
@@ -62,6 +65,10 @@
         file_sd_configs:
           - files:
               - "{{ prometheus_config_dir }}/file_sd/docker.yml"
+      - job_name: "cadvisor"
+        file_sd_configs:
+          - files:
+              - "{{ prometheus_config_dir }}/file_sd/cadvisor.yml"
     prometheus_remote_write:
       - url: "{{ secrets.prometheus.remote_write_url }}"
         basic_auth:

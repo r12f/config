@@ -5,6 +5,7 @@
   block:
     - import_tasks: common/add-node-exporter.yaml
     - import_tasks: common/add-cadvisor.yaml
+    - import_tasks: common/add-watchdog-local.yaml
 
 - name: Add services for telemetry store
   when: "docker_services is contains('telemetry-store')"

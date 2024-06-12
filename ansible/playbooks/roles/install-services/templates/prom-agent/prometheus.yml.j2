@@ -1,0 +1,41 @@
+global:
+  scrape_interval: 60s
+  scrape_timeout: 10s
+  evaluation_interval: 15s
+
+remote_write:
+  - url: "{{ secrets.prometheus.remote_write_url }}"
+    basic_auth:
+        username: "{{ secrets.prometheus.remote_write_username }}"
+        password: "{{ secrets.prometheus.remote_write_api_key }}"
+
+scrape_configs:
+  - job_name: prometheus
+    metrics_path: /metrics
+    static_configs:
+    - targets:
+      - localhost:9090
+      labels:
+        nodename: {{ inventory_hostname }}
+        instance: {{ inventory_hostname }}
+  - job_name: node
+    static_configs:
+    - targets:
+      - localhost:9100
+      labels:
+        nodename: {{ inventory_hostname }}
+        instance: {{ inventory_hostname }}
+  - job_name: docker
+    static_configs:
+    - targets:
+      - localhost:9323
+      labels:
+        nodename: {{ inventory_hostname }}
+        instance: {{ inventory_hostname }}
+  - job_name: cadvisor
+    static_configs:
+    - targets:
+      - localhost:8080
+      labels:
+        nodename: {{ inventory_hostname }}
+        instance: {{ inventory_hostname }}

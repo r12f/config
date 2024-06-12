@@ -1,0 +1,17 @@
+services:
+  watchdog_local:
+    image: prom/prometheus
+    container_name: watchdog-local
+    user: {{ ansible_user_id }}
+    network_mode: "host"
+    command:
+      - '--web.enable-remote-write-receiver'
+      - '--storage.tsdb.retention.time=360d'
+      - '--storage.tsdb.retention.size=0'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    restart: unless-stopped
+    volumes:
+      - {{ svc_data_dir }}/watchdog-local/config:/etc/prometheus
+      - {{ svc_data_dir }}/watchdog-local/data:/prometheus

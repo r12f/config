@@ -1,0 +1,15 @@
+---
+- name: Add prometheus agent to service list
+  tags: [common, watchdog-local]
+  set_fact:
+    services: "{{ services + [ service ] }}"
+  vars:
+    service:
+      name: watchdog-local
+      service_config: templates/prom-agent/service.yaml.j2
+      folders:
+        - "{{ svc_data_dir }}/watchdog-local/config"
+        - "{{ svc_data_dir }}/watchdog-local/data"
+      templates:
+        - src: templates/prom-agent/prometheus.yml.j2
+          dest: "{{ svc_data_dir }}/watchdog-local/config/prometheus.yml"
