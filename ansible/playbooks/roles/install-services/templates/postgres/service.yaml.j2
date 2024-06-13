@@ -1,0 +1,12 @@
+services:
+  postgres:
+    image: postgres:14-alpine
+    container_name: postgres
+    ports:
+      - {{ postgres.port }}:5432
+    volumes:
+      - {{ svc_data_dir }}/postgres/data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB= {{ postgres.db }}
+      - POSTGRES_USER={{ secrets.postgres.user }}
+      - POSTGRES_PASSWORD={{ secrets.postgres.password }}

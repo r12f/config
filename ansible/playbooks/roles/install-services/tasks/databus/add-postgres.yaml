@@ -1,0 +1,13 @@
+---
+- name: Add postgres to service list
+  tags: postgres
+  set_fact:
+    services: "{{ services + [ service ] }}"
+  vars:
+    service:
+      name: postgres
+      service_config: templates/postgres/service.yaml.j2
+      folders:
+        - "{{ svc_data_dir }}/postgres/data"
+        - "{{ svc_data_dir }}/postgres/log"
+      templates: []
