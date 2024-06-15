@@ -1,4 +1,14 @@
 ---
+- name: Find docker service user UID
+  tags: always
+  command: id -u "{{ docker_service_user }}"
+  register: docker_service_user_id_cmd_output
+
+- name: Set docker service user UID
+  tags: always
+  set_fact:
+    docker_service_user_id: "{{ docker_service_user_id_cmd_output.stdout }}"
+
 - name: Ensure service root folders exist
   become: false
   tags: always

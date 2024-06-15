@@ -1,0 +1,20 @@
+---
+- name: Add cloudflared tunnel access to service list
+  tags: cloudflared-access
+  set_fact:
+    services: "{{ services + [ service ] }}"
+  vars:
+    service:
+      name: "cloudflared-access-{{ access.name }}"
+      service_config: templates/cloudflared-access/service.yaml.j2
+      tunnel:
+        name: "{{ access.name }}"
+        type: "{{ access.type }}"
+        hostname: "{{ access.hostname }}"
+        local_port: "{{ access.local_port }}"
+        token: "{{ access.token }}"
+      folders: []
+      templates: []
+  with_items: "{{ cloudflare_access }}"
+  loop_control:
+    loop_var: access

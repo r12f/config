@@ -27,4 +27,9 @@
     - import_tasks: databus/add-redis.yaml
     - import_tasks: databus/add-cloudflared-databus.yaml
 
+- name: Add services for databus
+  when: "docker_services is contains('service-access')"
+  block:
+    - import_tasks: service-access/add-cloudflared-access.yaml
+
 - import_tasks: install-services.yaml

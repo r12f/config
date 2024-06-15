@@ -2,7 +2,7 @@ services:
   telstore:
     image: prom/prometheus
     container_name: telstore
-    user: "{{ docker_service_user }}"
+    user: "{{ docker_service_user_id }}"
     command:
       - '--web.enable-remote-write-receiver'
       - '--storage.tsdb.retention.time=360d'

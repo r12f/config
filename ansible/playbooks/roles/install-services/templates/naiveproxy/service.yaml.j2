@@ -2,7 +2,7 @@ services:
   telstore:
     image: pocat/naiveproxy
     container_name: naiveproxy
-    user: "{{ docker_service_user }}"
+    user: "{{ docker_service_user_id }}"
     environment:
       - PATH=/etc/naiveproxy/Caddyfile
     ports:

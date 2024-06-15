@@ -1,0 +1,11 @@
+services:
+  cloudflared-access-{{ service.tunnel.name }}:
+    image: cloudflare/cloudflared
+    container_name: cloudflared-access-{{ service.tunnel.name }}
+    user: "{{ docker_service_user_id }}"
+    restart: unless-stopped
+    command: access {{ service.tunnel.type }} --hostname {{ service.tunnel.hostname }} --listener tcp://localhost:{{ service.tunnel.local_port }}
+    ports:
+      - "{{ service.tunnel.local_port }}:{{ service.tunnel.local_port }}"
+    environment:
+      - TUNNEL_TOKEN={{ service.tunnel.token }}

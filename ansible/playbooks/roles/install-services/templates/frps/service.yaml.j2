@@ -2,7 +2,7 @@ services:
   frps:
     image: snowdreamtech/frps
     container_name: frps
-    user: "{{ docker_service_user }}"
+    user: "{{ docker_service_user_id }}"
     ports:
       - {{ frps.port }}:{{ frps.port }}
     restart: unless-stopped

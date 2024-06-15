@@ -2,7 +2,7 @@ services:
   mqtt5:
     image: eclipse-mosquitto
     container_name: mqtt
-    user: "{{ docker_service_user }}"
+    user: "{{ docker_service_user_id }}"
     ports:
       - "{{ mqtt.port }}:1883"
     volumes:
