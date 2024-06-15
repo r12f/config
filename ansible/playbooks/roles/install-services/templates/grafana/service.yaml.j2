@@ -2,7 +2,7 @@ services:
   grafana:
     image: grafana/grafana
     container_name: grafana
-    user: "{{ docker_service_user_id }}"
+    user: "{{ docker_service_user_id }}:{{ docker_service_user_id }}"
     ports:
       - {{ secrets.telemetry_store.grafana.port }}:3000
     restart: unless-stopped
