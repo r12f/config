@@ -1,5 +1,10 @@
 {
   order forward_proxy before file_server
+  admin off
+  log {
+    output file /var/log/caddy/access.log
+    level INFO
+  }
 }
 :{{ caddy.port }}, {{ caddy.address }} {
   tls {{ caddy.email }}

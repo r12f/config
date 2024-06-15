@@ -4,6 +4,8 @@ services:
     container_name: naiveproxy
     user: "{{ docker_service_user_id }}:{{ docker_service_user_id }}"
     environment:
+      - XDG_DATA_HOME=/var/lib/caddy
+      - XDG_CONFIG_HOME=/etc/naiveproxy
       - PATH=/etc/naiveproxy/Caddyfile
     ports:
       - {{ caddy.port }}:{{ caddy.port }}
@@ -11,5 +13,6 @@ services:
     restart: unless-stopped
     volumes:
       - {{ svc_data_dir }}/naiveproxy/config:/etc/naiveproxy
+      - {{ svc_data_dir }}/naiveproxy/data/caddy:/var/lib/caddy
       - {{ svc_data_dir }}/naiveproxy/data/html:/var/www/html
       - {{ svc_data_dir }}/naiveproxy/log:/var/log/caddy
