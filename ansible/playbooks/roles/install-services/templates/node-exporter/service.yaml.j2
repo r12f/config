@@ -3,7 +3,7 @@ services:
     image: prom/node-exporter:latest
     container_name: node-exporter
     restart: unless-stopped
-    user: {{ ansible_user_id }}
+    user: "root"
     ports:
       - 127.0.0.1:9100:9100
     volumes:

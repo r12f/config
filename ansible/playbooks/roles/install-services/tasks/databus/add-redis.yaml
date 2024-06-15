@@ -1,0 +1,13 @@
+---
+- name: Add redis to service list
+  tags: redis
+  set_fact:
+    services: "{{ services + [ service ] }}"
+  vars:
+    service:
+      name: redis
+      service_config: templates/redis/service.yaml.j2
+      folders:
+        - "{{ svc_data_dir }}/redis/data"
+        - "{{ svc_data_dir }}/redis/log"
+      templates: []

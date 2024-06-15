@@ -6,7 +6,6 @@
     path: "{{ item }}"
     state: directory
   with_items:
-    - "{{ svc_dir }}"
     - "{{ svc_services_dir }}"
     - "{{ svc_data_dir }}"
 
@@ -18,6 +17,13 @@
   loop: "{{ services }}"
   loop_control:
     loop_var: service
+
+- name: Fetch all docker service files
+  tags: always
+  find:
+    paths: "{{ svc_services_dir }}"
+    patterns: "*.yaml"
+  register: service_files
 
 - name: Create docker compose file
   tags: always

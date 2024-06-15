@@ -24,6 +24,7 @@
   block:
     - import_tasks: databus/add-mqtt.yaml
     - import_tasks: databus/add-postgres.yaml
+    - import_tasks: databus/add-redis.yaml
     - import_tasks: databus/add-cloudflared-databus.yaml
 
 - import_tasks: install-services.yaml

@@ -2,7 +2,7 @@ services:
   cloudflared-{{ service.tunnel.name }}:
     image: cloudflare/cloudflared
     container_name: cloudflared-{{ service.tunnel.name }}
-    user: {{ ansible_user_id }}
+    user: "{{ docker_service_user }}"
     restart: unless-stopped
     command: tunnel run
     network_mode: "host"
