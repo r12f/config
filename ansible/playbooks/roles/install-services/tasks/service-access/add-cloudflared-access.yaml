@@ -12,8 +12,10 @@
         type: "{{ access.type }}"
         hostname: "{{ access.hostname }}"
         local_port: "{{ access.local_port }}"
-        token: "{{ access.token }}"
-      folders: []
+        token_id: "{{ access.token_id }}"
+        token_secret: "{{ access.token_secret }}"
+      folders: 
+        - "{{ svc_data_dir }}/cloudflared-access/{{ access.name }}/log"
       templates: []
   with_items: "{{ cloudflare_access }}"
   loop_control:

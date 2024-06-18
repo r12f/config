@@ -1,9 +1,11 @@
 ---
 - name: "Ensure {{ service.name }} folders exists"
-  become: false
   file:
     path: "{{ item }}"
     state: directory
+    mode: 0777
+    owner: "{{ docker_service_user }}"
+    group: "{{ docker_service_user }}"
   with_items: "{{ service.folders }}"
 
 - name: "Generate {{ service.name }} service config"

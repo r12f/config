@@ -3,12 +3,11 @@ services:
     image: bitnami/redis:latest
     container_name: redis
     restart: unless-stopped
-    user: "{{ docker_service_user_id }}:{{ docker_service_user_id }}"
     ports:
       - "{{ redis.port }}:6379"
     volumes:
       - {{ svc_data_dir }}/redis/data:/bitnami/redis/data
-      - {{ svc_data_dir }}/redis/log:/bitnami/redis/log
+      - {{ svc_data_dir }}/redis/log:/opt/bitnami/redis/logs
     environment:
       - REDIS_PORT_NUMBER=6379
       - ALLOW_EMPTY_PASSWORD=no

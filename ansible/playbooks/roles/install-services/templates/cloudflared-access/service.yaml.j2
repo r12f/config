@@ -4,8 +4,11 @@ services:
     container_name: cloudflared-access-{{ service.tunnel.name }}
     user: "{{ docker_service_user_id }}:{{ docker_service_user_id }}"
     restart: unless-stopped
-    command: access {{ service.tunnel.type }} --hostname {{ service.tunnel.hostname }} --listener tcp://localhost:{{ service.tunnel.local_port }}
+    command: access {{ service.tunnel.type }} --hostname {{ service.tunnel.hostname }} --listener tcp://localhost:{{ service.tunnel.local_port }} --log-directory /var/log/cloudflared --log-level debug
     ports:
       - "{{ service.tunnel.local_port }}:{{ service.tunnel.local_port }}"
+    volumes:
+      - "{{ svc_data_dir }}/cloudflared-access/{{ service.tunnel.name }}/log:/var/log/cloudflared"
     environment:
-      - TUNNEL_TOKEN={{ service.tunnel.token }}
+      - TUNNEL_SERVICE_TOKEN_ID={{ service.tunnel.token_id }}
+      - TUNNEL_SERVICE_TOKEN_SECRET={{ service.tunnel.token_secret }}
