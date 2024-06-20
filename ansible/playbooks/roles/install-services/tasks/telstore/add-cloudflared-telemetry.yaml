@@ -10,5 +10,7 @@
       tunnel:
         name: telemetry
         token: "{{ secrets.cloudflare.tunnel.telemetry.token }}"
-      folders: []
+        log_level: info
+      folders: 
+        - "{{ svc_data_dir }}/cloudflared/telemetry/log"
       templates: []

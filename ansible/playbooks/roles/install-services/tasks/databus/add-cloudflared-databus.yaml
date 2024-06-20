@@ -10,5 +10,7 @@
       tunnel:
         name: databus
         token: "{{ secrets.cloudflare.tunnel.databus.token }}"
-      folders: []
+        log_level: debug
+      folders: 
+        - "{{ svc_data_dir }}/cloudflared/databus/log"
       templates: []

@@ -6,5 +6,9 @@ services:
     restart: unless-stopped
     command: tunnel run
     network_mode: "host"
+    volumes:
+      - "{{ svc_data_dir }}/cloudflared/{{ service.tunnel.name }}/log:/var/log/cloudflared"
     environment:
       - TUNNEL_TOKEN={{ service.tunnel.token }}
+      - TUNNEL_LOGLEVEL={{ service.tunnel.log_level }}
+      - TUNNEL_LOGDIRECTORY=/var/log/cloudflared
