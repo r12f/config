@@ -1,0 +1,9 @@
+{
+{% if location == "mainland" %}
+    "registry-mirrors": [
+        "{{ docker.mirror }}"
+    ],
+{% endif %}
+    "data-root": "/data/docker",
+    "metrics-addr": "127.0.0.1:9323"
+}

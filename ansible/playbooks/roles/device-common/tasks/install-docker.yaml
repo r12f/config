@@ -8,13 +8,26 @@
 
 - name: Install docker repository
   tags: [ package, docker ]
-  when: is_docker_exists.rc != 0
+  when: is_docker_exists.rc != 0 and location != "mainland"
   ansible.builtin.shell: |
     sudo install -m 0755 -d /etc/apt/keyrings
     curl -fsSL https://download.docker.com/linux/{{ ansible_facts["lsb"]["id"] | lower }}/gpg | sudo gpg --dearmor --yes -o /etc/apt/keyrings/docker.gpg
     sudo chmod a+r /etc/apt/keyrings/docker.gpg
 
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/{{ ansible_facts["lsb"]["id"] | lower }} {{ ansible_facts["lsb"]["codename"] }} stable" | \
+        sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+  args:
+    executable: /bin/bash
+
+- name: Install docker repository
+  tags: [ package, docker ]
+  when: is_docker_exists.rc != 0 and location == "mainland"
+  ansible.builtin.shell: |
+    sudo install -m 0755 -d /etc/apt/keyrings
+    curl -fsSL http://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo gpg --dearmor --yes -o /etc/apt/keyrings/docker.gpg
+    sudo chmod a+r /etc/apt/keyrings/docker.gpg
+
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] http://mirrors.aliyun.com/docker-ce/linux/{{ ansible_facts["lsb"]["id"] | lower }} {{ ansible_facts["lsb"]["codename"] }} stable" | \
         sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
   args:
     executable: /bin/bash
@@ -52,13 +65,9 @@
 
 - name: Create docker daemon config
   tags: docker
-  copy:
+  template:
+    src: "templates/docker-daemon.json.j2"
     dest: /etc/docker/daemon.json
-    content: |
-      {
-        "data-root": "/data/docker",
-        "metrics-addr": "127.0.0.1:9323"
-      }
 
 - name: Restart docker daemon
   tags: docker
