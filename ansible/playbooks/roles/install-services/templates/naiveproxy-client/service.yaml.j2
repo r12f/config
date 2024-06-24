@@ -1,0 +1,12 @@
+services:
+  {{ service.name }}:
+    image: pocat/naiveproxy:client
+    container_name: naiveproxy-client-{{ service.proxy.name }}
+    user: "{{ docker_service_user_id }}:{{ docker_service_user_id }}"
+    environment: []
+    ports:
+      - {{ service.proxy.local_port }}:1080
+    restart: unless-stopped
+    volumes:
+      - {{ svc_data_dir }}/naiveproxy-client/{{ service.proxy.name }}/config:/etc/naiveproxy
+      - {{ svc_data_dir }}/naiveproxy-client/{{ service.proxy.name }}/log:/var/log/naive

@@ -1,0 +1,24 @@
+---
+- name: Add naiveproxy client to service list
+  tags: np-client
+  set_fact:
+    services: "{{ services + [ service ] }}"
+  vars:
+    service:
+      name: "naiveproxy-client-{{ client.name }}"
+      service_config: templates/naiveproxy-client/service.yaml.j2
+      proxy:
+        name: "{{ client.name }}"
+        local_port: "{{ client.local_port }}"
+        user: "{{ secrets.caddy.user }}"
+        password: "{{ secrets.caddy.pass }}"
+        url: "{{ client.url }}"
+      folders: 
+        - "{{ svc_data_dir }}/naiveproxy-client/{{ client.name }}/config"
+        - "{{ svc_data_dir }}/naiveproxy-client/{{ client.name }}/log"
+      templates:
+        - src: templates/naiveproxy-client/config.json.j2
+          dest: "{{ svc_data_dir }}/naiveproxy-client/{{ client.name }}/config/config.json"
+  with_items: "{{ naiveproxy_clients }}"
+  loop_control:
+    loop_var: client

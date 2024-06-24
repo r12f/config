@@ -19,6 +19,11 @@
   block:
     - import_tasks: np/add-naiveproxy.yaml
 
+- name: Add services for np client
+  when: "docker_services is contains('np-client')"
+  block:
+    - import_tasks: np-client/add-naiveproxy-client.yaml
+
 - name: Add services for databus
   when: "docker_services is contains('databus')"
   block:
