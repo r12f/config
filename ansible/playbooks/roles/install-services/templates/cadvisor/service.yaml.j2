@@ -3,7 +3,7 @@ services:
 {% if location == "mainland" %}
     image: m.daocloud.io/k8s.gcr.io/cadvisor/cadvisor
 {% else %}
-    image: k8s.gcr.io/cadvisor/cadvisor
+    image: gcr.io/cadvisor/cadvisor
 {% endif %}
     container_name: cadvisor
     restart: unless-stopped
