@@ -53,4 +53,4 @@
   tags: always
   become: false
   shell: |
-    docker compose --project-directory "{{ svc_dir }}" up -d
+    docker compose --project-directory "{{ svc_dir }}" up -d --remove-orphans
