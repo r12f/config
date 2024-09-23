@@ -2,8 +2,9 @@
 	email = r12f.code@gmail.com
 	name = r12f
 [credential]
-	helper = cache --timeout=2592000
-[http]
-    sslverify = false
+	helper = /usr/local/bin/git-credential-manager
+	credentialStore = secretservice
 [pull]
 	ff = only
+[credential "https://dev.azure.com"]
+	useHttpPath = true
