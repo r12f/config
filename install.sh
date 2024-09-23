@@ -60,6 +60,12 @@ if ! CreateSymbolLinkWithBackup "$CONFIG_ROOT/git/.gitconfig" "$HOME/.gitconfig"
     exit 1
 fi
 
+# Install tmux configuration
+if ! CreateSymbolLinkWithBackup "$CONFIG_ROOT/tmux/.tmux.conf" "$HOME/.tmux.conf"; then
+    echo "Install failed."
+    exit 1
+fi
+
 # Install gdb configuration
 if ! CreateSymbolLinkWithBackup "$CONFIG_ROOT/gdb/.gdbinit" "$HOME/.gdbinit"; then
     echo "Install failed."
