@@ -273,3 +273,14 @@ function j-f() { just format "$@"; }
 function j-l() { just lint "$@"; }
 function j-lf() { just lint-fix "$@"; }
 function j-doc() { just doc "$@"; }
+
+######################################################################
+#
+# 10. tmux aliases
+#
+######################################################################
+
+alias t='tmux'
+alias t-ks='tmux kill-server'
+alias t-l='tmux list-sessions'
+function t-a() { tmux attach-session -t "$@"; }
