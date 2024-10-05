@@ -274,6 +274,8 @@ function j-l() { just lint "$@"; }
 function j-lf() { just lint-fix "$@"; }
 function j-doc() { just doc "$@"; }
 
+function s() { ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -o ServerAliveInterval=60 "$@"; }
+
 ######################################################################
 #
 # 10. tmux aliases
