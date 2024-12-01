@@ -142,11 +142,11 @@ export ANSIBLE_VAULT_PASSWORD_FILE="~/.ansible_vault_pass"
 export GITHUB_USER=$USER
 
 # SONiC build environment
+export NOBULLSEYE=1
 export NOJESSIE=1
 export NOSTRETCH=1
 export NOBUSTER=1
 export SONIC_BUILD_JOBS=24
-
 
 ######################################################################
 #
