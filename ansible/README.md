@@ -3,8 +3,8 @@
 ## Initial setup
 
 ```bash
-python3 -m pip install --user ansible
-pip install passlib
+python3 -m pip install --user ansible --break-system-packages
+pip install passlib --break-system-packages
 ansible-galaxy collection install -r requirements.yml
 ansible-galaxy role install -r requirements.yml
 sudo apt install sshpass    # Needed for bootstraping machines before cert is not installed
