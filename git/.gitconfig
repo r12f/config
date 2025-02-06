@@ -3,7 +3,7 @@
 	name = r12f
 [credential]
 	helper = /usr/local/bin/git-credential-manager
-	credentialStore = secretservice
+	credentialStore = cache --timeout=2592000
 [pull]
 	ff = only
 [credential "https://dev.azure.com"]

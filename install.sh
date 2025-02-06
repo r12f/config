@@ -83,6 +83,11 @@ if ! CreateSymbolLinkWithBackup "$CONFIG_ROOT/ansible/inventory" "$HOME/.ansible
     exit 1
 fi
 
+if ! CreateSymbolLinkWithBackup "$CONFIG_ROOT/powershell/profile.ps1" "$HOME/.config/powershell/Microsoft.PowerShell_profile.ps1"; then
+    echo "Install failed."
+    exit 1
+fi
+
 # Install VIM configuration
 VIM_CONFIG_ROOT="$CONFIG_ROOT/vimrc"
 $VIM_CONFIG_ROOT/install.sh
