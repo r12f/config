@@ -286,3 +286,7 @@ alias t='tmux'
 alias t-ks='tmux kill-server'
 alias t-l='tmux list-sessions'
 function t-a() { tmux attach-session -t "$@"; }
+
+alias tt='tmuxinator'
+alias tt-l='tmuxinator list | tail -n +2 | grep --color=never -o "[^ ]*"'
+
