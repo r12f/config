@@ -66,6 +66,12 @@ if ! CreateSymbolLinkWithBackup "$CONFIG_ROOT/tmux/.tmux.conf" "$HOME/.tmux.conf
     exit 1
 fi
 
+# Install zellij configuration
+if ! CreateSymbolLinkWithBackup "$CONFIG_ROOT/zellij/config.kdl" "$HOME/.config/zellij/config.kdl"; then
+    echo "Install failed."
+    exit 1
+fi
+
 # Install gdb configuration
 if ! CreateSymbolLinkWithBackup "$CONFIG_ROOT/gdb/.gdbinit" "$HOME/.gdbinit"; then
     echo "Install failed."
