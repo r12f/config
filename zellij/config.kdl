@@ -288,7 +288,7 @@ load_plugins {
 // Choose the theme that is specified in the themes section.
 // Default: default
 // 
-// theme "dracula"
+theme "nord"
  
 // Choose the base input mode of zellij.
 // Default: normal
@@ -307,7 +307,7 @@ load_plugins {
 // The name of the default layout to load on startup
 // Default: "default"
 // 
-// default_layout "compact"
+default_layout "compact"
  
 // The folder in which Zellij will look for layouts
 // (Requires restart)
@@ -333,7 +333,7 @@ load_plugins {
 //   - true (default, enabled)
 //   - false
 // 
-// pane_frames false
+pane_frames false
  
 // When attaching to an existing session with other users,
 // should the session be mirrored (true)
@@ -469,3 +469,10 @@ show_startup_tips false
 // Default: true
 // 
 // show_release_notes false
+
+// Hide the session name in the tab bar
+ui {
+    pane_frames {
+        hide_session_name true
+    }
+}

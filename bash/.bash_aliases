@@ -292,5 +292,6 @@ alias tt-l='tmuxinator list | tail -n +2 | grep --color=never -o "[^ ]*"'
 
 alias z='zellij --layout'
 alias z-l='ls -1 ~/.config/zellij/layouts | sed "s/\.kdl$//"'
+function z-e() { vim ~/.config/zellij/layouts/$1.kdl; }
 alias z-ls='zellij list-sessions'
 alias z-ks='zellij delete-all-sessions -y'
