@@ -29,6 +29,17 @@ function CreateSymbolLinkWithBackup {
         fi
     fi
 
+    local dest_dir
+    dest_dir=$(dirname "$dest_file")
+
+    if [ ! -d "$dest_dir" ]; then
+        echo "Creating destination directory: \"$dest_dir\" ..."
+        if ! mkdir -p "$dest_dir"; then
+            echo "Creating destination directory failed."
+            return 1
+        fi
+    fi
+
     echo "Creating symbol link: \"$dest_file\" -> \"$source_file\""
     if ! ln -s "$source_file" "$dest_file"; then
         echo "Creating symbol link failed."
