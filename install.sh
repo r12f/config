@@ -105,6 +105,16 @@ if ! CreateSymbolLinkWithBackup "$CONFIG_ROOT/powershell/profile.ps1" "$HOME/.co
     exit 1
 fi
 
+if ! CreateSymbolLinkWithBackup "$CONFIG_ROOT/claude/settings.json" "$HOME/.claude/settings.json"; then
+    echo "Install failed."
+    exit 1
+fi
+
+if ! CreateSymbolLinkWithBackup "$CONFIG_ROOT/claude/CLAUDE.md" "$HOME/.claude/CLAUDE.md"; then
+    echo "Install failed."
+    exit 1
+fi
+
 # Install VIM configuration
 VIM_CONFIG_ROOT="$CONFIG_ROOT/vimrc"
 $VIM_CONFIG_ROOT/install.sh
