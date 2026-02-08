@@ -99,6 +99,11 @@ if [ -d "$HOME/.cargo" ]; then
   . "$HOME/.cargo/env"
 fi
 
+# NPM
+if [ -d "$HOME/.npm-global" ]; then
+  export PATH="$HOME/.npm-global/bin:$PATH"
+fi
+
 # Node
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
