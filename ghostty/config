@@ -19,7 +19,7 @@ window-save-state = always
 # Cursor
 cursor-style = block
 cursor-style-blink = false
-shell-integration-features = cursor,sudo,title
+shell-integration-features = cursor,sudo,title,ssh-env,ssh-terminfo
 
 # Scrollback
 scrollback-limit = 100000
