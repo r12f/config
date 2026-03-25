@@ -70,7 +70,7 @@ keybind = super+ctrl+down=resize_split:down,10
 keybind = super+shift+equal=equalize_splits
 
 # --- Font Size ---
-keybind = super+plus=increase_font_size:1
+keybind = super+shift+plus=increase_font_size:1
 keybind = super+shift+minus=decrease_font_size:1
 keybind = super+zero=reset_font_size
 
