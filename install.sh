@@ -65,6 +65,26 @@ if ! CreateSymbolLinkWithBackup "$BASH_CONFIG_ROOT/.bashrc" "$HOME/.bashrc"; the
     exit 1
 fi
 
+# Install zsh configuration
+if [ "$(basename "$SHELL")" = "zsh" ] || [ -n "$ZSH_VERSION" ]; then
+    ZSH_CONFIG_ROOT="$CONFIG_ROOT/zsh"
+
+    if ! CreateSymbolLinkWithBackup "$ZSH_CONFIG_ROOT/.zprofile" "$HOME/.zprofile"; then
+        echo "Install failed."
+        exit 1
+    fi
+
+    if ! CreateSymbolLinkWithBackup "$ZSH_CONFIG_ROOT/.zsh_aliases" "$HOME/.zsh_aliases"; then
+        echo "Install failed."
+        exit 1
+    fi
+
+    if ! CreateSymbolLinkWithBackup "$ZSH_CONFIG_ROOT/.zshrc" "$HOME/.zshrc"; then
+        echo "Install failed."
+        exit 1
+    fi
+fi
+
 # Install git configuration
 if ! CreateSymbolLinkWithBackup "$CONFIG_ROOT/git/.gitconfig" "$HOME/.gitconfig"; then
     echo "Install failed."
