@@ -135,6 +135,12 @@ if ! CreateSymbolLinkWithBackup "$CONFIG_ROOT/claude/CLAUDE.md" "$HOME/.claude/C
     exit 1
 fi
 
+# Install ghostty configuration
+if ! CreateSymbolLinkWithBackup "$CONFIG_ROOT/ghostty/config" "$HOME/.config/ghostty/config"; then
+    echo "Install failed."
+    exit 1
+fi
+
 # Install VIM configuration
 VIM_CONFIG_ROOT="$CONFIG_ROOT/vimrc"
 $VIM_CONFIG_ROOT/install.sh
