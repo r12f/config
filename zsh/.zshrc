@@ -11,11 +11,8 @@
 #
 ######################################################################
 
-# Enable colors
-autoload -U colors && colors
-
-# Command line prompt
-export PS1="%{$fg[cyan]%}%n%{$reset_color%}@%{$fg[green]%}%m:%{$fg[yellow]%}%~%{$reset_color%}
+# Command line prompt (matching bash: cyan user @ green host : yellow path)
+export PS1="%F{cyan}%n%f@%F{green}%m:%F{yellow}%~%f
 $ "
 
 # Useful Environments
