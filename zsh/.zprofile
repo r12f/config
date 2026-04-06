@@ -1,11 +1,10 @@
 ######################################################################
 #
-# r12f's bash profile (https://github.com/r12f/config)
+# r12f's zsh profile (https://github.com/r12f/config)
 # email: r12f.code@gmail.com
 #
 ######################################################################
 
-if [ -f ~/.bashrc ]; then
-    source ~/.bashrc
+if [ -f ~/.zshrc ]; then
+    source ~/.zshrc
 fi
-. "$HOME/.cargo/env"

@@ -8,3 +8,9 @@
 	ff = only
 [credential "https://dev.azure.com"]
 	useHttpPath = true
+[credential "https://github.com"]
+	helper = 
+	helper = !/Users/r12f/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/Users/r12f/bin/gh auth git-credential
