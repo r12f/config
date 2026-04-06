@@ -28,6 +28,14 @@ call :CreateSymbolLinkWithBackup %POWERSHELL_CONFIG_ROOT%\profile.ps1 %USERPROFI
 echo.
 call %VIM_CONFIG_ROOT%\install.cmd
 
+:: Install zellij configuration
+echo Install zellij configuration ...
+set ZELLIJ_CONFIG_ROOT=%CONFIG_ROOT%\zellij
+if not exist "%APPDATA%\Zellij\config" (
+    mkdir "%APPDATA%\Zellij\config"
+)
+call :CreateSymbolLinkWithBackup %ZELLIJ_CONFIG_ROOT%\config.kdl %APPDATA%\Zellij\config\config.kdl
+
 :: Complete
 echo.
 echo Configuration installation complete!
